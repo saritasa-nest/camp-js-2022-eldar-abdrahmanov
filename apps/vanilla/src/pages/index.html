@@ -4,13 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./index.css" />
-    <title>Vite App</title>
+    <title>Anime catalog</title>
   </head>
-  <body class="default-layout">
-    <h1 class="title">Main page ⚡</h1>
+  <body class="page">
+    <header class="header">
+      <h1 class="header__title">Каталог Аниме</h1>
+      <!--<div class = table-head>
+        <p class = table-head__section>Image</p>
+        <p class = table-head__section>Title on english</p>
+        <p class = table-head__section>Title on japanese</p>
+        <p class = table-head__section>Type</p>
+        <p class = table-head__section>Aired start</p>
+        <p class = table-head__section>Status</p>
+      </div> -->
+    </header>
+    <main>
+      <!--<section class="anime-container">
+
+      </section>-->
+      <table class="anime-container">
+        <tr class="table__head table__cell">
+          <th class="table__head table__cell table__cell_head">Image</th>
+          <th class="table__head table__cell table__cell_head">Title eng</th>
+          <th class="table__head table__cell table__cell_head">Title jpn</th>
+          <th class="table__head table__cell table__cell_head">Type</th>
+          <th class="table__cell table__cell_head">Aired start</th>
+          <th class="table__cell table__cell_head">Status</th>
+        </tr>
+      </table>
+
+    </main>
+    <footer>
+
+    </footer>
+    <template>
+
+    </template>
     <div class="links">
       <a href="/example/">Go to example page</a>
     </div>
+    <template class="anime-template table__cell">
+      <tr class="anime">
+        <th class="anime__image table__cell"></th>
+        <th class="anime__text anime__title_eng table__cell"></th>
+        <th class="anime__text anime__title_jpn table__cell"></th>
+        <th class="anime__text anime__type table__cell"></th>
+        <th class="anime__text anime__status table__cell"></th>
+        <th class="anime__text anime__aired-start table__cell"></th>
+      </tr>
+
+      <!--<article class="anime">
+        <img class="anime__image" src="#" alt="Обложка">
+        <div class="anime__text-block">
+          <h2 class="anime__title anime__title_eng"></h2>
+          <h2 class="anime__title anime__title_jpn"></h2>
+          <p class="anime__text anime__type"></p>
+          <p class="anime__text anime__status"></p>
+          <p class="anime__text anime__aired-start"></p>
+        </div>
+      </article>-->
+    </template>
     <script type="module" src="./index.ts"></script>
   </body>
 </html>

@@ -1,0 +1,10 @@
+.anime-container {
+  /*display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;*/
+  font-size: 18px;
+  font-weight: normal;
+  width: 100%;
+  margin: auto;
+  border-collapse: separate;
+}

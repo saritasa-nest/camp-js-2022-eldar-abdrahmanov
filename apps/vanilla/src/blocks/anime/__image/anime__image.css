@@ -1,0 +1,12 @@
+.anime__image {
+  /*width: 45%;
+  min-width: 160px;
+  max-height: 225px;
+  object-fit: cover;
+  border-right: 1px solid black;*/
+  width: 150px;
+  height: 150px;
+  background-image: url("#");
+  background-position: center;
+  background-size: cover;
+}
