@@ -1,45 +1,51 @@
 import Anime from '../components/models/anime';
-import { getAnimeList } from '../components/Api';
+import { getAnimeList } from '../components/api';
+import { Table } from '../components/table';
+import { TableHeaderButton } from '../components/models/tableHeaderButton';
+import {
+  SORT_BY_AIRED_START_URL,
+  SORT_BY_STATUS_URL,
+  SORT_BY_TITLE_ENG_URL,
+  SORT_BY_ID_URL,
+} from '../components/constants/constants';
 
+const animeTable: Table = new Table('#anime-container');
 
-const animeContainer = document.querySelector('.anime-container');
+const titleEngSortBtn = new TableHeaderButton('#table-title-eng', () => {
+  animeTable.clearTable();
+  renderTable(SORT_BY_TITLE_ENG_URL);
+});
 
-getAnimeList('https://api.camp-js.saritasa.rocks/api/v1/anime/anime/list-cursor/?ordering=id').then(
-  (res) => {
+const airedStartSortBtn = new TableHeaderButton('#table-aired-start', () => {
+  animeTable.clearTable();
+  renderTable(SORT_BY_AIRED_START_URL);
+});
+
+const statusSortBtn = new TableHeaderButton('#table-status', () => {
+  animeTable.clearTable();
+  renderTable(SORT_BY_STATUS_URL);
+});
+
+statusSortBtn.setEventListener();
+airedStartSortBtn.setEventListener();
+titleEngSortBtn.setEventListener();
+
+renderTable(SORT_BY_ID_URL);
+
+function renderTable(url: string) {
+  getAnimeList(url).then((res) => {
     res.results.forEach((item: any) => {
-      if (animeContainer) {
-        animeContainer.append(
-          createAnimeCard(
-            new Anime(
-              item.id,
-              item.title_eng,
-              item.title_jpn,
-              item.image,
-              new Date(item.aired.start),
-              item.type,
-              item.status
-            )
-          )
-        );
-      }
+      animeTable.renderElement(
+        new Anime(
+          item.id,
+          item.title_eng,
+          item.title_jpn,
+          item.image,
+          new Date(item.aired.start),
+          item.type,
+          item.status
+        ).createAnimeCard('.anime-template')
+      );
     });
-  }
-);
-
-  function createAnimeCard(anime: Anime) {
-    const template = document.querySelector(
-      '.anime-template'
-    ) as HTMLInputElement;
-    const animeTemplate = template.content
-      .querySelector('.anime')
-      .cloneNode(true);
-
-    animeTemplate.querySelector('.anime__image').style.backgroundImage = `url(${anime.image}`;
-    animeTemplate.querySelector('.anime__title_eng').textContent = `${(anime.titleEng)? anime.titleEng: 'No title'}`;
-    animeTemplate.querySelector('.anime__title_jpn').textContent = `${(anime.titleJpn)? anime.titleJpn: 'タイトルなし'}`;
-    animeTemplate.querySelector('.anime__type').textContent = `Type: ${(anime.type)? anime.type: 'No info'}`;
-    animeTemplate.querySelector('.anime__status').textContent = `Status: ${(anime.status)? anime.status: 'No info'}`;
-    animeTemplate.querySelector('.anime__aired-start').textContent = `Aired start: ${(anime.airedStart)? anime.airedStart.getFullYear(): 'No info'}`;
-    return animeTemplate;
-  }
-
+  });
+}

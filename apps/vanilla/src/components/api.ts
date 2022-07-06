@@ -1,4 +1,4 @@
-export function getAnimeList<T>(url: string):Promise<T> {
+export async function getAnimeList<T>(url: string):Promise<T> {
   return fetch(url)
     .then(res => {
       if(!res.ok) {

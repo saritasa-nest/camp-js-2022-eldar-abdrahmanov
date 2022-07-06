@@ -23,6 +23,16 @@ export default class Anime {
     this.type = type;
     this.status = status;
   }
+
+  createAnimeCard(templateSelector: string): HTMLElement {
+    const template = document.querySelector(templateSelector) as HTMLElement;
+    const animeCard = template.content.querySelector('.anime').cloneNode(true);
+    animeCard.querySelector('.anime__image').style.backgroundImage = `url(${this.image}`;
+    animeCard.querySelector('.anime__title_eng').textContent = `${(this.titleEng)? this.titleEng: 'No title'}`;
+    animeCard.querySelector('.anime__title_jpn').textContent = `${(this.titleJpn)? this.titleJpn: 'タイトルなし'}`;
+    animeCard.querySelector('.anime__type').textContent = `Type: ${(this.type)? this.type: 'No info'}`;
+    animeCard.querySelector('.anime__status').textContent = `Status: ${(this.status)? this.status: 'No info'}`;
+    animeCard.querySelector('.anime__aired-start').textContent = `Aired start: ${(this.airedStart)? this.airedStart.getFullYear(): 'No info'}`;
+    return animeCard;
+  }
 }
-
-

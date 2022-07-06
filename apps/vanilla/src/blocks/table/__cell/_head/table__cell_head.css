@@ -1,3 +1,8 @@
 .table__cell_head {
   background-color: white;
 }
+
+.table__cell_head:hover {
+  box-shadow: 0 0 2px 2px cornflowerblue;
+  transition: all 0.2s;
+}

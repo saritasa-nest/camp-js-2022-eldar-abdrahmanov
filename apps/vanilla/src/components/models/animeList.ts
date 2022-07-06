@@ -1,4 +1,4 @@
-import { AnimeType } from "../AnimeType";
+/*import { AnimeType } from "../AnimeType";
 
 export class AnimeList {
   id: number;
@@ -12,3 +12,4 @@ export class AnimeList {
   type: AnimeType
   status: string;
 }
+*/

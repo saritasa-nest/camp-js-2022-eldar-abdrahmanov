@@ -1,11 +1,5 @@
-.anime {
-  /*width: 100%;
-  height: auto;
-  display: flex;
-  border: 1px solid black;
-  border-radius: 5px;*/
-}
-
 .anime:hover {
   cursor: pointer;
+  box-shadow: 0 0 2px 2px cornflowerblue;
+  transition: all 0.2s;
 }

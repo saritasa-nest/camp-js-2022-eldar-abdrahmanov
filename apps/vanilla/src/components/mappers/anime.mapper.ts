@@ -1,4 +1,4 @@
-import { AnimeDto } from "../dtos/anime.dto";
+/*import { AnimeDto } from "../dtos/anime.dto";
 import Anime from "../models/anime"
 
 export namespace AnimeMapper {
@@ -15,3 +15,4 @@ export namespace AnimeMapper {
     )
   }
 }
+*/

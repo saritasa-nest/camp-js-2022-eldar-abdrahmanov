@@ -1,4 +1,4 @@
-import { AnimeType } from '../AnimeType';
+import { AnimeType } from '../animeType';
 
 export interface AnimeListDto {
   id: number;
