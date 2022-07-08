@@ -11,6 +11,3 @@ export class TableHeaderButton {
     this.element.addEventListener('click', this.clickHandler);
   }
 }
-
-
-

@@ -9,19 +9,15 @@
   <body class="page">
     <header class="header">
       <h1 class="header__title">Каталог Аниме</h1>
-      <!--<div class = table-head>
-        <p class = table-head__section>Image</p>
-        <p class = table-head__section>Title on english</p>
-        <p class = table-head__section>Title on japanese</p>
-        <p class = table-head__section>Type</p>
-        <p class = table-head__section>Aired start</p>
-        <p class = table-head__section>Status</p>
-      </div> -->
     </header>
     <main>
-      <!--<section class="anime-container">
 
-      </section>-->
+      <ul class="pagination justify-content-end">
+        <li class="page-item pag-previous"><button class="page-link">&laquo;</button></li>
+        <ul class="pagination justify-content-end" id="pagination-container">
+        </ul>
+        <li class="page-item pag-next"><button class="page-link">&raquo;</button></li>
+      </ul>
 
       <table class="anime-container" id="anime-container">
         <tr class="table__head">
@@ -37,12 +33,12 @@
     <footer>
 
     </footer>
-    <template>
-
-    </template>
     <div class="links">
       <a href="/example/">Go to example page</a>
     </div>
+    <template class="pagination-template">
+      <li class="page-item"><button class="page-link"></button></li>
+    </template>
     <template class="anime-template table__cell">
       <tr class="anime">
         <th class="anime__image table__cell"></th>
