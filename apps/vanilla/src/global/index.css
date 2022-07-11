@@ -1,6 +1,6 @@
-@import url("@js-camp/theme/src/index.css");
 @import url("./base.css");
 @import url("./components.css");
+@import url("../blocks/active/activated.css");
 @import url("../blocks/page/page.css");
 @import url("../blocks/header/header.css");
 @import url("../blocks/header/__title/header__title.css");

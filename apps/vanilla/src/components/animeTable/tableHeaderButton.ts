@@ -8,6 +8,27 @@ export class TableHeaderButton {
   }
 
   setEventListener() {
-    this.element.addEventListener('click', this.clickHandler);
+    this.element.addEventListener('click', () => {
+      this.setButtonActive();
+      this.changeActiveStatus();
+      this.clickHandler();
+      this.setButtonActive();
+    });
+  }
+
+  private changeActiveStatus() {
+    // @ts-ignore
+    this.element.parentNode?.childNodes.forEach((item: HTMLElement) => {
+      if(item.nodeName !== '#text') {
+        if (item.classList.contains('activated')) {
+          item.classList.remove('activated');
+        }
+      }
+    });
+    this.setButtonActive();
+  }
+
+  setButtonActive() {
+    this.element.classList.add('activated');
   }
 }

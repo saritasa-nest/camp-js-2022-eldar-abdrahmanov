@@ -1,5 +1,3 @@
-import { Immerable, OmitImmerable } from './immerable';
-
 export default class Anime {
   public readonly id: number;
   public readonly image: string;

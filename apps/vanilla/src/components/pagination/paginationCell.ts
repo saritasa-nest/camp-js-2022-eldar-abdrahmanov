@@ -1,23 +1,35 @@
-export class PaginationCell {
-  public number: number;
-  public cell?: HTMLElement;
+export default class PaginationCell {
+  public label: number | string;
   public clickHandler: any;
+  public cell?: HTMLElement;
+  public isDisable?: boolean;
 
-  constructor(number: number, clickHandler: any, cell?: HTMLElement, ) {
-    this.number = number;
-    this.cell = cell;
+  constructor(
+    label: number | string,
+    clickHandler: any,
+    isDisable?: boolean,
+    cell?: HTMLElement
+  ) {
+    this.label = label;
     this.clickHandler = clickHandler;
+    this.cell = cell;
+    this.isDisable = isDisable;
   }
 
-  createPaginationCell(): HTMLElement {
+  initiatePaginationCell(): HTMLElement {
     const template = document.querySelector(
       '.pagination-template'
     ) as HTMLElement;
+    // @ts-ignore
     const paginationCell = template.content
       .querySelector('.page-item')
       .cloneNode(true);
-    paginationCell.querySelector('.page-link').textContent = this.number;
+    paginationCell.querySelector('.page-link').textContent = this.label;
     this.cell = paginationCell;
+    if (this.isDisable) {
+      this.setDisabled();
+      return <HTMLElement>this.cell;
+    }
     this.setEventListener();
     return <HTMLElement>this.cell;
   }
@@ -30,20 +42,23 @@ export class PaginationCell {
     this.cell?.addEventListener('click', () => {
       this.checkForUndefinedChild();
       this.changeActiveStatus();
-      this.clickHandler(this.number-1);
+      if (typeof this.label === 'number') {
+        this.clickHandler(this.label - 1);
+      }
+      if (typeof this.label === 'string') {
+        this.clickHandler(this.getPreviousCellIndex());
+      }
     });
   }
 
-  //удаляет #text который появляется по непонятной причине. разобраться
   private checkForUndefinedChild() {
     // @ts-ignore
-    if(this.cell.parentNode.firstChild.nodeName === '#text') {
+    if (this.cell.parentNode.firstChild.nodeName === '#text') {
       // @ts-ignore
       this.cell.parentNode.firstChild.remove();
     }
   }
 
-//меняет статус ячейки пагинации у активной на неактивную и наоборот
   private changeActiveStatus() {
     // @ts-ignore
     this.cell.parentNode.childNodes.forEach((item: HTMLElement) => {
@@ -52,5 +67,18 @@ export class PaginationCell {
       }
     });
     this.setCellActive();
+  }
+
+  getPreviousCellIndex(): number {
+    return Number(this.cell?.previousSibling?.firstChild?.textContent);
+  }
+
+  getNextCellIndex(): number {
+    return Number(this.cell?.nextSibling?.firstChild?.textContent);
+  }
+
+  setDisabled() {
+    // @ts-ignore
+    this.cell?.classList.add('disabled');
   }
 }

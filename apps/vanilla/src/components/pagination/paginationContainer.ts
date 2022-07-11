@@ -1,10 +1,7 @@
-import { PaginationCell } from "./paginationCell";
-
 export class PaginationContainer {
   container: HTMLElement;
   totalCount: number;
   itemsPerPAge: number;
-  cellsList: any;
 
   constructor(selector: string, totalCount: number, itemsPerPage: number) {
     this.container = document.querySelector(selector) as HTMLElement;
@@ -17,31 +14,14 @@ export class PaginationContainer {
   }
 
   clearContainer(): void {
-    const animeList = document.querySelectorAll('.anime');
-    animeList.forEach(element => {
-      if(element.parentNode) {
-        element.parentNode.removeChild(element);
-      }
+    this.container.innerHTML = '';
+  }
+
+  renderPagination(elementList: HTMLElement[]) {
+    elementList[1].classList.add('active');
+    this.clearContainer();
+    elementList.forEach((item: HTMLElement) => {
+      this.container.append(item);
     });
-  }
-
-  prependElement(element: HTMLElement): void {
-    this.container.append(element);
-  }
-
-  appendElement(element: HTMLElement): void {
-    this.container.append(element);
-  }
-
-  createStartPagination(paginationLength: number): HTMLElement[] {
-    const cellsList: HTMLElement[] = []
-    for (let i = 1; i <= paginationLength; i++) {
-      if(i === paginationLength) {
-        cellsList.push(new PaginationCell(this.totalCount / this.itemsPerPAge).createPaginationCell());
-        break;
-      }
-      cellsList.push(new PaginationCell(i).createPaginationCell())
-    }
-    return cellsList;
   }
 }
