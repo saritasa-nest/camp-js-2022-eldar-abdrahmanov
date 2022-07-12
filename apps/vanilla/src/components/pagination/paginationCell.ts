@@ -1,12 +1,20 @@
+/** Pagination cell */
 export default class PaginationCell {
+  /** Label. */
   public label: number | string;
-  public clickHandler: any;
+
+  /** Click handler.*/
+  public clickHandler: (index: number) => void
+
+  /** Cell. */
   public cell?: HTMLElement;
+
+  /** Is disable. */
   public isDisable?: boolean;
 
-  constructor(
+  public constructor(
     label: number | string,
-    clickHandler: any,
+    clickHandler: (index: number) => void,
     isDisable?: boolean,
     cell?: HTMLElement
   ) {
@@ -15,30 +23,33 @@ export default class PaginationCell {
     this.cell = cell;
     this.isDisable = isDisable;
   }
-
-  initiatePaginationCell(): HTMLElement {
+/**  */
+  public initiatePaginationCell(): HTMLElement {
     const template = document.querySelector(
       '.pagination-template'
-    ) as HTMLElement;
-    // @ts-ignore
+    ) as HTMLTemplateElement;
     const paginationCell = template.content
-      .querySelector('.page-item')
-      .cloneNode(true);
+      .querySelector('.page-item')?.cloneNode(true);
     paginationCell.querySelector('.page-link').textContent = this.label;
     this.cell = paginationCell;
-    if (this.isDisable) {
+
+    if (!this.cell) {
+      throw new Error('Element not found!')
+    }
+
+  if (this.isDisable) {
       this.setDisabled();
-      return <HTMLElement>this.cell;
+      return this.cell;
     }
     this.setEventListener();
-    return <HTMLElement>this.cell;
+    return this.cell;
   }
 
-  setCellActive() {
+  private setCellActive(): void {
     this.cell?.classList.add('active');
   }
 
-  setEventListener() {
+  setEventListener(): void {
     this.cell?.addEventListener('click', () => {
       this.checkForUndefinedChild();
       this.changeActiveStatus();
@@ -51,7 +62,7 @@ export default class PaginationCell {
     });
   }
 
-  private checkForUndefinedChild() {
+  private checkForUndefinedChild(): void {
     // @ts-ignore
     if (this.cell.parentNode.firstChild.nodeName === '#text') {
       // @ts-ignore
@@ -59,7 +70,7 @@ export default class PaginationCell {
     }
   }
 
-  private changeActiveStatus() {
+  private changeActiveStatus(): void {
     // @ts-ignore
     this.cell.parentNode.childNodes.forEach((item: HTMLElement) => {
       if (item.classList.contains('active')) {
@@ -69,15 +80,15 @@ export default class PaginationCell {
     this.setCellActive();
   }
 
-  getPreviousCellIndex(): number {
+  protected getPreviousCellIndex(): number {
     return Number(this.cell?.previousSibling?.firstChild?.textContent);
   }
 
-  getNextCellIndex(): number {
+  protected getNextCellIndex(): number {
     return Number(this.cell?.nextSibling?.firstChild?.textContent);
   }
 
-  setDisabled() {
+  private setDisabled(): void {
     // @ts-ignore
     this.cell?.classList.add('disabled');
   }

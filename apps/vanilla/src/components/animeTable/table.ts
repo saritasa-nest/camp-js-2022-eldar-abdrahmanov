@@ -1,19 +1,24 @@
+/** Class representing a table */
 export class Table {
-  container: HTMLElement;
-  constructor(selector: string) {
+  /** Container. */
+  public container: HTMLElement;
+
+  public constructor(selector: string) {
     this.container = document.querySelector(selector) as HTMLElement;
   }
 
-  clearTable(): void {
+/** Clears the content of the table */
+  public clearTable(): void {
     const animeList = document.querySelectorAll('.anime');
     animeList.forEach(element => {
-      if(element.parentNode) {
+      if (element.parentNode) {
         element.parentNode.removeChild(element);
       }
     });
   }
 
-  renderElement(element: HTMLElement): void {
+  /** Render element */
+  public renderElement(element: HTMLElement): void {
     this.container.append(element);
   }
 }

@@ -1,3 +1,8 @@
+import AiredDto from './aired.dto';
+import {AnimeType} from '../unions/animeType';
+import { AnimeStatus } from "@js-camp/core/unions/statusType";
+
+/** Anime DTO. */
 export interface AnimeDto {
   /** Id*/
   readonly id: number;
@@ -12,11 +17,11 @@ export interface AnimeDto {
   readonly title_jpn: string;
 
   /** Type*/
-  readonly type: string;
+  readonly type: AnimeType;
 
   /** Status*/
-  readonly status: string;
+  readonly status: AnimeStatus;
 
-  /** AiredStart*/
-  readonly airedStart: string;
+  /** Aired*/
+  readonly aired: AiredDto;
 }
