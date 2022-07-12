@@ -1,11 +1,17 @@
 import PaginationCell from './paginationCell';
 
+/** Pagination previous. */
 export default class PaginationPrevious extends PaginationCell {
-  constructor(label: number | string, clickHandler: Function, isDisable: boolean, cell?: HTMLElement,) {
-    super(label, clickHandler, isDisable, cell);
+  public constructor(
+    label: number | string,
+    clickHandler: (index: number) => void,
+    isDisable: boolean,
+  ) {
+    super(label, clickHandler, isDisable);
   }
 
-  override setEventListener(): void {
+  /** Set event listener. */
+  public override setEventListener(): void {
     this.cell?.addEventListener('click', () => {
       this.clickHandler(this.getNextCellIndex());
     });
