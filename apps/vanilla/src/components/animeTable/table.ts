@@ -18,7 +18,7 @@ export class Table {
   }
 
   /** Render element.
-   * @param element - HTML element*/
+   * @param element - HTML element.*/
   public renderElement(element: HTMLElement): void {
     this.container.append(element);
   }

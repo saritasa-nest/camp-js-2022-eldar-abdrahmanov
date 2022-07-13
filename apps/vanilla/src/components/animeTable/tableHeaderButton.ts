@@ -3,7 +3,7 @@ export class TableHeaderButton {
   /** Element. */
   public element: HTMLElement;
 
-  /** Click handler */
+  /** Click handler. */
   public clickHandler: () => void;
 
   public constructor(id: string, clickHandler: () => void) {

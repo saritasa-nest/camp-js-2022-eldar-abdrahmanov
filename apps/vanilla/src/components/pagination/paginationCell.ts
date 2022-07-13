@@ -26,14 +26,17 @@ export default class PaginationCell {
    * Initiates content and adds an event listener.
    */
   public initiatePaginationCell(): HTMLElement {
-    const template = document.querySelector('.pagination-template') as HTMLTemplateElement;
-    const paginationCell = template.content.querySelector('.page-item')?.cloneNode(true) as HTMLElement;
+    const template = document.querySelector(
+      '.pagination-template',
+    ) as HTMLTemplateElement;
+    const paginationCell = template.content
+      .querySelector('.page-item')
+      ?.cloneNode(true) as HTMLElement;
     if (paginationCell) {
       const paginationButton = paginationCell.querySelector('.page-link');
       if (typeof this.label === 'number' && paginationButton) {
         paginationButton.textContent = this.label.toString();
-      }
-      else if (typeof this.label === 'string' && paginationButton) {
+      } else if (typeof this.label === 'string' && paginationButton) {
         paginationButton.textContent = this.label;
       }
     }

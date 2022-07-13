@@ -15,7 +15,7 @@ export class Pagination extends Immerable{
   /** List Anime */
   public results: Anime[] | null;
 
-  constructor(data: PostInitArgs) {
+  constructor(data: Args) {
     super();
     this.count = data.count;
     this.next = data.next;
@@ -24,4 +24,4 @@ export class Pagination extends Immerable{
   }
 }
 
-type PostInitArgs = OmitImmerable<Pagination>;
+type Args = OmitImmerable<Pagination>;

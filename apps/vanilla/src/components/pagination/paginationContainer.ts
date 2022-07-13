@@ -14,13 +14,15 @@ export class PaginationContainer {
     this.totalCount = totalCount;
     this.itemsPerPage = itemsPerPage;
   }
-  /** Clear container */
-  clearContainer(): void {
+
+  /** Clear container. */
+  public clearContainer(): void {
     this.container.innerHTML = '';
   }
+
   /** Render pagination.
-   * @param elementList -  pagination cells array */
-  renderPagination(elementList: HTMLElement[]): void {
+   * @param elementList -  pagination cells array. */
+  public renderPagination(elementList: HTMLElement[]): void {
     elementList[1].classList.add('active');
     this.clearContainer();
     elementList.forEach((item: HTMLElement) => {

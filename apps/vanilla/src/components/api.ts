@@ -2,7 +2,7 @@ import { Pagination } from '@js-camp/core/models/pagination';
 import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
 
 /** Send request. Return anime array.
- * @param url link. */
+ * @param url Link. */
 export async function getPagination(url: string): Promise<Pagination> {
   let pagination: Pagination = PaginationMapper.fromDto({ count: 0, next: '', previous: '', results: [] });
   await fetch(url)

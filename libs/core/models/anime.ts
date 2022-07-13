@@ -24,7 +24,7 @@ export default class Anime extends Immerable {
   /** AiredStart */
   public readonly airedStart: Date;
 
-  constructor(data: PostInitArgs) {
+  constructor(data: Args) {
     super();
     this.id = data.id;
     this.titleEng = data.titleEng;
@@ -36,4 +36,4 @@ export default class Anime extends Immerable {
   }
 }
 
-type PostInitArgs = OmitImmerable<Anime>;
+type Args = OmitImmerable<Anime>;

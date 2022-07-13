@@ -1,4 +1,4 @@
-import { immerable } from 'immer';
+/*import { immerable } from 'immer';*/
 
 /**
  * Abstract class that makes other classes compatible with Immer.
@@ -6,7 +6,7 @@ import { immerable } from 'immer';
  */
 export abstract class Immerable {
   /** @inheritdoc */
-  private readonly [immerable] = true;
+  /*private readonly [immerable] = true;*/
 }
 
 export type OmitImmerable<T> = Omit<T, '[immerable]'>;
