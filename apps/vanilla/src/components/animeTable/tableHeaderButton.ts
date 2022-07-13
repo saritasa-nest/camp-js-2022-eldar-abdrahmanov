@@ -14,14 +14,12 @@ export class TableHeaderButton {
   /** Set event listener. */
   public setEventListener(): void {
     this.element.addEventListener('click', () => {
-      this.setButtonActive();
       this.changeActiveStatus();
       this.clickHandler();
-      this.setButtonActive();
     });
   }
 
-  /** Change active status. */
+  /** Change activated status. */
   private changeActiveStatus(): void {
     this.element.parentNode?.childNodes.forEach((item: ChildNode) => {
       if (item.nodeName !== '#text') {
@@ -33,7 +31,7 @@ export class TableHeaderButton {
     this.setButtonActive();
   }
 
-  /** Set button active. */
+  /** Set button activated. */
   public setButtonActive(): void {
     this.element.classList.add('activated');
   }

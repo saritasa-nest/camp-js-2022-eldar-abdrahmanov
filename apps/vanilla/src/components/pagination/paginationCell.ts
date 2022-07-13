@@ -7,7 +7,7 @@ export default class PaginationCell {
   public clickHandler: (index: number) => void;
 
   /** Cell. */
-  public cell: HTMLElement | undefined;
+  public cell?: HTMLElement;
 
   /** Is disable. */
   public isDisable?: boolean;
@@ -54,7 +54,7 @@ export default class PaginationCell {
     return this.cell;
   }
 
-  /** Set cell active. */
+  /** Set cell activated. */
   private setCellActive(): void {
     this.cell?.classList.add('active');
   }
@@ -80,7 +80,7 @@ export default class PaginationCell {
     }
   }
 
-  /** Change active status of cell. */
+  /** Change activated status of cell. */
   private changeActiveStatus(): void {
     this.cell?.parentNode?.childNodes.forEach((item: ChildNode) => {
       if ((item as HTMLElement).classList.contains('active')) {

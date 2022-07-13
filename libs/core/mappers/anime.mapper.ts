@@ -16,7 +16,6 @@ export namespace AnimeMapper {
       airedStart: new Date(dto.aired.start),
       type: dto.type,
       status: dto.status,
-    }
-    )
+    })
   }
 }

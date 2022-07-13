@@ -34,7 +34,8 @@ export default class AnimeCard {
   }
 
   /** Create and initiate an anime card from a template. Return HTML element.
-   * @param templateSelector Template selector.*/
+   * @param templateSelector Template selector.
+   */
   public createAnimeCard(templateSelector: string): HTMLElement {
     const template = document.querySelector<HTMLTemplateElement>(templateSelector);
     const animeCard = template?.content.querySelector('.anime')?.cloneNode(true) as HTMLElement;
@@ -64,7 +65,8 @@ export default class AnimeCard {
 
   /** Checking if an element exists.
    * @param parentElement Looking for in this element.
-   * @param selector The element selector we are looking for.*/
+   * @param selector The element selector we are looking for.
+   */
   private getElement(parentElement: HTMLElement, selector: string): HTMLElement {
     const element: HTMLElement = parentElement.querySelector(
       selector,

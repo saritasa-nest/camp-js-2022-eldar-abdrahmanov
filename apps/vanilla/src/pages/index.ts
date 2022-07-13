@@ -1,5 +1,5 @@
-import AnimeCard from '../components/animeCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AnimeCard from '../components/animeCard';
 import { getPagination } from '../components/api';
 import { Table } from '../components/animeTable/table';
 import { PaginationContainer } from '../components/pagination/paginationContainer';
