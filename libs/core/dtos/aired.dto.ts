@@ -1,8 +1,8 @@
 export default interface AiredDto {
 
   /** Beginning. */
-  readonly start: string | Date;
+  readonly start: string;
 
   /** End. */
-  readonly end: string | Date;
+  readonly end: string;
 }

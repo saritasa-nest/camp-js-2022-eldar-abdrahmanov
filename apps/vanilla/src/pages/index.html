@@ -13,21 +13,34 @@
     <main>
       <ul class="pagination justify-content-end" id="pagination-container">
       </ul>
-
       <table class="anime-container" id="anime-container" aria-describedby="anime-catalog">
         <tr class="table__head">
           <th class="table__cell table__cell_head">Image</th>
           <th class="table__cell table__cell_head" id="table-title-eng">Title eng</th>
           <th class="table__cell table__cell_head" id="table-title-jpn">Title jpn</th>
-          <th class="table__cell table__cell_head" id="table-type">Type</th>
+          <th class="table__cell table__cell_head" id="table-type">
+            <div class="dropdown dropdown-menu-end">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+              Select type
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            </ul>
+          </div>
+          </th>
           <th class="table__cell table__cell_head" id="table-status">Status</th>
           <th class="table__cell table__cell_head" id="table-aired-start">Aired start</th>
         </tr>
       </table>
+
     </main>
     <footer>
 
     </footer>
+    <template class="dropdown-template">
+      <ul>
+        <li class="dropdown-element"><button class="dropdown-item"></button></li>
+      </ul>
+    </template>
     <template class="pagination-template">
       <ul>
         <li class="page-item"><button class="page-link"></button></li>
