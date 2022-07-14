@@ -4,7 +4,7 @@ export default class PaginationCell {
   public label: number | string;
 
   /** Click handler.*/
-  public clickHandler: (index: number, selector: string) => Promise<void>;
+  public clickHandler: (index: number) => Promise<void>;
 
   /** Cell. */
   public cell?: HTMLElement;
@@ -14,7 +14,7 @@ export default class PaginationCell {
 
   public constructor(
     label: number | string,
-    clickHandler: (index: number, selector: string) => Promise<void>,
+    clickHandler: (index: number) => Promise<void>,
     isDisable?: boolean
   ) {
     this.label = label;
