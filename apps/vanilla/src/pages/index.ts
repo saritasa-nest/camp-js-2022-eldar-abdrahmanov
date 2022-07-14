@@ -12,12 +12,12 @@ import PaginationPrevious from '../components/pagination/paginationPrevious';
 import {
   BASE_URL,
 } from '../components/constants/constants';
-
+import Searching from '../components/searching/searchingButton';
 
 const limitAnimeOnPage = 25;
 const numberOfPaginationIndexes = 10;
 
-const api = new API(BASE_URL, "id")
+const api = new API(BASE_URL, 'id');
 
 /** Anime container. */
 const animeTable: Table = new Table('#anime-container');
@@ -52,6 +52,17 @@ const statusSortBtn = new TableHeaderButton('#table-status', async () => {
   currentPagination = await api.getPaginationWithOffset(0)
   renderPage(numberOfPaginationIndexes, 0);
 });
+
+const searching = new Searching(
+  document.querySelector('.searching__input'),
+  document.querySelector('.searching__button'),
+  async(titlePart: string) => {
+    api.setUrlQuery(titlePart);
+    currentPagination = await api.getPaginationWithOffset(0)
+    renderPage(numberOfPaginationIndexes, 0);
+  },
+);
+searching.initialize();
 
 /** The handler passed to the constructor when the pagination cell is instantiated.
  *  Updates the pagination state and the table.

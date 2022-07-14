@@ -1,6 +1,7 @@
 import { Pagination } from '@js-camp/core/models/pagination';
 import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
 import { AnimeTypeEnum } from "@js-camp/core/unions/animeType";
+import { AnimeStatusEnum } from '@js-camp/core/unions/statusType';
 
 export class API {
   private readonly baseUrl: string;
@@ -30,8 +31,10 @@ export class API {
     let url: string;
     if (this.urlQuery in AnimeTypeEnum) {
       url = `${this.baseUrl}?offset=${offset}&type=${this.urlQuery}`;
-    } else {
+    } else if (this.urlQuery in AnimeStatusEnum) {
       url = `${this.baseUrl}?offset=${offset}&ordering=${this.urlQuery}`;
+    } else {
+      url = `${this.baseUrl}?offset=${offset}&title_eng__icontains=${this.urlQuery}`
     }
     return this.getPagination(url);
   }
