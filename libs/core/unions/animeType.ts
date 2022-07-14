@@ -1,1 +1,10 @@
-export type AnimeType = 'TV' | 'OVA' | 'Movie' | 'Special' | 'ONA' | 'Music';
+export type AnimeType = 'TV' | 'OVA' | 'MOVIE' | 'SPECIAL' | 'ONA' | 'MUSIC';
+
+export enum AnimeTypeEnum {
+  TV = 'TV',
+  OVA = 'OVA',
+  MOVIE = 'MOVIE',
+  SPECIAL = 'SPECIAL',
+  ONA = 'ONA',
+  MUSIC = 'MUSIC'
+}

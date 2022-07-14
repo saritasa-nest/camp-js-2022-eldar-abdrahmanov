@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AnimeCard from '../components/animeCard';
-import { getPagination } from '../components/api';
+import { API } from "../components/api";
 import { Table } from '../components/animeTable/table';
 import { PaginationContainer } from '../components/pagination/paginationContainer';
 import { TableHeaderButton } from '../components/animeTable/tableHeaderButton';
@@ -9,18 +10,14 @@ import PaginationCell from '../components/pagination/paginationCell';
 import PaginationNext from '../components/pagination/paginationNext';
 import PaginationPrevious from '../components/pagination/paginationPrevious';
 import {
-  SORT_BY_TITLE_ENG_URL,
-  SORT_BY_AIRED_START_URL,
-  SORT_BY_STATUS_URL,
-  SORT_BY_ID_URL,
   BASE_URL,
 } from '../components/constants/constants';
+
 
 const limitAnimeOnPage = 25;
 const numberOfPaginationIndexes = 10;
 
-/** Sorting state variable. Used in request. */
-let ordering = 'id';
+const api = new API(BASE_URL, "id")
 
 /** Anime container. */
 const animeTable: Table = new Table('#anime-container');
@@ -36,60 +33,63 @@ const paginationContainer: PaginationContainer = new PaginationContainer(
 let currentPagination: Pagination = new Pagination(0, '', '', []);
 
 /** Instance of header button responsible for sorting by title eng. */
-const titleEngSortBtn = new TableHeaderButton('#table-title-eng', () => {
-  ordering = 'title_eng';
-  renderPage(SORT_BY_TITLE_ENG_URL, numberOfPaginationIndexes, 0);
+const titleEngSortBtn = new TableHeaderButton('#table-title-eng', async () => {
+  api.setUrlQuery('title_eng');
+  currentPagination = await api.getPaginationWithOffset(0)
+  renderPage(numberOfPaginationIndexes, 0);
 });
 
 /** Instance of header button responsible for sorting by aired start. */
-const airedStartSortBtn = new TableHeaderButton('#table-aired-start', () => {
-  ordering = 'aired__startswith';
-  renderPage(SORT_BY_AIRED_START_URL, numberOfPaginationIndexes, 0);
+const airedStartSortBtn = new TableHeaderButton('#table-aired-start', async () => {
+  api.setUrlQuery('aired__startswith');
+  currentPagination = await api.getPaginationWithOffset(0)
+  renderPage(numberOfPaginationIndexes, 0);
 });
 
 /** Instance of header button responsible for sorting by status. */
-const statusSortBtn = new TableHeaderButton('#table-status', () => {
-  ordering = 'status';
-  renderPage(SORT_BY_STATUS_URL, numberOfPaginationIndexes, 0);
+const statusSortBtn = new TableHeaderButton('#table-status', async () => {
+  api.setUrlQuery('status');
+  currentPagination = await api.getPaginationWithOffset(0)
+  renderPage(numberOfPaginationIndexes, 0);
 });
 
 /** The handler passed to the constructor when the pagination cell is instantiated.
  *  Updates the pagination state and the table.
  *  @param indexOfCell Used to calculate offset in request.
  */
-function handlePaginationCellClick(indexOfCell: number): void {
-  getPagination(`${BASE_URL}${indexOfCell * limitAnimeOnPage}&ordering=${ordering}`)
-    .then(res => {
-      currentPagination = res;
-      animeTable.clearTable();
-      renderTable();
-    });
+async function handlePaginationCellClick(indexOfCell: number): Promise<void> {
+  const offset = indexOfCell * limitAnimeOnPage;
+  console.log(offset)
+  currentPagination = await api.getPaginationWithOffset(offset);
+  console.log(currentPagination)
+  animeTable.clearTable();
+  renderTable();
 }
 
 /** The handler passed to the constructor when the pagination next button is instantiated.
  *  Updates the pagination state and the table.
  *  @param indexOfLastCell Used to calculate offset in request.
  */
-function handlePaginationNextClick(indexOfLastCell: number): void {
-  renderPage(`${BASE_URL}${indexOfLastCell * limitAnimeOnPage}&ordering=${ordering}`,
-    numberOfPaginationIndexes,
-    indexOfLastCell);
+async function handlePaginationNextClick(indexOfLastCell: number): Promise<void> {
+  const offset = indexOfLastCell * limitAnimeOnPage;
+  currentPagination = await api.getPaginationWithOffset(offset);
+  renderPage(numberOfPaginationIndexes, indexOfLastCell);
 }
 
 /** The handler passed to the constructor when the pagination previous button is instantiated.
  *  Updates the pagination state and the table.
  *  @param indexOfFirstCell Used to calculate offset in request.
  */
-function handlePaginationPreviousClick(indexOfFirstCell: number): void {
-  renderPage(`${BASE_URL}${(indexOfFirstCell - numberOfPaginationIndexes) * limitAnimeOnPage}&ordering=${ordering}`,
-    numberOfPaginationIndexes,
-    indexOfFirstCell - numberOfPaginationIndexes);
+async function handlePaginationPreviousClick(indexOfFirstCell: number): Promise<void> {
+  const offset = indexOfFirstCell * limitAnimeOnPage;
+  currentPagination = await api.getPaginationWithOffset(offset);
+  renderPage(numberOfPaginationIndexes, indexOfFirstCell);
 }
 
 /** Creates and initializes a pagination cell array. Return array of HTML elements.
  * @param paginationLength Determines the length of the pagination on the page.
  * @param paginationStartIndex Determines the start index of the pagination on the page.
- * */
+ */
 function createPaginationCellList(
   paginationLength: number,
   paginationStartIndex: number,
@@ -142,28 +142,25 @@ function renderTable(): void {
 }
 
 /** Sends a request and updates the table and pagination.
- * @param url - Link for request.
  * @param paginationLength Determines the length of the pagination on the page.
- * @param paginationStartIndex Determines the start index of the pagination on the page. */
-function renderPage(url: string, paginationLength: number, paginationStartIndex: number): void {
-  getPagination(url)
-    .then((res: Pagination) => {
-      currentPagination = res;
-      const paginationCellList: HTMLElement[] = createPaginationCellList(
-        paginationLength,
-        paginationStartIndex,
-      );
-      paginationContainer.renderPagination(paginationCellList);
-      animeTable.clearTable();
-      renderTable();
-    })
-    .catch(err => {
-      throw new Error(err.message);
-    });
+ * @param paginationStartIndex Determines the start index of the pagination on the page.
+ */
+function renderPage(paginationLength: number, paginationStartIndex: number) {
+  const paginationCellList: HTMLElement[] = createPaginationCellList(
+    paginationLength,
+    paginationStartIndex,
+  );
+  paginationContainer.renderPagination(paginationCellList);
+  animeTable.clearTable();
+  renderTable();
 }
 
-/** Initial page rendering. */
-renderPage(SORT_BY_ID_URL, numberOfPaginationIndexes, 0);
+async function loadStartPage(): Promise<void> {
+  currentPagination = await api.getPaginationWithOffset(0);
+  renderPage(numberOfPaginationIndexes, 0);
+}
+
+loadStartPage();
 
 /** Set event listeners on sorting buttons. */
 statusSortBtn.setEventListener();
