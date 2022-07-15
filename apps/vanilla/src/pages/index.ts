@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AnimeCard from '../components/animeCard';
-import { API } from "../components/api";
+import { API } from '../components/api';
 import { Table } from '../components/animeTable/table';
 import { PaginationContainer } from '../components/pagination/paginationContainer';
 import { TableHeaderButton } from '../components/animeTable/tableHeaderButton';
@@ -54,15 +54,12 @@ const statusSortBtn = new TableHeaderButton('#table-status', async () => {
 });
 
 const searching = new Searching(
-  document.querySelector('.searching__input'),
-  document.querySelector('.searching__button'),
-  async(titlePart: string) => {
+  document.querySelector('#searching'), async(titlePart: string) => {
     api.setUrlQuery(titlePart);
-    currentPagination = await api.getPaginationWithOffset(0)
+    currentPagination = await api.getPaginationWithOffset(0);
     renderPage(numberOfPaginationIndexes, 0);
   },
 );
-searching.initialize();
 
 /** The handler passed to the constructor when the pagination cell is instantiated.
  *  Updates the pagination state and the table.
@@ -177,3 +174,6 @@ loadStartPage();
 statusSortBtn.setEventListener();
 airedStartSortBtn.setEventListener();
 titleEngSortBtn.setEventListener();
+
+/** Set event listener for searching form. */
+searching.setEventListener();

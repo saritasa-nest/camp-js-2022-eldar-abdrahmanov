@@ -1,17 +1,28 @@
+/** Searching component. */
 export default class Searching {
   public constructor(
-    private readonly input: HTMLInputElement | null,
-    private readonly button: HTMLButtonElement | null,
+    private readonly form: HTMLFormElement | null,
     private readonly handleClick: (titlePart: string) => void,
   ) {}
 
-  public initialize() {
-    if (this.input === null || this.button === null) {
-      throw new Error('Some components of the searching is undefined');
+  /** Initializes sorting component. */
+  public setEventListener(): void {
+    if (this.form === null) {
+      throw new Error('Cannot find form');
     }
-    this.button.onclick = () => {
-      const { value } = this.input;
-      this.handleClick(value);
+
+    const input = this.form.querySelector<HTMLInputElement>('.form__input');
+
+    if (input === null) {
+      throw new Error('Cannot find some components of the searching');
     }
+
+    this.form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (input !== null) {
+        const { value } = input;
+        this.handleClick(value);
+      }
+    });
   }
 }

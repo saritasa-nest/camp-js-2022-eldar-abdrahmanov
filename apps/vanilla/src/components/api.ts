@@ -1,7 +1,7 @@
 import { Pagination } from '@js-camp/core/models/pagination';
 import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
-import { AnimeTypeEnum } from "@js-camp/core/unions/animeType";
-import { AnimeStatusEnum } from '@js-camp/core/unions/statusType';
+import { AnimeTypeEnum } from '@js-camp/core/unions/animeType';
+import { AnimeOrderingEnum } from '@js-camp/core/unions/orderingType';
 
 export class API {
   private readonly baseUrl: string;
@@ -27,19 +27,19 @@ export class API {
   }
 
   /** Construct request url  */
-  getPaginationWithOffset(offset: number): Promise<Pagination> {
+  public getPaginationWithOffset(offset: number): Promise<Pagination> {
     let url: string;
     if (this.urlQuery in AnimeTypeEnum) {
       url = `${this.baseUrl}?offset=${offset}&type=${this.urlQuery}`;
-    } else if (this.urlQuery in AnimeStatusEnum) {
+    } else if (this.urlQuery in AnimeOrderingEnum) {
       url = `${this.baseUrl}?offset=${offset}&ordering=${this.urlQuery}`;
     } else {
-      url = `${this.baseUrl}?offset=${offset}&title_eng__icontains=${this.urlQuery}`
+      url = `${this.baseUrl}?offset=${offset}&title_eng__icontains=${this.urlQuery}`;
     }
     return this.getPagination(url);
   }
 
-  setUrlQuery(urlQuery: string) {
+  public setUrlQuery(urlQuery: string) {
     this.urlQuery = urlQuery;
   }
 }
