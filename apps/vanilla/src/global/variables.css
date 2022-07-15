@@ -1,3 +1,7 @@
 :root {
-  --btn-active-status-color: cornflowerblue;
+  --active-status-color: cornflowerblue;
+  --main-font-size: 1.1em;
+  --basic-font-size: 1em;
+  --box-shadow-hover-cornflowerblue: 0 0 2px 2px cornflowerblue;
+  --simple-black-border: 1px solid black;
 }

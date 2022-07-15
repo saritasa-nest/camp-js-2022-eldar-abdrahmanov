@@ -1,3 +1,5 @@
+import { getElement } from '../../utils/utils';
+
 /** Pagination container. */
 export class PaginationContainer {
   /** Container. */
@@ -10,7 +12,7 @@ export class PaginationContainer {
   public itemsPerPage: number;
 
   public constructor(selector: string, totalCount: number, itemsPerPage: number) {
-    this.container = document.querySelector(selector) as HTMLElement;
+    this.container = getElement(document, selector);
     this.totalCount = totalCount;
     this.itemsPerPage = itemsPerPage;
   }
@@ -20,10 +22,11 @@ export class PaginationContainer {
     this.container.innerHTML = '';
   }
 
-  /** Render pagination.
+  /** Render pagination. And set style first pagination cell active.
    * @param elementList -  pagination cells array. */
   public renderPagination(elementList: HTMLElement[]): void {
-    elementList[1].classList.add('active');
+    const indexOfFirstPaginationCell = 1;
+    elementList[indexOfFirstPaginationCell].classList.add('active');
     this.clearContainer();
     elementList.forEach((item: HTMLElement) => {
       this.container.append(item);

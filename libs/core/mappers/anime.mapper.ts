@@ -1,8 +1,7 @@
 import { AnimeDto } from '../dtos/anime.dto';
-import Anime from "../models/anime"
+import Anime from '../models/anime';
 
 export namespace AnimeMapper {
-
   /**
    * Maps dto to model.
    * @param dto Anime dto.
@@ -16,6 +15,6 @@ export namespace AnimeMapper {
       airedStart: new Date(dto.aired.start),
       type: dto.type,
       status: dto.status,
-    })
+    });
   }
 }

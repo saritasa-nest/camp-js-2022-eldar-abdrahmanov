@@ -1,55 +1,54 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import anime from '@js-camp/core/models/anime';
+
 import AnimeCard from '../components/animeCard';
-import { API } from "../components/api";
+import { API } from '../components/api';
 import { Table } from '../components/animeTable/table';
 import { PaginationContainer } from '../components/pagination/paginationContainer';
 import { TableHeaderButton } from '../components/animeTable/tableHeaderButton';
-import Pagination from '../components/pagination/pagination';
 import PaginationCell from '../components/pagination/paginationCell';
 import PaginationNext from '../components/pagination/paginationNext';
 import PaginationPrevious from '../components/pagination/paginationPrevious';
-import {
-  BASE_URL,
-} from '../components/constants/constants';
-
+import { BASE_URL } from '../components/constants/constants';
 
 const limitAnimeOnPage = 25;
 const numberOfPaginationIndexes = 10;
 
-const api = new API(BASE_URL, "id")
+/** Initial instance Api. */
+const api = new API(BASE_URL, 'id');
 
 /** Anime container. */
-const animeTable: Table = new Table('#anime-container');
+const animeTable = new Table('#anime-container');
 
 /** Pagination container. */
 const paginationContainer: PaginationContainer = new PaginationContainer(
   '#pagination-container',
   0,
-  25,
+  limitAnimeOnPage,
 );
 
 /** Pagination state variable. */
-let currentPagination: Pagination = new Pagination(0, '', '', []);
+let currentPagination = await api.getPaginationWithOffset(0);
 
 /** Instance of header button responsible for sorting by title eng. */
-const titleEngSortBtn = new TableHeaderButton('#table-title-eng', async () => {
+const titleEngSortBtn = new TableHeaderButton('#table-title-eng', async() => {
   api.setUrlQuery('title_eng');
-  currentPagination = await api.getPaginationWithOffset(0)
+  currentPagination = await api.getPaginationWithOffset(0);
   renderPage(numberOfPaginationIndexes, 0);
 });
 
 /** Instance of header button responsible for sorting by aired start. */
-const airedStartSortBtn = new TableHeaderButton('#table-aired-start', async () => {
+const airedStartSortBtn = new TableHeaderButton('#table-aired-start', async() => {
   api.setUrlQuery('aired__startswith');
-  currentPagination = await api.getPaginationWithOffset(0)
+  currentPagination = await api.getPaginationWithOffset(0);
   renderPage(numberOfPaginationIndexes, 0);
 });
 
 /** Instance of header button responsible for sorting by status. */
-const statusSortBtn = new TableHeaderButton('#table-status', async () => {
+const statusSortBtn = new TableHeaderButton('#table-status', async() => {
   api.setUrlQuery('status');
-  currentPagination = await api.getPaginationWithOffset(0)
+  currentPagination = await api.getPaginationWithOffset(0);
   renderPage(numberOfPaginationIndexes, 0);
 });
 
@@ -59,9 +58,7 @@ const statusSortBtn = new TableHeaderButton('#table-status', async () => {
  */
 async function handlePaginationCellClick(indexOfCell: number): Promise<void> {
   const offset = indexOfCell * limitAnimeOnPage;
-  console.log(offset)
   currentPagination = await api.getPaginationWithOffset(offset);
-  console.log(currentPagination)
   animeTable.clearTable();
   renderTable();
 }
@@ -136,7 +133,7 @@ function createPaginationCellList(
 /** Render table. */
 function renderTable(): void {
   const animeList = currentPagination.results;
-  animeList?.forEach(item => {
+  animeList?.forEach((item: anime) => {
     animeTable.renderElement(new AnimeCard(item).createAnimeCard('.anime-template'));
   });
 }
@@ -145,7 +142,7 @@ function renderTable(): void {
  * @param paginationLength Determines the length of the pagination on the page.
  * @param paginationStartIndex Determines the start index of the pagination on the page.
  */
-function renderPage(paginationLength: number, paginationStartIndex: number) {
+function renderPage(paginationLength: number, paginationStartIndex: number): void {
   const paginationCellList: HTMLElement[] = createPaginationCellList(
     paginationLength,
     paginationStartIndex,
@@ -155,12 +152,7 @@ function renderPage(paginationLength: number, paginationStartIndex: number) {
   renderTable();
 }
 
-async function loadStartPage(): Promise<void> {
-  currentPagination = await api.getPaginationWithOffset(0);
-  renderPage(numberOfPaginationIndexes, 0);
-}
-
-loadStartPage();
+renderPage(numberOfPaginationIndexes, 0);
 
 /** Set event listeners on sorting buttons. */
 statusSortBtn.setEventListener();

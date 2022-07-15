@@ -1,7 +1,7 @@
 /** TableHeaderButton. */
 export class TableHeaderButton {
   /** Element. */
-  public element: HTMLElement;
+  public readonly element: HTMLElement;
 
   /** Click handler. */
   public clickHandler: () => void;
@@ -21,7 +21,7 @@ export class TableHeaderButton {
 
   /** Change activated status. */
   private changeActiveStatus(): void {
-    this.element.parentNode?.childNodes.forEach((item: ChildNode) => {
+    this.element.parentNode?.childNodes.forEach(item => {
       if (item.nodeName !== '#text') {
         if ((item as HTMLElement).classList.contains('activated')) {
           (item as HTMLElement).classList.remove('activated');
