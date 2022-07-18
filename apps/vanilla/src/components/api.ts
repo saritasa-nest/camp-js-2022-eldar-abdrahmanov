@@ -1,45 +1,49 @@
 import { Pagination } from '@js-camp/core/models/pagination';
 import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
-import { AnimeTypeEnum } from '@js-camp/core/unions/animeType';
-import { AnimeOrderingEnum } from '@js-camp/core/unions/orderingType';
 
+/** Sending requests to the API. */
 export class API {
   private readonly baseUrl: string;
-  urlQuery: string;
 
-  constructor(baseUrl: string, urlQuery: string) {
+  private readonly urlQuery: URLSearchParams;
+
+  public constructor(baseUrl: string, limit: number) {
     this.baseUrl = baseUrl;
-    this.urlQuery = urlQuery;
+    this.urlQuery = new URLSearchParams();
+    this.urlQuery.set('limit', String(limit));
+    this.urlQuery.set('offset', '0');
   }
 
-  /** Send request.
+  /**
+   * Send request.
    * @param url Link.
    */
-  async getPagination(url: string): Promise<Pagination> {
+  private async getPagination(url: string): Promise<Pagination> {
     try {
-      let res = await fetch(url);
-      let data = await res.json();
+      const res = await fetch(url);
+      const data = await res.json();
       return PaginationMapper.fromDto(data);
-    }
-    catch (err: any) {
-      throw new Error(err.message)
+    } catch (err: unknown) {
+      console.error(err);
+      throw new Error('Error');
     }
   }
 
-  /** Construct request url  */
-  public getPaginationWithOffset(offset: number): Promise<Pagination> {
-    let url: string;
-    if (this.urlQuery in AnimeTypeEnum) {
-      url = `${this.baseUrl}?offset=${offset}&type=${this.urlQuery}`;
-    } else if (this.urlQuery in AnimeOrderingEnum) {
-      url = `${this.baseUrl}?offset=${offset}&ordering=${this.urlQuery}`;
-    } else {
-      url = `${this.baseUrl}?offset=${offset}&title_eng__icontains=${this.urlQuery}`;
-    }
-    return this.getPagination(url);
+  /**
+   * Construct request url.
+   */
+  public getPaginationWithOffset(): Promise<Pagination> {
+    const url = this.urlQuery.toString();
+
+    return this.getPagination(`${this.baseUrl}?${url}`);
   }
 
-  public setUrlQuery(urlQuery: string) {
-    this.urlQuery = urlQuery;
+  /**
+   * Sets the value of the parameter.
+   * @param queryParamName Query parameter name.
+   * @param value Query parameter value.
+   */
+  public setQueryParam(queryParamName: string, value: string): void {
+    this.urlQuery.set(queryParamName, value);
   }
 }

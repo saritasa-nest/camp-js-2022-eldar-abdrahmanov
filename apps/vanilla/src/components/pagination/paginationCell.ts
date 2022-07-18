@@ -15,7 +15,7 @@ export default class PaginationCell {
   public constructor(
     label: number | string,
     clickHandler: (index: number) => Promise<void>,
-    isDisable?: boolean
+    isDisable?: boolean,
   ) {
     this.label = label;
     this.clickHandler = clickHandler;
@@ -27,7 +27,7 @@ export default class PaginationCell {
    */
   public initiatePaginationCell(): HTMLElement {
     const template = document.querySelector(
-      '.pagination-template'
+      '.pagination-template',
     ) as HTMLTemplateElement;
     const paginationCell = template.content
       .querySelector('.page-item')

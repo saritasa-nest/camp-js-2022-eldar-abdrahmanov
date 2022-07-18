@@ -4,7 +4,7 @@ import PaginationCell from './paginationCell';
 export default class PaginationNext extends PaginationCell {
   public constructor(
     label: number | string,
-    clickHandler: (index: number) => void,
+    clickHandler: (index: number) => Promise<void>,
     isDisabled?: boolean,
   ) {
     super(label, clickHandler, isDisabled);
