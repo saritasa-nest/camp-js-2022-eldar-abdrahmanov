@@ -1,10 +1,10 @@
-import PaginationCell from './paginationCell';
+import { PaginationCell } from './paginationCell';
 
 /** Pagination previous. */
-export default class PaginationPrevious extends PaginationCell {
+export class PaginationPrevious extends PaginationCell {
   public constructor(
     label: number | string,
-    clickHandler: (index: number) => void,
+    clickHandler: (index: number) => Promise<void>,
     isDisable: boolean,
   ) {
     super(label, clickHandler, isDisable);

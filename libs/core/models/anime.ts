@@ -1,7 +1,9 @@
+import { AnimeStatus } from '@js-camp/core/enums/statusType';
+
 import { Immerable, OmitImmerable } from './immerable';
 
 /** Anime. */
-export default class Anime extends Immerable {
+export class Anime extends Immerable {
 
   /** Id. */
   public readonly id: number;
@@ -19,12 +21,12 @@ export default class Anime extends Immerable {
   public readonly type: string;
 
   /** Status. */
-  public readonly status: string;
+  public readonly status: AnimeStatus;
 
-  /** AiredStart */
+  /** AiredStart. */
   public readonly airedStart: Date;
 
-  constructor(data: Args) {
+  public constructor(data: Args) {
     super();
     this.id = data.id;
     this.titleEng = data.titleEng;

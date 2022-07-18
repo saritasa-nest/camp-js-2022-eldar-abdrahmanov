@@ -1,7 +1,6 @@
 import {Immerable, OmitImmerable} from "@js-camp/core/models/immerable";
-import Anime from "@js-camp/core/models/anime";
 
-export class Pagination extends Immerable{
+export class Pagination<T> extends Immerable{
 
   /** Total count Anime. */
   public count: number;
@@ -13,7 +12,7 @@ export class Pagination extends Immerable{
   public previous: string | null;
 
   /** List Anime */
-  public results: Anime[] | null;
+  public results: T[];
 
   constructor(data: Args) {
     super();
@@ -24,4 +23,4 @@ export class Pagination extends Immerable{
   }
 }
 
-type Args = OmitImmerable<Pagination>;
+type Args = OmitImmerable<Pagination<any>>;

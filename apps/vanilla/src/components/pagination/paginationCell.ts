@@ -1,21 +1,21 @@
 /** Pagination cell. */
-export default class PaginationCell {
+export class PaginationCell {
   /** Label. */
-  public label: number | string;
+  public readonly label: number | string;
 
   /** Click handler.*/
-  public clickHandler: (index: number) => Promise<void>;
+  public readonly clickHandler: (index: number) => Promise<void>;
 
   /** Cell. */
-  public cell?: HTMLElement;
+  public cell?: Element;
 
   /** Is disable. */
-  public isDisable?: boolean;
+  public readonly isDisable?: boolean;
 
   public constructor(
     label: number | string,
     clickHandler: (index: number) => Promise<void>,
-    isDisable?: boolean
+    isDisable?: boolean,
   ) {
     this.label = label;
     this.clickHandler = clickHandler;
@@ -27,11 +27,11 @@ export default class PaginationCell {
    */
   public initiatePaginationCell(): HTMLElement {
     const template = document.querySelector(
-      '.pagination-template'
+      '.pagination-template',
     ) as HTMLTemplateElement;
     const paginationCell = template.content
       .querySelector('.page-item')
-      ?.cloneNode(true) as HTMLElement;
+      ?.cloneNode(true) as Element;
     if (paginationCell) {
       const paginationButton = paginationCell.querySelector('.page-link');
       if (typeof this.label === 'number' && paginationButton) {
@@ -42,16 +42,16 @@ export default class PaginationCell {
     }
     this.cell = paginationCell;
 
-    if (!this.cell) {
+    if (this.cell === null) {
       throw new Error('Element not found!');
     }
 
     if (this.isDisable) {
       this.setDisabled();
-      return this.cell;
+      return <HTMLElement> this.cell;
     }
     this.setEventListener();
-    return this.cell;
+    return <HTMLElement> this.cell;
   }
 
   /** Set cell activated. */

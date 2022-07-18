@@ -1,19 +1,19 @@
 /** TableHeaderButton. */
 export class TableHeaderButton {
-  /** Element. */
-  public element: HTMLElement;
+  /** Button element. */
+  public readonly buttonElement: HTMLElement;
 
   /** Click handler. */
   public clickHandler: () => void;
 
   public constructor(id: string, clickHandler: () => void) {
-    this.element = document.querySelector(id) as HTMLElement;
+    this.buttonElement = document.querySelector(id) as HTMLElement;
     this.clickHandler = clickHandler;
   }
 
   /** Set event listener. */
   public setEventListener(): void {
-    this.element.addEventListener('click', () => {
+    this.buttonElement.addEventListener('click', () => {
       this.changeActiveStatus();
       this.clickHandler();
     });
@@ -21,7 +21,7 @@ export class TableHeaderButton {
 
   /** Change activated status. */
   private changeActiveStatus(): void {
-    this.element.parentNode?.childNodes.forEach((item: ChildNode) => {
+    this.buttonElement.parentNode?.childNodes.forEach(item => {
       if (item.nodeName !== '#text') {
         if ((item as HTMLElement).classList.contains('activated')) {
           (item as HTMLElement).classList.remove('activated');
@@ -33,6 +33,6 @@ export class TableHeaderButton {
 
   /** Set button activated. */
   public setButtonActive(): void {
-    this.element.classList.add('activated');
+    this.buttonElement.classList.add('activated');
   }
 }

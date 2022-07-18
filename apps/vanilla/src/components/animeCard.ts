@@ -1,12 +1,15 @@
-import Anime from '@js-camp/core/models/anime';
+import { Anime } from '@js-camp/core/models/anime';
+import { AnimeStatus } from '@js-camp/core/enums/statusType';
+
+import { getElement } from '../utils/utils';
 
 /** AnimeCard. */
-export default class AnimeCard {
+export class AnimeCard {
   /** Id. */
   public readonly id: number;
 
-  /** Image. */
-  public readonly image: string;
+  /** Image URL. */
+  public readonly imageURL: string;
 
   /** TitleEng. */
   public readonly titleEng: string;
@@ -18,7 +21,7 @@ export default class AnimeCard {
   public readonly type: string;
 
   /** Status. */
-  public readonly status: string;
+  public readonly status: AnimeStatus;
 
   /** AiredStart. */
   public readonly airedStart: Date;
@@ -27,7 +30,7 @@ export default class AnimeCard {
     this.id = anime.id;
     this.titleEng = anime.titleEng;
     this.titleJpn = anime.titleJpn;
-    this.image = anime.image;
+    this.imageURL = anime.image;
     this.airedStart = anime.airedStart;
     this.type = anime.type;
     this.status = anime.status;
@@ -38,42 +41,35 @@ export default class AnimeCard {
    */
   public createAnimeCard(templateSelector: string): HTMLElement {
     const template = document.querySelector<HTMLTemplateElement>(templateSelector);
-    const animeCard = template?.content.querySelector('.anime')?.cloneNode(true) as HTMLElement;
-    if (animeCard) {
-      this.getElement(
+    if (template === null) {
+      throw new Error('Template not found');
+    }
+    const templateContent = template.content.querySelector('.anime');
+    if (templateContent === null) {
+      throw new Error('Template not found');
+    }
+    const animeCard = templateContent.cloneNode(true) as HTMLElement;
+    if (animeCard !== null) {
+      getElement<HTMLElement>(
         animeCard,
         '.anime__image',
-      ).style.backgroundImage = `url(${this.image}`;
-      this.getElement(animeCard, '.anime__title_eng').textContent = `${
+      ).style.backgroundImage = `url(${this.imageURL}`;
+      getElement(animeCard, '.anime__title_eng').textContent = `${
         this.titleEng ? this.titleEng : 'No title'
       }`;
-      this.getElement(animeCard, '.anime__title_jpn').textContent = `${
+      getElement(animeCard, '.anime__title_jpn').textContent = `${
         this.titleJpn ? this.titleJpn : 'タイトルなし'
       }`;
-      this.getElement(animeCard, '.anime__type').textContent = `${
+      getElement(animeCard, '.anime__type').textContent = `${
         this.type ? this.type : 'No info'
       }`;
-      this.getElement(animeCard, '.anime__status').textContent = `${
+      getElement(animeCard, '.anime__status').textContent = `${
         this.status ? this.status : 'No info'
       }`;
-      this.getElement(animeCard, '.anime__aired-start').textContent = `${
+      getElement(animeCard, '.anime__aired-start').textContent = `${
         this.airedStart ? this.airedStart.getFullYear() : 'No info'
       }`;
     }
     return animeCard;
-  }
-
-  /** Checking if an element exists.
-   * @param parentElement Looking for in this element.
-   * @param selector The element selector we are looking for.
-   */
-  private getElement(parentElement: HTMLElement, selector: string): HTMLElement {
-    const element: HTMLElement = parentElement.querySelector(
-      selector,
-    ) as HTMLElement;
-    if (!element) {
-      throw new Error(`Element ${selector} not found`);
-    }
-    return element;
   }
 }

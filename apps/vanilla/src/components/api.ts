@@ -1,34 +1,32 @@
-import { Pagination } from '@js-camp/core/models/pagination';
-import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
-import { AnimeTypeEnum } from "@js-camp/core/unions/animeType";
+import axios from 'axios';
 
+import { AnimeType } from '@js-camp/core/enums/animeType';
+import { Anime } from '@js-camp/core/models/anime';
+/** A class designed to interact with API. */
 export class API {
-  private readonly baseUrl: string;
-  urlQuery: string;
-
-  constructor(baseUrl: string, urlQuery: string) {
-    this.baseUrl = baseUrl;
-    this.urlQuery = urlQuery;
-  }
+  public constructor(
+    private readonly baseUrl: string,
+    public urlQuery: string,
+  ) {}
 
   /** Send request.
    * @param url Link.
    */
-  async getPagination(url: string): Promise<Pagination> {
+  public async getPagination(url: string): Promise<Pagination<Anime>> {
     try {
-      let res = await fetch(url);
-      let data = await res.json();
-      return PaginationMapper.fromDto(data);
-    }
-    catch (err: any) {
-      throw new Error(err.message)
+      const response = await axios.get(url);
+      return PaginationMapper.fromDto(response.data);
+    } catch (err: unknown) {
+      throw new Error(err.message);
     }
   }
 
-  /** Construct request url  */
-  getPaginationWithOffset(offset: number): Promise<Pagination> {
-    let url = '';
-    if (this.urlQuery in AnimeTypeEnum) {
+  /** Construct request url.
+   * @param offset Use in url.
+   */
+  public getPaginationWithOffset(offset: number): Promise<Pagination<Anime>> {
+    let url: string;
+    if (this.urlQuery in AnimeType) {
       url = `${this.baseUrl}?offset=${offset}&type=${this.urlQuery}`;
     } else {
       url = `${this.baseUrl}?offset=${offset}&ordering=${this.urlQuery}`;
@@ -36,7 +34,9 @@ export class API {
     return this.getPagination(url);
   }
 
-  setUrlQuery(urlQuery: string) {
+  /** Set the field urlQuery of API instance.
+   * @param urlQuery String.
+   */
+  public setUrlQuery(urlQuery: string): void {
     this.urlQuery = urlQuery;
   }
-}

@@ -9,7 +9,7 @@ export namespace PaginationMapper {
    * Maps dto to model.
    * @param dto Anime dto.
    */
-  export function fromDto(dto: PaginationDto<AnimeDto>): Pagination {
+  export function fromDto(dto: PaginationDto<AnimeDto>): Pagination<any> {
     return new Pagination({
       count: dto.count,
       next: dto.next,

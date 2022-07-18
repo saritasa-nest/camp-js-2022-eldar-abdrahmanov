@@ -1,4 +1,4 @@
-export default interface AiredDto {
+export interface AiredDto {
 
   /** Beginning. */
   readonly start: string;
