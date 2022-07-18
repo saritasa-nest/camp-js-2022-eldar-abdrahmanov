@@ -4,13 +4,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./index.css" />
-    <title>Vite App</title>
+    <title>Anime catalog</title>
   </head>
-  <body class="default-layout">
-    <h1 class="title">Main page ⚡</h1>
-    <div class="links">
-      <a href="/example/">Go to example page</a>
-    </div>
+  <body class="page">
+    <header class="header">
+      <h1 class="header__title" id="anime-catalog">Каталог Аниме</h1>
+    </header>
+    <main>
+
+      <form class="form" id="searching">
+        <label class="form__label">
+          Search anime by title:
+          <input class="form__input" type="text" placeholder="Title...">
+        </label>
+        <button type="submit" class="form__submit">Search</button>
+      </form>
+
+      <ul class="pagination justify-content-end" id="pagination-container">
+      </ul>
+
+      <table class="anime-container" id="anime-container" aria-describedby="anime-catalog">
+        <tr class="table__head">
+          <th class="table__cell table__cell_head">Image</th>
+          <th class="table__cell table__cell_head" id="table-title-eng">Title eng</th>
+          <th class="table__cell table__cell_head" id="table-title-jpn">Title jpn</th>
+          <th class="table__cell table__cell_head" id="table-type">Type</th>
+          <th class="table__cell table__cell_head" id="table-status">Status</th>
+          <th class="table__cell table__cell_head" id="table-aired-start">Aired start</th>
+        </tr>
+      </table>
+    </main>
+    <footer>
+
+    </footer>
+    <template class="pagination-template">
+      <ul>
+        <li class="page-item"><button class="page-link"></button></li>
+      </ul>
+    </template>
+    <template class="anime-template table__cell">
+      <tr class="anime">
+        <th class="anime__image table__cell" scope="row"></th>
+        <th class="anime__text anime__title_eng table__cell" scope="row"></th>
+        <th class="anime__text anime__title_jpn table__cell" scope="row"></th>
+        <th class="anime__text anime__type table__cell" scope="row"></th>
+        <th class="anime__text anime__status table__cell" scope="row"></th>
+        <th class="anime__text anime__aired-start table__cell" scope="row"></th>
+      </tr>
+    </template>
     <script type="module" src="./index.ts"></script>
   </body>
 </html>

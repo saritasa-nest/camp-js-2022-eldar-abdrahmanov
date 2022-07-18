@@ -1,0 +1,8 @@
+.anime__title {
+  font-size: var(--title-font-size);
+  line-height: 1.5;
+}
+
+.anime__title:nth-child(2) {
+  margin-bottom: 15px;
+}
