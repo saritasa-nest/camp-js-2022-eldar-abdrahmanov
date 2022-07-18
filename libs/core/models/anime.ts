@@ -21,10 +21,10 @@ export default class Anime extends Immerable {
   /** Status. */
   public readonly status: string;
 
-  /** AiredStart */
+  /** AiredStart. */
   public readonly airedStart: Date;
 
-  constructor(data: Args) {
+  public constructor(data: Args) {
     super();
     this.id = data.id;
     this.titleEng = data.titleEng;
