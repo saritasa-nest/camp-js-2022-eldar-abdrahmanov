@@ -1,29 +1,23 @@
+import axios from 'axios';
 import { Pagination } from '@js-camp/core/models/pagination';
 import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
-import { AnimeTypeEnum } from '@js-camp/core/unions/animeType';
-import Anime from '@js-camp/core/models/anime';
+import { AnimeType } from '@js-camp/core/enums/animeType';
+import { Anime } from '@js-camp/core/models/anime';
 
 /** A class designed to interact with API. */
 export class API {
-  /** Base URL. */
-  private readonly baseUrl: string;
-
-  /** URL query part. */
-  public urlQuery: string;
-
-  public constructor(baseUrl: string, urlQuery: string) {
-    this.baseUrl = baseUrl;
-    this.urlQuery = urlQuery;
-  }
+  public constructor(
+    private readonly baseUrl: string,
+    public urlQuery: string,
+  ) {}
 
   /** Send request.
    * @param url Link.
    */
   public async getPagination(url: string): Promise<Pagination<Anime>> {
     try {
-      const res = await fetch(url);
-      const data = await res.json();
-      return PaginationMapper.fromDto(data);
+      const response = await axios.get(url);
+      return PaginationMapper.fromDto(response.data);
     } catch (err: unknown) {
       throw new Error(err.message);
     }
@@ -34,7 +28,7 @@ export class API {
    */
   public getPaginationWithOffset(offset: number): Promise<Pagination<Anime>> {
     let url: string;
-    if (this.urlQuery in AnimeTypeEnum) {
+    if (this.urlQuery in AnimeType) {
       url = `${this.baseUrl}?offset=${offset}&type=${this.urlQuery}`;
     } else {
       url = `${this.baseUrl}?offset=${offset}&ordering=${this.urlQuery}`;

@@ -1,16 +1,16 @@
 /** Pagination cell. */
-export default class PaginationCell {
+export class PaginationCell {
   /** Label. */
-  public label: number | string;
+  public readonly label: number | string;
 
   /** Click handler.*/
-  public clickHandler: (index: number) => Promise<void>;
+  public readonly clickHandler: (index: number) => Promise<void>;
 
   /** Cell. */
   public cell?: Element;
 
   /** Is disable. */
-  public isDisable?: boolean;
+  public readonly isDisable?: boolean;
 
   public constructor(
     label: number | string,

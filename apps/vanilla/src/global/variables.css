@@ -1,7 +1,10 @@
 :root {
   --active-status-color: cornflowerblue;
-  --main-font-size: 1.1em;
+  --aliceblue-color: aliceblue;
+  --title-font-size: 2em;
+  --title-line-height: 2.3em;
   --basic-font-size: 1em;
+  --basic-line-height: 1.5em;
   --box-shadow-hover-cornflowerblue: 0 0 2px 2px cornflowerblue;
   --simple-black-border: 1px solid black;
 }

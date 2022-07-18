@@ -3,10 +3,10 @@ import { getElement } from '../../utils/utils';
 /** Pagination container. */
 export class PaginationContainer {
   /** Container. */
-  private container: HTMLElement;
+  private readonly container: HTMLElement;
 
   /** Total count. */
-  public totalCount: number;
+  public readonly totalCount: number;
 
   /** Items per page. */
   public itemsPerPage: number;
@@ -23,7 +23,8 @@ export class PaginationContainer {
   }
 
   /** Render pagination. And set style first pagination cell active.
-   * @param elementList -  pagination cells array. */
+   * @param elementList -  pagination cells array.
+   */
   public renderPagination(elementList: HTMLElement[]): void {
     const indexOfFirstPaginationCell = 1;
     elementList[indexOfFirstPaginationCell].classList.add('active');

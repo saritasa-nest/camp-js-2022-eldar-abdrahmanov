@@ -1,15 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import anime from '@js-camp/core/models/anime';
+import { Anime } from '@js-camp/core/models/anime';
 
-import AnimeCard from '../components/animeCard';
+import { AnimeCard } from '../components/animeCard';
 import { API } from '../components/api';
 import { Table } from '../components/animeTable/table';
 import { PaginationContainer } from '../components/pagination/paginationContainer';
 import { TableHeaderButton } from '../components/animeTable/tableHeaderButton';
-import PaginationCell from '../components/pagination/paginationCell';
-import PaginationNext from '../components/pagination/paginationNext';
-import PaginationPrevious from '../components/pagination/paginationPrevious';
+import { PaginationCell } from '../components/pagination/paginationCell';
+import { PaginationNext } from '../components/pagination/paginationNext';
+import { PaginationPrevious } from '../components/pagination/paginationPrevious';
 import { BASE_URL } from '../components/constants/constants';
 
 const limitAnimeOnPage = 25;
@@ -32,21 +32,21 @@ const paginationContainer: PaginationContainer = new PaginationContainer(
 let currentPagination = await api.getPaginationWithOffset(0);
 
 /** Instance of header button responsible for sorting by title eng. */
-const titleEngSortBtn = new TableHeaderButton('#table-title-eng', async() => {
+const titleEngSortButton = new TableHeaderButton('#table-title-eng', async() => {
   api.setUrlQuery('title_eng');
   currentPagination = await api.getPaginationWithOffset(0);
   renderPage(numberOfPaginationIndexes, 0);
 });
 
 /** Instance of header button responsible for sorting by aired start. */
-const airedStartSortBtn = new TableHeaderButton('#table-aired-start', async() => {
+const airedStartSortButton = new TableHeaderButton('#table-aired-start', async() => {
   api.setUrlQuery('aired__startswith');
   currentPagination = await api.getPaginationWithOffset(0);
   renderPage(numberOfPaginationIndexes, 0);
 });
 
 /** Instance of header button responsible for sorting by status. */
-const statusSortBtn = new TableHeaderButton('#table-status', async() => {
+const statusSortButton = new TableHeaderButton('#table-status', async() => {
   api.setUrlQuery('status');
   currentPagination = await api.getPaginationWithOffset(0);
   renderPage(numberOfPaginationIndexes, 0);
@@ -80,7 +80,7 @@ async function handlePaginationNextClick(indexOfLastCell: number): Promise<void>
 async function handlePaginationPreviousClick(indexOfFirstCell: number): Promise<void> {
   const offset = indexOfFirstCell * limitAnimeOnPage;
   currentPagination = await api.getPaginationWithOffset(offset);
-  renderPage(numberOfPaginationIndexes, indexOfFirstCell);
+  renderPage(numberOfPaginationIndexes, indexOfFirstCell - numberOfPaginationIndexes);
 }
 
 /** Creates and initializes a pagination cell array. Return array of HTML elements.
@@ -133,7 +133,7 @@ function createPaginationCellList(
 /** Render table. */
 function renderTable(): void {
   const animeList = currentPagination.results;
-  animeList?.forEach((item: anime) => {
+  animeList?.forEach((item: Anime) => {
     animeTable.renderElement(new AnimeCard(item).createAnimeCard('.anime-template'));
   });
 }
@@ -155,6 +155,6 @@ function renderPage(paginationLength: number, paginationStartIndex: number): voi
 renderPage(numberOfPaginationIndexes, 0);
 
 /** Set event listeners on sorting buttons. */
-statusSortBtn.setEventListener();
-airedStartSortBtn.setEventListener();
-titleEngSortBtn.setEventListener();
+statusSortButton.setEventListener();
+airedStartSortButton.setEventListener();
+titleEngSortButton.setEventListener();

@@ -1,27 +1,30 @@
-import AiredDto from './aired.dto';
-import {AnimeType} from '../unions/animeType';
-import { AnimeStatus } from "@js-camp/core/unions/statusType";
+import { AnimeStatus } from '@js-camp/core/enums/statusType';
+
+import { AnimeType } from '../enums/animeType';
+
+import { AiredDto } from './aired.dto';
 
 /** Anime DTO. */
 export interface AnimeDto {
-  /** Id*/
+
+  /** Id. */
   readonly id: number;
 
-  /** Image*/
+  /** Image. */
   readonly image: string;
 
-  /** TitleEng*/
+  /** TitleEng. */
   readonly title_eng: string;
 
-  /** TitleJpn*/
+  /** TitleJpn. */
   readonly title_jpn: string;
 
-  /** Type*/
+  /** Type. */
   readonly type: AnimeType;
 
-  /** Status*/
+  /** Status. */
   readonly status: AnimeStatus;
 
-  /** Aired*/
+  /** Aired. */
   readonly aired: AiredDto;
 }

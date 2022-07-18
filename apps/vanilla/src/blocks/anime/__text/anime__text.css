@@ -1,5 +1,5 @@
 .anime__text {
   font-size: var(--basic-font-size);
-  line-height: 20px;
+  line-height: var(--basic-line-height);
   font-weight: normal;
 }

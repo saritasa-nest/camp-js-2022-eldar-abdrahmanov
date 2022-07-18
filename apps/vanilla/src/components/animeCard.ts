@@ -1,9 +1,10 @@
-import Anime from '@js-camp/core/models/anime';
+import { Anime } from '@js-camp/core/models/anime';
+import { AnimeStatus } from '@js-camp/core/enums/statusType';
 
 import { getElement } from '../utils/utils';
 
 /** AnimeCard. */
-export default class AnimeCard {
+export class AnimeCard {
   /** Id. */
   public readonly id: number;
 
@@ -20,7 +21,7 @@ export default class AnimeCard {
   public readonly type: string;
 
   /** Status. */
-  public readonly status: string;
+  public readonly status: AnimeStatus;
 
   /** AiredStart. */
   public readonly airedStart: Date;

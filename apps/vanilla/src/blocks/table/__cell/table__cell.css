@@ -1,7 +1,7 @@
 .table__cell {
-  border: 1px solid black;
+  border: var(--simple-black-border);
   border-radius: 4px;
   padding: 8px;
-  background-color: aliceblue;
+  background-color: var(--aliceblue-color);
   cursor: pointer;
 }
