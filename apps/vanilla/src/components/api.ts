@@ -2,12 +2,16 @@ import axios from 'axios';
 
 import { AnimeType } from '@js-camp/core/enums/animeType';
 import { Anime } from '@js-camp/core/models/anime';
+import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
+import { Pagination } from '@js-camp/core/models/pagination';
+
 /** A class designed to interact with API. */
 export class API {
   public constructor(
     private readonly baseUrl: string,
     public urlQuery: string,
-  ) {}
+  ) {
+  }
 
   /** Send request.
    * @param url Link.
@@ -40,3 +44,4 @@ export class API {
   public setUrlQuery(urlQuery: string): void {
     this.urlQuery = urlQuery;
   }
+}

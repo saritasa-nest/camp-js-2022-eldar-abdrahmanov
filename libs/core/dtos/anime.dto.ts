@@ -1,4 +1,4 @@
-import { AnimeStatus } from '@js-camp/core/enums/statusType';
+import { AnimeStatus } from '@js-camp/core/enums/animeStatus';
 
 import { AnimeType } from '../enums/animeType';
 

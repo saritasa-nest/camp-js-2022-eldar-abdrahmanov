@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { Anime } from '@js-camp/core/models/anime';
 
+import { AnimeType } from '@js-camp/core/enums/animeType';
+
 import { AnimeCard } from '../components/animeCard';
 import { API } from '../components/api';
 import { Table } from '../components/animeTable/table';
@@ -11,8 +13,8 @@ import { PaginationCell } from '../components/pagination/paginationCell';
 import { PaginationNext } from '../components/pagination/paginationNext';
 import { PaginationPrevious } from '../components/pagination/paginationPrevious';
 import { BASE_URL } from '../components/constants/constants';
-import { DropdownBtn } from "../components/dropdownMenu/dropdownBtn";
-import { DropdownMenu } from "../components/dropdownMenu/dropdownMenu";
+import { DropdownButton } from '../components/dropdownMenu/dropdownButton';
+import { DropdownMenu } from '../components/dropdownMenu/dropdownMenu';
 
 const limitAnimeOnPage = 25;
 const numberOfPaginationIndexes = 10;
@@ -30,7 +32,7 @@ const paginationContainer: PaginationContainer = new PaginationContainer(
   limitAnimeOnPage,
 );
 
-/** Type button dropdown menu container */
+/** Type button dropdown menu container. */
 const typeDropdownMenu: DropdownMenu = new DropdownMenu('.dropdown-menu');
 
 /** Pagination state variable. */
@@ -57,16 +59,18 @@ const statusSortButton = new TableHeaderButton('#table-status', async() => {
   renderPage(numberOfPaginationIndexes, 0);
 });
 
-/***/
-function initializeSortByTypeBtn() {
-  animeTypeList.forEach(item => {//пробовать enum
-    const dropDownBtn: DropdownBtn = new DropdownBtn(item, handleTypeBtnClick);
+/** Initialize anime type sort buttons. */
+function initializeSortByTypeButton(): void {
+  for (const type in AnimeType) {
+    const dropDownBtn = new DropdownButton(AnimeType[type], handleTypeButtonClick);
     typeDropdownMenu.renderElement(dropDownBtn.initiateDropdownBtn());
-  })
+  }
 }
 
-/***/
-async function handleTypeBtnClick(type: string) {
+/** The click handler passed to the constructor when the type button is instantiated.
+ * @param type String use in api to set query.
+ */
+async function handleTypeButtonClick(type: string): Promise<void> {
   api.setUrlQuery(type);
   currentPagination = await api.getPaginationWithOffset(0);
   renderPage(numberOfPaginationIndexes, 0);
@@ -173,6 +177,7 @@ function renderPage(paginationLength: number, paginationStartIndex: number): voi
 }
 
 renderPage(numberOfPaginationIndexes, 0);
+initializeSortByTypeButton();
 
 /** Set event listeners on sorting buttons. */
 statusSortButton.setEventListener();

@@ -1,5 +1,5 @@
 import { Anime } from '@js-camp/core/models/anime';
-import { AnimeStatus } from '@js-camp/core/enums/statusType';
+import { AnimeStatus } from '@js-camp/core/enums/animeStatus';
 
 import { getElement } from '../utils/utils';
 

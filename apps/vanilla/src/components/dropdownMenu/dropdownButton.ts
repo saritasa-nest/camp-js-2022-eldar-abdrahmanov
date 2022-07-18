@@ -1,5 +1,5 @@
 /** Dropdown button. */
-export class DropdownBtn {
+export class DropdownButton {
   /** Label. */
   public animeType: string;
 
@@ -19,14 +19,14 @@ export class DropdownBtn {
    */
   public initiateDropdownBtn(): HTMLElement {
     const template = document.querySelector(
-      '.dropdown-template'
+      '.dropdown-template',
     ) as HTMLTemplateElement;
     const dropdownElement = template.content
       .querySelector('.dropdown-element')
       ?.cloneNode(true) as HTMLElement;
     if (dropdownElement) {
       const dropdownBtn = dropdownElement.querySelector('.dropdown-item');
-      if(dropdownBtn) {
+      if (dropdownBtn) {
         dropdownBtn.textContent = this.animeType;
       }
     }
@@ -44,11 +44,11 @@ export class DropdownBtn {
     this.button?.classList.add('active');
   }
 
-  /** Set event listener*/
+  /** Set event listener. */
   public setEventListener(): void {
     this.button?.addEventListener('click', () => {
       this.setButtonActive();
-      this.clickHandler(this.animeType)
-    })
+      this.clickHandler(this.animeType);
+    });
   }
 }

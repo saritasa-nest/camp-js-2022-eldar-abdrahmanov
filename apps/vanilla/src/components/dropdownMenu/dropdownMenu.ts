@@ -1,16 +1,16 @@
 /**  Class representing a dropdown menu. */
 export class DropdownMenu {
-  /** Container */
-  public readonly container: HTMLElement;
+  /** Container. */
+  public readonly menuElement: HTMLElement;
 
   public constructor(selector: string) {
-    this.container = document.querySelector(selector) as HTMLElement;
+    this.menuElement = document.querySelector(selector) as HTMLElement;
   }
 
   /** Render element.
    * @param element - HTML element.
    */
   public renderElement(element: HTMLElement): void {
-    this.container.append(element);
+    this.menuElement.append(element);
   }
 }
