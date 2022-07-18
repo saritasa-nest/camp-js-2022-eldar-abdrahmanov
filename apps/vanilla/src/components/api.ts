@@ -15,27 +15,18 @@ export class API {
   }
 
   /**
-   * Send request.
-   * @param url Link.
+   * Construct request url.
    */
-  private async getPagination(url: string): Promise<Pagination> {
+  public async getPagination(): Promise<Pagination> {
+    const url = `${this.baseUrl}?${this.urlQuery.toString()}`;
+
     try {
-      const res = await fetch(url);
-      const data = await res.json();
+      const data = await fetch(url).then(res => res.json());
       return PaginationMapper.fromDto(data);
     } catch (err: unknown) {
       console.error(err);
       throw new Error('Error');
     }
-  }
-
-  /**
-   * Construct request url.
-   */
-  public getPaginationWithOffset(): Promise<Pagination> {
-    const url = this.urlQuery.toString();
-
-    return this.getPagination(`${this.baseUrl}?${url}`);
   }
 
   /**

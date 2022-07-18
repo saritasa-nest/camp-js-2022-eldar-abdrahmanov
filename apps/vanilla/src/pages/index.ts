@@ -33,28 +33,28 @@ let currentPagination: Pagination = new Pagination(0, '', '', []);
 /** Instance of header button responsible for sorting by title eng. */
 const titleEngSortBtn = new TableHeaderButton('#table-title-eng', async() => {
   api.setQueryParam('ordering', 'title_eng');
-  currentPagination = await api.getPaginationWithOffset();
+  currentPagination = await api.getPagination();
   renderPage(numberOfPaginationIndexes, 0);
 });
 
 /** Instance of header button responsible for sorting by aired start. */
 const airedStartSortBtn = new TableHeaderButton('#table-aired-start', async() => {
   api.setQueryParam('ordering', 'aired__startswith');
-  currentPagination = await api.getPaginationWithOffset();
+  currentPagination = await api.getPagination();
   renderPage(numberOfPaginationIndexes, 0);
 });
 
 /** Instance of header button responsible for sorting by status. */
 const statusSortBtn = new TableHeaderButton('#table-status', async() => {
   api.setQueryParam('ordering', 'status');
-  currentPagination = await api.getPaginationWithOffset();
+  currentPagination = await api.getPagination();
   renderPage(numberOfPaginationIndexes, 0);
 });
 
 const searching = new Searching(
   document.querySelector('#searching'), async(titlePart: string) => {
     api.setQueryParam('title_eng__icontains', titlePart);
-    currentPagination = await api.getPaginationWithOffset();
+    currentPagination = await api.getPagination();
     renderPage(numberOfPaginationIndexes, 0);
   },
 );
@@ -66,7 +66,7 @@ const searching = new Searching(
 async function handlePaginationCellClick(indexOfCell: number): Promise<void> {
   const offset = indexOfCell * limitAnimeOnPage;
   api.setQueryParam('offset', String(offset));
-  currentPagination = await api.getPaginationWithOffset();
+  currentPagination = await api.getPagination();
   animeTable.clearTable();
   renderTable();
 }
@@ -78,7 +78,7 @@ async function handlePaginationCellClick(indexOfCell: number): Promise<void> {
 async function handlePaginationNextClick(indexOfLastCell: number): Promise<void> {
   const offset = indexOfLastCell * limitAnimeOnPage;
   api.setQueryParam('offset', String(offset));
-  currentPagination = await api.getPaginationWithOffset();
+  currentPagination = await api.getPagination();
   renderPage(numberOfPaginationIndexes, indexOfLastCell);
 }
 
@@ -89,7 +89,7 @@ async function handlePaginationNextClick(indexOfLastCell: number): Promise<void>
 async function handlePaginationPreviousClick(indexOfFirstCell: number): Promise<void> {
   const offset = indexOfFirstCell * limitAnimeOnPage;
   api.setQueryParam('offset', String(offset));
-  currentPagination = await api.getPaginationWithOffset();
+  currentPagination = await api.getPagination();
   renderPage(numberOfPaginationIndexes, indexOfFirstCell);
 }
 
@@ -167,7 +167,7 @@ function renderPage(paginationLength: number, paginationStartIndex: number): voi
  * Loads the start page.
  */
 async function loadStartPage(): Promise<void> {
-  currentPagination = await api.getPaginationWithOffset();
+  currentPagination = await api.getPagination();
   renderPage(numberOfPaginationIndexes, 0);
 }
 
