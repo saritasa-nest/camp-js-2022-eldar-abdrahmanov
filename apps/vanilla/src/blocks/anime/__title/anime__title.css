@@ -1,6 +1,6 @@
 .anime__title {
-  font-size: 20px;
-  line-height: 28px;
+  font-size: var(--title-font-size);
+  line-height: 1.5;
 }
 
 .anime__title:nth-child(2) {

@@ -12,9 +12,9 @@ export default class Pagination {
   public previous: string | null;
 
   /** Results. */
-  public results?: Anime[] | null;
+  public results?: readonly Anime[] | null;
 
-  public constructor(count: number, next: string | null, previous: string | null, results?: []) {
+  public constructor(count: number, next: string | null, previous: string | null, results?: readonly []) {
     this.count = count;
     this.next = next;
     this.previous = previous;

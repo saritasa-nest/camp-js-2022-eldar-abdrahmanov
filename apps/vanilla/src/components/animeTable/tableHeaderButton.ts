@@ -1,10 +1,10 @@
 /** TableHeaderButton. */
 export class TableHeaderButton {
   /** Element. */
-  public element: HTMLElement;
+  public readonly element: HTMLElement;
 
   /** Click handler. */
-  public clickHandler: () => void;
+  public readonly clickHandler: () => void;
 
   public constructor(id: string, clickHandler: () => void) {
     this.element = document.querySelector(id) as HTMLElement;

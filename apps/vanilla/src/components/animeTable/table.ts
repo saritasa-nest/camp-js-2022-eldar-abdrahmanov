@@ -1,10 +1,10 @@
 /** Class representing a table. */
 export class Table {
   /** Container. */
-  public container: HTMLElement;
+  public readonly tableContainer: HTMLElement;
 
   public constructor(selector: string) {
-    this.container = document.querySelector(selector) as HTMLElement;
+    this.tableContainer = document.querySelector(selector) as HTMLElement;
   }
 
   /** Clears the content of the table. */
@@ -17,9 +17,11 @@ export class Table {
     });
   }
 
-  /** Render element.
-   * @param element - HTML element.*/
+  /**
+   * Render element.
+   * @param element - HTML element.
+   */
   public renderElement(element: HTMLElement): void {
-    this.container.append(element);
+    this.tableContainer.append(element);
   }
 }

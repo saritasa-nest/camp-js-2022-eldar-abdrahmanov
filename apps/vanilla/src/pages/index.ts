@@ -154,7 +154,7 @@ function renderTable(): void {
  * @param paginationStartIndex Determines the start index of the pagination on the page.
  */
 function renderPage(paginationLength: number, paginationStartIndex: number): void {
-  const paginationCellList: HTMLElement[] = createPaginationCellList(
+  const paginationCellList: readonly HTMLElement[] = createPaginationCellList(
     paginationLength,
     paginationStartIndex,
   );

@@ -21,7 +21,7 @@ export class API {
     const url = `${this.baseUrl}?${this.urlQuery.toString()}`;
 
     try {
-      const data = await fetch(url).then(res => res.json());
+      const data = await fetch(url).then(response => response.json());
       return PaginationMapper.fromDto(data);
     } catch (err: unknown) {
       console.error(err);

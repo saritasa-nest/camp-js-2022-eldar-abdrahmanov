@@ -1,3 +1,6 @@
 :root {
-  --btn-active-status-color: cornflowerblue;
+  --btn-active-status-color: #6495ed;
+  --basic-font-size: 16px;
+  --title-font-size: 20px;
+  --short-animation: 0.2s;
 }

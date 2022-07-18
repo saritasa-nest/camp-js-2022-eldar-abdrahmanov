@@ -1,5 +1,5 @@
 .anime:hover {
   cursor: pointer;
-  box-shadow: 0 0 2px 2px cornflowerblue;
-  transition: all 0.2s;
+  box-shadow: 0 0 2px 2px var(--btn-active-status-color);
+  transition: all var(--short-animation);
 }
