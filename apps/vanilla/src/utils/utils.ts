@@ -1,4 +1,5 @@
-/** Checking if an element exists.
+/**
+ * Checking if an element exists and return it.
  * @param parentElement Looking for in this element.
  * @param selector The element selector we are looking for.
  */

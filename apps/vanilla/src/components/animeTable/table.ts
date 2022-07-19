@@ -17,8 +17,10 @@ export class Table {
     });
   }
 
-  /** Render element.
-   * @param element - HTML element.*/
+  /**
+   * Render element.
+   * @param element - HTML element.
+   */
   public renderElement(element: HTMLElement): void {
     this.tableElement.append(element);
   }

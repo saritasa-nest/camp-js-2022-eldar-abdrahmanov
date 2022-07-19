@@ -36,7 +36,8 @@ export class AnimeCard {
     this.status = anime.status;
   }
 
-  /** Create and initiate an anime card from a template. Return HTML element.
+  /**
+   * Create and initiate an anime card from a template. Return HTML element.
    * @param templateSelector Template selector.
    */
   public createAnimeCard(templateSelector: string): HTMLElement {

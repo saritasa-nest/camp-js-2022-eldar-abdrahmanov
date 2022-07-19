@@ -22,7 +22,8 @@ export class PaginationCell {
     this.isDisable = isDisable;
   }
 
-  /** Clones the template content and creates a pagination cell.
+  /**
+   * Clones the template content and creates a pagination cell.
    * Initiates content and adds an event listener.
    */
   public initiatePaginationCell(): HTMLElement {

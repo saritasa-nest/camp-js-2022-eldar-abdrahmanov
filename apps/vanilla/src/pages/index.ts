@@ -52,9 +52,10 @@ const statusSortButton = new TableHeaderButton('#table-status', async() => {
   renderPage(numberOfPaginationIndexes, 0);
 });
 
-/** The handler passed to the constructor when the pagination cell is instantiated.
- *  Updates the pagination state and the table.
- *  @param indexOfCell Used to calculate offset in request.
+/**
+ * The handler passed to the constructor when the pagination cell is instantiated.
+ * Updates the pagination state and the table.
+ * @param indexOfCell Used to calculate offset in request.
  */
 async function handlePaginationCellClick(indexOfCell: number): Promise<void> {
   const offset = indexOfCell * limitAnimeOnPage;
@@ -63,9 +64,10 @@ async function handlePaginationCellClick(indexOfCell: number): Promise<void> {
   renderTable();
 }
 
-/** The handler passed to the constructor when the pagination next button is instantiated.
- *  Updates the pagination state and the table.
- *  @param indexOfLastCell Used to calculate offset in request.
+/**
+ * The handler passed to the constructor when the pagination next button is instantiated.
+ * Updates the pagination state and the table.
+ * @param indexOfLastCell Used to calculate offset in request.
  */
 async function handlePaginationNextClick(indexOfLastCell: number): Promise<void> {
   const offset = indexOfLastCell * limitAnimeOnPage;
@@ -73,9 +75,10 @@ async function handlePaginationNextClick(indexOfLastCell: number): Promise<void>
   renderPage(numberOfPaginationIndexes, indexOfLastCell);
 }
 
-/** The handler passed to the constructor when the pagination previous button is instantiated.
- *  Updates the pagination state and the table.
- *  @param indexOfFirstCell Used to calculate offset in request.
+/**
+ * The handler passed to the constructor when the pagination previous button is instantiated.
+ * Updates the pagination state and the table.
+ * @param indexOfFirstCell Used to calculate offset in request.
  */
 async function handlePaginationPreviousClick(indexOfFirstCell: number): Promise<void> {
   const offset = indexOfFirstCell * limitAnimeOnPage;
@@ -83,7 +86,8 @@ async function handlePaginationPreviousClick(indexOfFirstCell: number): Promise<
   renderPage(numberOfPaginationIndexes, indexOfFirstCell - numberOfPaginationIndexes);
 }
 
-/** Creates and initializes a pagination cell array. Return array of HTML elements.
+/**
+ * Creates and initializes a pagination cell array. Return array of HTML elements.
  * @param paginationLength Determines the length of the pagination on the page.
  * @param paginationStartIndex Determines the start index of the pagination on the page.
  */
@@ -138,7 +142,8 @@ function renderTable(): void {
   });
 }
 
-/** Sends a request and updates the table and pagination.
+/**
+ * Sends a request and updates the table and pagination.
  * @param paginationLength Determines the length of the pagination on the page.
  * @param paginationStartIndex Determines the start index of the pagination on the page.
  */

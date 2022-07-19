@@ -11,7 +11,8 @@ export class API {
     public urlQuery: string,
   ) {}
 
-  /** Send request.
+  /**
+   * Send request.
    * @param url Link.
    */
   public async getPagination(url: string): Promise<Pagination<Anime>> {
@@ -23,7 +24,8 @@ export class API {
     }
   }
 
-  /** Construct request url.
+  /**
+   * Construct request url.
    * @param offset Use in url.
    */
   public getPaginationWithOffset(offset: number): Promise<Pagination<Anime>> {
@@ -36,7 +38,8 @@ export class API {
     return this.getPagination(url);
   }
 
-  /** Set the field urlQuery of API instance.
+  /**
+   * Set the field urlQuery of API instance.
    * @param urlQuery String.
    */
   public setUrlQuery(urlQuery: string): void {

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
+    <title>Anime catalog</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <h1 class="header__title" id="anime-catalog">Registration page</h1>
+    </header>
+    <main>
+      <form class="form register-form">
+        <div class="mb-3">
+          <label for="inputEmail" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="inputEmail" name="email" required minlength="1" maxlength="254">
+        </div>
+        <div class="mb-3">
+          <label for="inputFirstName" class="form-label">First name</label>
+          <input type="text" class="form-control" id="inputFirstName" name="firstName" maxlength="30">
+        </div>
+        <div class="mb-3">
+          <label for="inputLastName" class="form-label">Last name</label>
+          <input type="text" class="form-control" id="inputLastName" name="lastName" maxlength="30">
+        </div>
+        <div class="mb-3">
+          <label for="inputAvatar" class="form-label">Avatar link</label>
+          <input type="url" class="form-control" id="inputAvatar" name="avatarUrl" minlength="1" maxlength="512">
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="inputPassword" name="password" required minlength="1" maxlength="128">
+        </div>
+        <button type="submit" class="btn btn-primary form__submit-button">Submit</button>
+      </form>
+    </main>
+    <footer>
+
+    </footer>
+
+    <script type="module" src="registration.ts"></script>
+  </body>
+</html>
