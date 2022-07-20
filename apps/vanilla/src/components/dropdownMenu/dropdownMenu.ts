@@ -7,7 +7,8 @@ export class DropdownMenu {
     this.menuElement = document.querySelector(selector) as HTMLElement;
   }
 
-  /** Render element.
+  /**
+   * Render element.
    * @param element - HTML element.
    */
   public renderElement(element: HTMLElement): void {

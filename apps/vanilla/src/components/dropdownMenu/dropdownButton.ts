@@ -1,10 +1,10 @@
 /** Dropdown button. */
 export class DropdownButton {
   /** Label. */
-  public animeType: string;
+  public readonly animeType: string;
 
   /** Click handler.*/
-  public clickHandler: (animeType: string) => void;
+  public readonly clickHandler: (animeType: string) => void;
 
   /** Button. */
   public button?: HTMLElement;
@@ -14,25 +14,26 @@ export class DropdownButton {
     this.clickHandler = clickHandler;
   }
 
-  /** Clones the template content and creates a dropdown button.
+  /**
+   * Clones the template content and creates a dropdown button.
    * Initiates content and adds an event listener.
    */
-  public initiateDropdownBtn(): HTMLElement {
+  public initiateDropdownButton(): HTMLElement {
     const template = document.querySelector(
       '.dropdown-template',
     ) as HTMLTemplateElement;
     const dropdownElement = template.content
       .querySelector('.dropdown-element')
       ?.cloneNode(true) as HTMLElement;
-    if (dropdownElement) {
-      const dropdownBtn = dropdownElement.querySelector('.dropdown-item');
-      if (dropdownBtn) {
-        dropdownBtn.textContent = this.animeType;
+    if (dropdownElement !== null) {
+      const dropdownButton = dropdownElement.querySelector('.dropdown-item');
+      if (dropdownButton !== null) {
+        dropdownButton.textContent = this.animeType;
       }
     }
     this.button = dropdownElement;
 
-    if (!this.button) {
+    if (this.button === null) {
       throw new Error('Element not found!');
     }
     this.setEventListener();

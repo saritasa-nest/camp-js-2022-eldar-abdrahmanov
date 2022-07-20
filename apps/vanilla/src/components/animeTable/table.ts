@@ -11,14 +11,16 @@ export class Table {
   public clearTable(): void {
     const animeList = document.querySelectorAll('.anime');
     animeList.forEach(element => {
-      if (element.parentNode) {
+      if (element.parentNode !== null) {
         element.parentNode.removeChild(element);
       }
     });
   }
 
-  /** Render element.
-   * @param element - HTML element.*/
+  /**
+   * Render element.
+   * @param element - HTML element.
+   */
   public renderElement(element: HTMLElement): void {
     this.tableElement.append(element);
   }

@@ -33,7 +33,7 @@ const paginationContainer: PaginationContainer = new PaginationContainer(
 );
 
 /** Type button dropdown menu container. */
-const typeDropdownMenu: DropdownMenu = new DropdownMenu('.dropdown-menu');
+const typeDropdownMenu = new DropdownMenu('.dropdown-menu');
 
 /** Pagination state variable. */
 let currentPagination = await api.getPaginationWithOffset(0);
@@ -61,13 +61,14 @@ const statusSortButton = new TableHeaderButton('#table-status', async() => {
 
 /** Initialize anime type sort buttons. */
 function initializeSortByTypeButton(): void {
-  for (const type in AnimeType) {
-    const dropDownBtn = new DropdownButton(AnimeType[type], handleTypeButtonClick);
-    typeDropdownMenu.renderElement(dropDownBtn.initiateDropdownBtn());
+  for (const animeType in AnimeType) {
+    const dropDownBtn = new DropdownButton(AnimeType[animeType], handleTypeButtonClick);
+    typeDropdownMenu.renderElement(dropDownBtn.initiateDropdownButton());
   }
 }
 
-/** The click handler passed to the constructor when the type button is instantiated.
+/**
+ * The click handler passed to the constructor when the type button is instantiated.
  * @param type String use in api to set query.
  */
 async function handleTypeButtonClick(type: string): Promise<void> {
@@ -76,7 +77,8 @@ async function handleTypeButtonClick(type: string): Promise<void> {
   renderPage(numberOfPaginationIndexes, 0);
 }
 
-/** The handler passed to the constructor when the pagination cell is instantiated.
+/**
+ * The handler passed to the constructor when the pagination cell is instantiated.
  *  Updates the pagination state and the table.
  *  @param indexOfCell Used to calculate offset in request.
  */
@@ -87,7 +89,8 @@ async function handlePaginationCellClick(indexOfCell: number): Promise<void> {
   renderTable();
 }
 
-/** The handler passed to the constructor when the pagination next button is instantiated.
+/**
+ * The handler passed to the constructor when the pagination next button is instantiated.
  *  Updates the pagination state and the table.
  *  @param indexOfLastCell Used to calculate offset in request.
  */
@@ -97,7 +100,8 @@ async function handlePaginationNextClick(indexOfLastCell: number): Promise<void>
   renderPage(numberOfPaginationIndexes, indexOfLastCell);
 }
 
-/** The handler passed to the constructor when the pagination previous button is instantiated.
+/**
+ * The handler passed to the constructor when the pagination previous button is instantiated.
  *  Updates the pagination state and the table.
  *  @param indexOfFirstCell Used to calculate offset in request.
  */
@@ -107,7 +111,8 @@ async function handlePaginationPreviousClick(indexOfFirstCell: number): Promise<
   renderPage(numberOfPaginationIndexes, indexOfFirstCell - numberOfPaginationIndexes);
 }
 
-/** Creates and initializes a pagination cell array. Return array of HTML elements.
+/**
+ * Creates and initializes a pagination cell array. Return array of HTML elements.
  * @param paginationLength Determines the length of the pagination on the page.
  * @param paginationStartIndex Determines the start index of the pagination on the page.
  */
@@ -115,7 +120,7 @@ function createPaginationCellList(
   paginationLength: number,
   paginationStartIndex: number,
 ): HTMLElement[] {
-  const cellsList: HTMLElement[] = [];
+  const cellList: HTMLElement[] = [];
   for (
     let i = paginationStartIndex;
     i <= paginationLength + paginationStartIndex;
@@ -124,7 +129,7 @@ function createPaginationCellList(
 
     // Condition for defining the previous button
     if (i === paginationStartIndex) {
-      cellsList.push(
+      cellList.push(
         new PaginationPrevious(
           '<<',
           handlePaginationPreviousClick,
@@ -135,7 +140,7 @@ function createPaginationCellList(
       // Condition for defining the next button
     } else if (i === paginationLength + paginationStartIndex) {
       const maxPageNumber = currentPagination.count / 25;
-      cellsList.push(
+      cellList.push(
         new PaginationNext(
           '>>',
           handlePaginationNextClick,
@@ -146,12 +151,12 @@ function createPaginationCellList(
     } else {
 
       // Initiate simple pagination cell
-      cellsList.push(
+      cellList.push(
         new PaginationCell(i, handlePaginationCellClick).initiatePaginationCell(),
       );
     }
   }
-  return cellsList;
+  return cellList;
 }
 
 /** Render table. */
@@ -162,7 +167,8 @@ function renderTable(): void {
   });
 }
 
-/** Sends a request and updates the table and pagination.
+/**
+ * Sends a request and updates the table and pagination.
  * @param paginationLength Determines the length of the pagination on the page.
  * @param paginationStartIndex Determines the start index of the pagination on the page.
  */
