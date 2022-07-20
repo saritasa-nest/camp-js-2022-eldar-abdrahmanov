@@ -4,7 +4,7 @@ export class TableHeaderButton {
   public readonly buttonElement: HTMLElement;
 
   /** Click handler. */
-  public clickHandler: () => void;
+  public readonly clickHandler: () => void;
 
   public constructor(id: string, clickHandler: () => void) {
     this.buttonElement = document.querySelector(id) as HTMLElement;

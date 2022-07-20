@@ -22,7 +22,8 @@ export class PaginationCell {
     this.isDisable = isDisable;
   }
 
-  /** Clones the template content and creates a pagination cell.
+  /**
+   * Clones the template content and creates a pagination cell.
    * Initiates content and adds an event listener.
    */
   public initiatePaginationCell(): HTMLElement {
@@ -32,7 +33,7 @@ export class PaginationCell {
     const paginationCell = template.content
       .querySelector('.page-item')
       ?.cloneNode(true) as Element;
-    if (paginationCell) {
+    if (paginationCell !== null) {
       const paginationButton = paginationCell.querySelector('.page-link');
       if (typeof this.label === 'number' && paginationButton) {
         paginationButton.textContent = this.label.toString();
@@ -48,10 +49,10 @@ export class PaginationCell {
 
     if (this.isDisable) {
       this.setDisabled();
-      return <HTMLElement> this.cell;
+      return this.cell as HTMLElement;
     }
     this.setEventListener();
-    return <HTMLElement> this.cell;
+    return this.cell as HTMLElement;
   }
 
   /** Set cell activated. */

@@ -9,7 +9,7 @@ export class PaginationContainer {
   public readonly totalCount: number;
 
   /** Items per page. */
-  public itemsPerPage: number;
+  public readonly itemsPerPage: number;
 
   public constructor(selector: string, totalCount: number, itemsPerPage: number) {
     this.container = getElement(document, selector);
@@ -22,7 +22,8 @@ export class PaginationContainer {
     this.container.innerHTML = '';
   }
 
-  /** Render pagination. And set style first pagination cell active.
+  /**
+   * Render pagination. And set style first pagination cell active.
    * @param elementList -  pagination cells array.
    */
   public renderPagination(elementList: HTMLElement[]): void {

@@ -1,4 +1,6 @@
-import { AnimeStatus } from '@js-camp/core/enums/statusType';
+import { AnimeStatus } from '@js-camp/core/enums/animeStatus';
+
+import { AnimeType } from '@js-camp/core/enums/animeType';
 
 import { Immerable, OmitImmerable } from './immerable';
 
@@ -18,7 +20,7 @@ export class Anime extends Immerable {
   public readonly titleJpn: string;
 
   /** Type. */
-  public readonly type: string;
+  public readonly type: AnimeType;
 
   /** Status. */
   public readonly status: AnimeStatus;

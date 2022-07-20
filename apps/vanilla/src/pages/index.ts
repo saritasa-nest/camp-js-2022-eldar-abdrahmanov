@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { Anime } from '@js-camp/core/models/anime';
 
+import { AnimeType } from '@js-camp/core/enums/animeType';
+
 import { AnimeCard } from '../components/animeCard';
 import { API } from '../components/api';
 import { Table } from '../components/animeTable/table';
@@ -11,6 +13,8 @@ import { PaginationCell } from '../components/pagination/paginationCell';
 import { PaginationNext } from '../components/pagination/paginationNext';
 import { PaginationPrevious } from '../components/pagination/paginationPrevious';
 import { BASE_URL } from '../components/constants/constants';
+import { DropdownButton } from '../components/dropdownMenu/dropdownButton';
+import { DropdownMenu } from '../components/dropdownMenu/dropdownMenu';
 
 const limitAnimeOnPage = 25;
 const numberOfPaginationIndexes = 10;
@@ -27,6 +31,9 @@ const paginationContainer: PaginationContainer = new PaginationContainer(
   0,
   limitAnimeOnPage,
 );
+
+/** Type button dropdown menu container. */
+const typeDropdownMenu = new DropdownMenu('.dropdown-menu');
 
 /** Pagination state variable. */
 let currentPagination = await api.getPaginationWithOffset(0);
@@ -52,7 +59,26 @@ const statusSortButton = new TableHeaderButton('#table-status', async() => {
   renderPage(numberOfPaginationIndexes, 0);
 });
 
-/** The handler passed to the constructor when the pagination cell is instantiated.
+/** Initialize anime type sort buttons. */
+function initializeSortByTypeButton(): void {
+  for (const animeType in AnimeType) {
+    const dropDownBtn = new DropdownButton(AnimeType[animeType], handleTypeButtonClick);
+    typeDropdownMenu.renderElement(dropDownBtn.initiateDropdownButton());
+  }
+}
+
+/**
+ * The click handler passed to the constructor when the type button is instantiated.
+ * @param type String use in api to set query.
+ */
+async function handleTypeButtonClick(type: string): Promise<void> {
+  api.setUrlQuery(type);
+  currentPagination = await api.getPaginationWithOffset(0);
+  renderPage(numberOfPaginationIndexes, 0);
+}
+
+/**
+ * The handler passed to the constructor when the pagination cell is instantiated.
  *  Updates the pagination state and the table.
  *  @param indexOfCell Used to calculate offset in request.
  */
@@ -63,7 +89,8 @@ async function handlePaginationCellClick(indexOfCell: number): Promise<void> {
   renderTable();
 }
 
-/** The handler passed to the constructor when the pagination next button is instantiated.
+/**
+ * The handler passed to the constructor when the pagination next button is instantiated.
  *  Updates the pagination state and the table.
  *  @param indexOfLastCell Used to calculate offset in request.
  */
@@ -73,7 +100,8 @@ async function handlePaginationNextClick(indexOfLastCell: number): Promise<void>
   renderPage(numberOfPaginationIndexes, indexOfLastCell);
 }
 
-/** The handler passed to the constructor when the pagination previous button is instantiated.
+/**
+ * The handler passed to the constructor when the pagination previous button is instantiated.
  *  Updates the pagination state and the table.
  *  @param indexOfFirstCell Used to calculate offset in request.
  */
@@ -83,7 +111,8 @@ async function handlePaginationPreviousClick(indexOfFirstCell: number): Promise<
   renderPage(numberOfPaginationIndexes, indexOfFirstCell - numberOfPaginationIndexes);
 }
 
-/** Creates and initializes a pagination cell array. Return array of HTML elements.
+/**
+ * Creates and initializes a pagination cell array. Return array of HTML elements.
  * @param paginationLength Determines the length of the pagination on the page.
  * @param paginationStartIndex Determines the start index of the pagination on the page.
  */
@@ -91,7 +120,7 @@ function createPaginationCellList(
   paginationLength: number,
   paginationStartIndex: number,
 ): HTMLElement[] {
-  const cellsList: HTMLElement[] = [];
+  const cellList: HTMLElement[] = [];
   for (
     let i = paginationStartIndex;
     i <= paginationLength + paginationStartIndex;
@@ -100,7 +129,7 @@ function createPaginationCellList(
 
     // Condition for defining the previous button
     if (i === paginationStartIndex) {
-      cellsList.push(
+      cellList.push(
         new PaginationPrevious(
           '<<',
           handlePaginationPreviousClick,
@@ -111,7 +140,7 @@ function createPaginationCellList(
       // Condition for defining the next button
     } else if (i === paginationLength + paginationStartIndex) {
       const maxPageNumber = currentPagination.count / 25;
-      cellsList.push(
+      cellList.push(
         new PaginationNext(
           '>>',
           handlePaginationNextClick,
@@ -122,12 +151,12 @@ function createPaginationCellList(
     } else {
 
       // Initiate simple pagination cell
-      cellsList.push(
+      cellList.push(
         new PaginationCell(i, handlePaginationCellClick).initiatePaginationCell(),
       );
     }
   }
-  return cellsList;
+  return cellList;
 }
 
 /** Render table. */
@@ -138,7 +167,8 @@ function renderTable(): void {
   });
 }
 
-/** Sends a request and updates the table and pagination.
+/**
+ * Sends a request and updates the table and pagination.
  * @param paginationLength Determines the length of the pagination on the page.
  * @param paginationStartIndex Determines the start index of the pagination on the page.
  */
@@ -153,6 +183,7 @@ function renderPage(paginationLength: number, paginationStartIndex: number): voi
 }
 
 renderPage(numberOfPaginationIndexes, 0);
+initializeSortByTypeButton();
 
 /** Set event listeners on sorting buttons. */
 statusSortButton.setEventListener();

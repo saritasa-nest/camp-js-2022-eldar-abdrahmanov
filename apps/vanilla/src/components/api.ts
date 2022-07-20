@@ -1,29 +1,29 @@
 import axios from 'axios';
-import { Pagination } from '@js-camp/core/models/pagination';
-import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
+
 import { AnimeType } from '@js-camp/core/enums/animeType';
 import { Anime } from '@js-camp/core/models/anime';
+import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
+import { Pagination } from '@js-camp/core/models/pagination';
 
 /** A class designed to interact with API. */
 export class API {
   public constructor(
     private readonly baseUrl: string,
     public urlQuery: string,
-  ) {}
+  ) {
+  }
 
-  /** Send request.
+  /**
+   * Send request.
    * @param url Link.
    */
   public async getPagination(url: string): Promise<Pagination<Anime>> {
-    try {
-      const response = await axios.get(url);
-      return PaginationMapper.fromDto(response.data);
-    } catch (err: unknown) {
-      throw new Error(err.message);
-    }
+    const response = await axios.get(url);
+    return PaginationMapper.fromDto(response.data);
   }
 
-  /** Construct request url.
+  /**
+   * Construct request url.
    * @param offset Use in url.
    */
   public getPaginationWithOffset(offset: number): Promise<Pagination<Anime>> {
@@ -36,7 +36,8 @@ export class API {
     return this.getPagination(url);
   }
 
-  /** Set the field urlQuery of API instance.
+  /**
+   * Set the field urlQuery of API instance.
    * @param urlQuery String.
    */
   public setUrlQuery(urlQuery: string): void {
