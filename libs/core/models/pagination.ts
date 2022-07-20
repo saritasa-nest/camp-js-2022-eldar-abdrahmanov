@@ -1,20 +1,21 @@
-import {Immerable, OmitImmerable} from "@js-camp/core/models/immerable";
+import { Immerable, OmitImmerable } from '../models/immerable';
 
-export class Pagination<T> extends Immerable{
+/** Pagination model. */
+export class Pagination<T> extends Immerable {
 
-  /** Total count Anime. */
-  public count: number;
+  /** Total count data. */
+  public readonly count: number;
 
-  /** Link next list Anime */
-  public next: string | null;
+  /** Link to next list. */
+  public readonly next: string | null;
 
-  /** Link previous list Anime */
-  public previous: string | null;
+  /** Link to previous list. */
+  public readonly previous: string | null;
 
-  /** List Anime */
-  public results: T[];
+  /** Result list. */
+  public readonly results: readonly T[];
 
-  constructor(data: Args) {
+  public constructor(data: Args<T>) {
     super();
     this.count = data.count;
     this.next = data.next;
@@ -23,4 +24,4 @@ export class Pagination<T> extends Immerable{
   }
 }
 
-type Args = OmitImmerable<Pagination<any>>;
+type Args<T> = OmitImmerable<Pagination<T>>;

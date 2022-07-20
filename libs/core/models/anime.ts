@@ -1,4 +1,4 @@
-import { AnimeStatus } from '@js-camp/core/enums/statusType';
+import { AnimeStatus } from '../enums/statusType';
 
 import { Immerable, OmitImmerable } from './immerable';
 

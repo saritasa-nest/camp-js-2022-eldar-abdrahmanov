@@ -1,5 +1,4 @@
-import { AnimeStatus } from '@js-camp/core/enums/statusType';
-
+import { AnimeStatus } from '../enums/statusType';
 import { AnimeType } from '../enums/animeType';
 
 import { DateTimeRange } from './dateTimeRange';
