@@ -1,4 +1,4 @@
-export interface AiredDto {
+export interface DateTimeRange {
 
   /** Beginning. */
   readonly start: string;

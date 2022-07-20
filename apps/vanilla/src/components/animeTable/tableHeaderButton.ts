@@ -4,7 +4,7 @@ export class TableHeaderButton {
   public readonly buttonElement: HTMLElement;
 
   /** Click handler. */
-  public clickHandler: () => void;
+  public readonly clickHandler: () => void;
 
   public constructor(id: string, clickHandler: () => void) {
     this.buttonElement = document.querySelector(id) as HTMLElement;
@@ -22,10 +22,11 @@ export class TableHeaderButton {
   /** Change activated status. */
   private changeActiveStatus(): void {
     this.buttonElement.parentNode?.childNodes.forEach(item => {
-      if (item.nodeName !== '#text') {
-        if ((item as HTMLElement).classList.contains('activated')) {
-          (item as HTMLElement).classList.remove('activated');
-        }
+      if (
+        item.nodeName !== '#text' &&
+        (item as HTMLElement).classList.contains('activated')
+      ) {
+        (item as HTMLElement).classList.remove('activated');
       }
     });
     this.setButtonActive();

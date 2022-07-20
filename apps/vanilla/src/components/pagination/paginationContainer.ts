@@ -22,10 +22,11 @@ export class PaginationContainer {
     this.container.innerHTML = '';
   }
 
-  /** Render pagination. And set style first pagination cell active.
+  /**
+   * Render pagination. And set style first pagination cell active.
    * @param elementList -  pagination cells array.
    */
-  public renderPagination(elementList: HTMLElement[]): void {
+  public renderPagination(elementList: readonly HTMLElement[]): void {
     const indexOfFirstPaginationCell = 1;
     elementList[indexOfFirstPaginationCell].classList.add('active');
     this.clearContainer();

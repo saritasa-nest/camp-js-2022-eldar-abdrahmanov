@@ -1,7 +1,9 @@
 import { Anime } from '@js-camp/core/models/anime';
 import { AnimeStatus } from '@js-camp/core/enums/statusType';
 
-import { getElement } from '../utils/utils';
+import { getElement } from '../../utils/utils';
+
+import { NO_INFO, NO_TITLE } from './constants';
 
 /** AnimeCard. */
 export class AnimeCard {
@@ -36,7 +38,8 @@ export class AnimeCard {
     this.status = anime.status;
   }
 
-  /** Create and initiate an anime card from a template. Return HTML element.
+  /**
+   * Create and initiate an anime card from a template. Return HTML element.
    * @param templateSelector Template selector.
    */
   public createAnimeCard(templateSelector: string): HTMLElement {
@@ -55,19 +58,19 @@ export class AnimeCard {
         '.anime__image',
       ).style.backgroundImage = `url(${this.imageURL}`;
       getElement(animeCard, '.anime__title_eng').textContent = `${
-        this.titleEng ? this.titleEng : 'No title'
+        this.titleEng ? this.titleEng : NO_TITLE
       }`;
       getElement(animeCard, '.anime__title_jpn').textContent = `${
-        this.titleJpn ? this.titleJpn : 'タイトルなし'
+        this.titleJpn ? this.titleJpn : NO_TITLE
       }`;
       getElement(animeCard, '.anime__type').textContent = `${
-        this.type ? this.type : 'No info'
+        this.type ? this.type : NO_INFO
       }`;
       getElement(animeCard, '.anime__status').textContent = `${
-        this.status ? this.status : 'No info'
+        this.status ? this.status : NO_INFO
       }`;
       getElement(animeCard, '.anime__aired-start').textContent = `${
-        this.airedStart ? this.airedStart.getFullYear() : 'No info'
+        this.airedStart ? this.airedStart.getFullYear() : NO_INFO
       }`;
     }
     return animeCard;

@@ -1,5 +1,5 @@
 .anime:hover {
   cursor: pointer;
-  box-shadow: var(--box-shadow-hover-cornflowerblue);
+  box-shadow: var(--accent-box-shadow);
   transition: all 0.2s;
 }

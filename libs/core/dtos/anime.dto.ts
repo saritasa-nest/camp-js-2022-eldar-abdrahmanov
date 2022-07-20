@@ -2,7 +2,7 @@ import { AnimeStatus } from '@js-camp/core/enums/statusType';
 
 import { AnimeType } from '../enums/animeType';
 
-import { AiredDto } from './aired.dto';
+import { DateTimeRange } from './dateTimeRange';
 
 /** Anime DTO. */
 export interface AnimeDto {
@@ -26,5 +26,5 @@ export interface AnimeDto {
   readonly status: AnimeStatus;
 
   /** Aired. */
-  readonly aired: AiredDto;
+  readonly aired: DateTimeRange;
 }
