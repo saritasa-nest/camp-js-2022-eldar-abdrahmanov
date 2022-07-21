@@ -1,46 +1,58 @@
 import axios from 'axios';
 
-import { AnimeType } from '@js-camp/core/enums/animeType';
 import { Anime } from '@js-camp/core/models/anime';
 import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
 import { Pagination } from '@js-camp/core/models/pagination';
 
 /** A class designed to interact with API. */
 export class API {
+  /** Parameters in url query. */
+  public urlParams: URLSearchParams;
+
   public constructor(
     private readonly baseUrl: string,
-    public urlQuery: string,
   ) {
+    this.urlParams = new URLSearchParams('offset=0');
   }
 
-  /**
-   * Send request.
-   * @param url Link.
-   */
-  public async getPagination(url: string): Promise<Pagination<Anime>> {
+  /** Send request and return anime list and pagination. */
+  public async getPaginationAndAnimeList(): Promise<Pagination<Anime>> {
+    const url = `${this.baseUrl}?${this.urlParams.toString()}`;
     const response = await axios.get(url);
     return PaginationMapper.fromDto(response.data);
   }
 
   /**
-   * Construct request url.
-   * @param offset Use in url.
+   * Toggle the sorting parameter. Update 'ordering' parameter value.
+   * If 'ordering' parameter contains value remove it.
+   * @param parameterValue Value of 'ordering' parameter.
    */
-  public getPaginationWithOffset(offset: number): Promise<Pagination<Anime>> {
-    let url: string;
-    if (this.urlQuery in AnimeType) {
-      url = `${this.baseUrl}?offset=${offset}&type=${this.urlQuery}`;
-    } else {
-      url = `${this.baseUrl}?offset=${offset}&ordering=${this.urlQuery}`;
+  public setSortParameter(parameterValue: string): void {
+    const currentOrderingValue = this.urlParams.get('ordering');
+    if (currentOrderingValue === null) {
+      this.urlParams.set('ordering', parameterValue);
+      return;
     }
-    return this.getPagination(url);
+    if (currentOrderingValue?.includes(parameterValue)) {
+      this.urlParams.set('ordering', currentOrderingValue.replace(parameterValue, ''));
+      return;
+    }
+    this.urlParams.set('ordering', `${currentOrderingValue},${parameterValue}`);
   }
 
   /**
-   * Set the field urlQuery of API instance.
-   * @param urlQuery String.
+   * Set the type filtering parameter.
+   * @param parameterValue Value of 'type' parameter.
    */
-  public setUrlQuery(urlQuery: string): void {
-    this.urlQuery = urlQuery;
+  public setTypeParameter(parameterValue: string): void {
+    this.urlParams.set('type', parameterValue);
+  }
+
+  /**
+   * Set the offset parameter.
+   * @param offset Value of 'offset' parameter.
+   */
+  public setOffsetParameter(offset: number): void {
+    this.urlParams.set('offset', offset.toString());
   }
 }
