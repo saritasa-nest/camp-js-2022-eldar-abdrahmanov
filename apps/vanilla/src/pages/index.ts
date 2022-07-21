@@ -62,8 +62,8 @@ const statusSortButton = new TableHeaderButton('#table-status', async() => {
 /** Initialize anime type sort buttons. */
 function initializeSortByTypeButton(): void {
   for (const animeType in AnimeType) {
-    const dropDownBtn = new DropdownButton(AnimeType[animeType], handleTypeButtonClick);
-    typeDropdownMenu.renderElement(dropDownBtn.initiateDropdownButton());
+    const dropdownButton = new DropdownButton(AnimeType[animeType], handleTypeButtonClick);
+    typeDropdownMenu.renderElement(dropdownButton.initiateDropdownButton());
   }
 }
 
