@@ -1,10 +1,12 @@
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 
 import { Anime } from '@js-camp/core/models/anime';
 import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
 import { Pagination } from '@js-camp/core/models/pagination';
 import { AnimeMapper } from '@js-camp/core/mappers/anime.mapper';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
+
+import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
 
 import { BASE_URL } from './constants/constants';
 
@@ -13,20 +15,23 @@ export class API {
   /** Parameters in url query. */
   public urlParams: URLSearchParams;
 
-  /** Base URL. */
-  private baseUrl: string;
+  /** Axios instance. */
+  private axiosInstance: Axios;
 
-  public constructor(
-  ) {
-    this.baseUrl = BASE_URL;
+  public constructor() {
     this.urlParams = new URLSearchParams('offset=0');
+    this.axiosInstance = axios.create({ baseURL: BASE_URL });
   }
 
   /** Send request and return anime list and pagination. */
   public async getPaginationAndAnimeList(): Promise<Pagination<Anime>> {
-    const url = `${this.baseUrl}?${this.urlParams.toString()}`;
-    const response = await axios.get(url);
-    return PaginationMapper.fromDto<AnimeDto, Anime>(response.data, AnimeMapper.fromDto);
+    const response = await this.axiosInstance.get<PaginationDto<AnimeDto>>('/', {
+      params: this.urlParams,
+    });
+    return PaginationMapper.fromDto<AnimeDto, Anime>(
+      response.data,
+      AnimeMapper.fromDto,
+    );
   }
 
   /**
@@ -41,7 +46,10 @@ export class API {
       return;
     }
     if (currentOrderingValue?.includes(parameterValue)) {
-      this.urlParams.set('ordering', currentOrderingValue.replace(parameterValue, ''));
+      this.urlParams.set(
+        'ordering',
+        currentOrderingValue.replace(parameterValue, ''),
+      );
       return;
     }
     this.urlParams.set('ordering', `${currentOrderingValue},${parameterValue}`);
