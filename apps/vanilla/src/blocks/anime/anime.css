@@ -3,3 +3,37 @@
   box-shadow: var(--accent-box-shadow);
   transition: all 0.2s;
 }
+
+.anime__image {
+  max-width: 150px;
+  max-height: 150px;
+  background-position: center;
+  background-size: cover;
+}
+
+.anime__text {
+  font-size: var(--basic-font-size);
+  line-height: var(--basic-line-height);
+  font-weight: normal;
+}
+
+.anime__text-block {
+  margin: 15px;
+}
+
+.anime__title {
+  font-size: var(--title-font-size);
+  line-height: var(--title-line-height);
+}
+
+.anime__title:nth-child(2) {
+  margin-bottom: 15px;
+}
+
+.anime-container {
+  font-size: var(--basic-font-size);
+  font-weight: normal;
+  width: 100%;
+  margin: auto;
+  border-collapse: separate;
+}

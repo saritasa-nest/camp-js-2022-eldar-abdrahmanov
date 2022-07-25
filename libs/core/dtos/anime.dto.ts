@@ -1,7 +1,7 @@
 import { AnimeStatus } from '../enums/statusType';
 import { AnimeType } from '../enums/animeType';
 
-import { DateTimeRange } from './dateTimeRange';
+import { DateTimeRangeDto } from './dateTimeRange.dto';
 
 /** Anime DTO. */
 export interface AnimeDto {
@@ -25,5 +25,5 @@ export interface AnimeDto {
   readonly status: AnimeStatus;
 
   /** Aired. */
-  readonly aired: DateTimeRange;
+  readonly aired: DateTimeRangeDto;
 }

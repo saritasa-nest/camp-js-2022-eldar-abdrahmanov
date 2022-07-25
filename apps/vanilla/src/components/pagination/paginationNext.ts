@@ -1,13 +1,9 @@
-import { PaginationCell } from './paginationCell';
+import { PaginationCell, PaginationCellConstructorData } from './paginationCell';
 
 /** Pagination next. */
 export class PaginationNext extends PaginationCell {
-  public constructor(
-    label: number | string,
-    clickHandler: (index: number) => Promise<void>,
-    isDisabled?: boolean,
-  ) {
-    super(label, clickHandler, isDisabled);
+  public constructor(data: PaginationCellConstructorData) {
+    super(data);
   }
 
   /** Set event listener. */

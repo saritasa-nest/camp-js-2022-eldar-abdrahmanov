@@ -1,42 +1,17 @@
 import { Anime } from '@js-camp/core/models/anime';
 
-import { AnimeStatus } from '@js-camp/core/enums/statusType';
-
 import { getElement } from '../../utils/utils';
 
 import { NO_INFO, NO_TITLE } from './constants';
 
 /** AnimeCard. */
 export class AnimeCard {
-  /** Id. */
-  public readonly id: number;
 
-  /** Image URL. */
-  public readonly imageURL: string;
-
-  /** TitleEng. */
-  public readonly titleEng: string;
-
-  /** TitleJpn. */
-  public readonly titleJpn: string;
-
-  /** Type. */
-  public readonly type: string;
-
-  /** Status. */
-  public readonly status: AnimeStatus;
-
-  /** AiredStart. */
-  public readonly airedStart: Date;
+  /** Anime model. */
+  public readonly anime: Anime;
 
   public constructor(anime: Anime) {
-    this.id = anime.id;
-    this.titleEng = anime.titleEng;
-    this.titleJpn = anime.titleJpn;
-    this.imageURL = anime.image;
-    this.airedStart = anime.airedStart;
-    this.type = anime.type;
-    this.status = anime.status;
+    this.anime = anime;
   }
 
   /**
@@ -57,21 +32,21 @@ export class AnimeCard {
       getElement<HTMLElement>(
         animeCard,
         '.anime__image',
-      ).style.backgroundImage = `url(${this.imageURL}`;
+      ).style.backgroundImage = `url(${this.anime.imageUrl}`;
       getElement(animeCard, '.anime__title_eng').textContent = `${
-        this.titleEng ? this.titleEng : NO_TITLE
+        this.anime.titleEng ? this.anime.titleEng : NO_TITLE
       }`;
       getElement(animeCard, '.anime__title_jpn').textContent = `${
-        this.titleJpn ? this.titleJpn : NO_TITLE
+        this.anime.titleJpn ? this.anime.titleJpn : NO_TITLE
       }`;
       getElement(animeCard, '.anime__type').textContent = `${
-        this.type ? this.type : NO_INFO
+        this.anime.type ? this.anime.type : NO_INFO
       }`;
       getElement(animeCard, '.anime__status').textContent = `${
-        this.status ? this.status : NO_INFO
+        this.anime.status ? this.anime.status : NO_INFO
       }`;
       getElement(animeCard, '.anime__aired-start').textContent = `${
-        this.airedStart ? this.airedStart.getFullYear() : NO_INFO
+        this.anime.airedStart ? this.anime.airedStart.getFullYear() : NO_INFO
       }`;
     }
     return animeCard;

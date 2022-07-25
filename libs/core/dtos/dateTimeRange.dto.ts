@@ -1,4 +1,4 @@
-export interface DateTimeRange {
+export interface DateTimeRangeDto {
 
   /** Beginning. */
   readonly start: string;

@@ -1,3 +1,5 @@
+import { AnimeType } from '../enums/animeType';
+
 import { AnimeStatus } from '../enums/statusType';
 
 import { Immerable, OmitImmerable } from './immerable';
@@ -8,17 +10,17 @@ export class Anime extends Immerable {
   /** Id. */
   public readonly id: number;
 
-  /** Image. */
-  public readonly image: string;
+  /** Url of image. */
+  public readonly imageUrl: string;
 
-  /** TitleEng. */
+  /** English title. */
   public readonly titleEng: string;
 
-  /** TitleJpn. */
+  /** Japanese title. */
   public readonly titleJpn: string;
 
   /** Type. */
-  public readonly type: string;
+  public readonly type: AnimeType;
 
   /** Status. */
   public readonly status: AnimeStatus;
@@ -31,7 +33,7 @@ export class Anime extends Immerable {
     this.id = data.id;
     this.titleEng = data.titleEng;
     this.titleJpn = data.titleJpn;
-    this.image = data.image;
+    this.imageUrl = data.imageUrl;
     this.airedStart = data.airedStart;
     this.type = data.type;
     this.status = data.status;

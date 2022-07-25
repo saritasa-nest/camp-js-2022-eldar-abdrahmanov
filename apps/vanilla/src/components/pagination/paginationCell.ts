@@ -1,7 +1,20 @@
+/** Pagination Cell Constructor Data. */
+export interface PaginationCellConstructorData {
+
+  /** Label of cell. */
+  label: string;
+
+  /** Cell click handler. */
+  clickHandler: (index: number) => Promise<void>;
+
+  /** Flag by which the decision is made to disable the cell. */
+  isDisable?: boolean;
+}
+
 /** Pagination cell. */
 export class PaginationCell {
   /** Label. */
-  public readonly label: number | string;
+  public readonly label: string;
 
   /** Click handler.*/
   public readonly clickHandler: (index: number) => Promise<void>;
@@ -12,14 +25,10 @@ export class PaginationCell {
   /** Is disable. */
   public readonly isDisable?: boolean;
 
-  public constructor(
-    label: number | string,
-    clickHandler: (index: number) => Promise<void>,
-    isDisable?: boolean,
-  ) {
-    this.label = label;
-    this.clickHandler = clickHandler;
-    this.isDisable = isDisable;
+  public constructor(data: PaginationCellConstructorData) {
+    this.label = data.label;
+    this.clickHandler = data.clickHandler;
+    this.isDisable = data.isDisable;
   }
 
   /**
@@ -35,9 +44,7 @@ export class PaginationCell {
       ?.cloneNode(true) as Element;
     if (paginationCell !== null) {
       const paginationButton = paginationCell.querySelector('.page-link');
-      if (typeof this.label === 'number' && paginationButton) {
-        paginationButton.textContent = this.label.toString();
-      } else if (typeof this.label === 'string' && paginationButton) {
+      if (paginationButton !== null) {
         paginationButton.textContent = this.label;
       }
     }
@@ -63,21 +70,17 @@ export class PaginationCell {
   /** Set event listener. */
   public setEventListener(): void {
     this.cell?.addEventListener('click', () => {
-      this.checkForUndefinedChild();
+      this.removeIfTextNode();
       this.changeActiveStatus();
-      if (typeof this.label === 'number') {
-        this.clickHandler(this.label - 1);
-      }
-      if (typeof this.label === 'string') {
-        this.clickHandler(this.getPreviousCellIndex());
-      }
+      this.clickHandler(this.getPreviousCellIndex());
     });
   }
 
-  /** Check for not HTML element child. */
-  private checkForUndefinedChild(): void {
-    if (this.cell?.parentNode?.firstChild?.nodeName === '#text') {
-      this.cell.parentNode.firstChild.remove();
+  /** Check for not HTML element child and remove it. */
+  private removeIfTextNode(): void {
+    const element = this.cell?.parentNode?.firstChild;
+    if (element?.nodeName === '#text') {
+      element.remove();
     }
   }
 
@@ -94,11 +97,6 @@ export class PaginationCell {
   /** Get previous cell index. */
   protected getPreviousCellIndex(): number {
     return Number(this.cell?.previousSibling?.firstChild?.textContent);
-  }
-
-  /** Get next cell index. */
-  protected getNextCellIndex(): number {
-    return Number(this.cell?.nextSibling?.firstChild?.textContent);
   }
 
   /** Set pagination cell disable. */

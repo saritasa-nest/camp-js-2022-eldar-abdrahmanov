@@ -14,26 +14,13 @@ export class TableHeaderButton {
   /** Set event listener. */
   public setEventListener(): void {
     this.buttonElement.addEventListener('click', () => {
-      this.changeActiveStatus();
+      this.toggleActiveStatus();
       this.clickHandler();
     });
   }
 
-  /** Change activated status. */
-  private changeActiveStatus(): void {
-    this.buttonElement.parentNode?.childNodes.forEach(item => {
-      if (
-        item.nodeName !== '#text' &&
-        (item as HTMLElement).classList.contains('activated')
-      ) {
-        (item as HTMLElement).classList.remove('activated');
-      }
-    });
-    this.setButtonActive();
-  }
-
-  /** Set button activated. */
-  public setButtonActive(): void {
-    this.buttonElement.classList.add('activated');
+  /** Toggle activated status. */
+  private toggleActiveStatus(): void {
+    this.buttonElement.classList.toggle('activated');
   }
 }

@@ -9,7 +9,7 @@ export class PaginationContainer {
   public readonly totalCount: number;
 
   /** Items per page. */
-  public itemsPerPage: number;
+  public readonly itemsPerPage: number;
 
   public constructor(selector: string, totalCount: number, itemsPerPage: number) {
     this.container = getElement(document, selector);

@@ -1,13 +1,9 @@
-import { PaginationCell } from './paginationCell';
+import { PaginationCell, PaginationCellConstructorData } from './paginationCell';
 
 /** Pagination previous. */
 export class PaginationPrevious extends PaginationCell {
-  public constructor(
-    label: number | string,
-    clickHandler: (index: number) => Promise<void>,
-    isDisable: boolean,
-  ) {
-    super(label, clickHandler, isDisable);
+  public constructor(data: PaginationCellConstructorData) {
+    super(data);
   }
 
   /** Set event listener. */
@@ -15,5 +11,10 @@ export class PaginationPrevious extends PaginationCell {
     this.cell?.addEventListener('click', () => {
       this.clickHandler(this.getNextCellIndex());
     });
+  }
+
+  /** Get next cell index. */
+  protected getNextCellIndex(): number {
+    return Number(this.cell?.nextSibling?.firstChild?.textContent);
   }
 }
