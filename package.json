@@ -30,8 +30,11 @@
     "@angular/router": "~14.0.0",
     "@reduxjs/toolkit": "^1.8.2",
     "axios": "^0.27.2",
+    "bootstrap": "^5.1.3",
     "core-js": "^3.6.5",
-    "react": "18.0.0",
+    "gridjs": "^5.0.2",
+    "materialize-css": "^1.0.0-rc.2",
+    "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
@@ -93,5 +96,16 @@
     "typescript": "~4.7.2",
     "vite": "^2.9.9",
     "vite-plugin-eslint": "1.3.0"
-  }
+  },
+  "description": "Monorepo with Angular, React, Vanilla TS boilerplates for JS camp. Created with [Nx](https://nx.dev/). Update project name and description, when you start working on your own project.",
+  "main": "jest.preset.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saritasa-nest/camp-js-2022-eldar-abdrahmanov.git"
+  },
+  "author": "Eldar",
+  "bugs": {
+    "url": "https://github.com/saritasa-nest/camp-js-2022-eldar-abdrahmanov/issues"
+  },
+  "homepage": "https://github.com/saritasa-nest/camp-js-2022-eldar-abdrahmanov#readme"
 }

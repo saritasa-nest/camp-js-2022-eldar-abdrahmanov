@@ -1,28 +1,5 @@
-a,
-:link,
-.link {
-  --link-color: var(--primary-color);
-
-  color: var(--link-color);
-  text-decoration: none;
-  border-bottom: 1px solid var(--link-color);
-}
-
-a:hover,
-:link:hover,
-.link:hover {
-  --link-color: var(--primary-light-color);
-}
-
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.default-layout {
-  --default-layout-width: 600px;
-
-  margin: 80px auto 0;
-  max-width: var(--default-layout-width);
-}
+@import url("../blocks/anime/anime.css");
+@import url("../blocks/header/header.css");
+@import url("../blocks/page/page.css");
+@import url("../blocks/table/table.css");
+@import url("../blocks/activated/activated.css");

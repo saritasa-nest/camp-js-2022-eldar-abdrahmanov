@@ -1,0 +1,22 @@
+.table__head {
+  position: sticky;
+  top: 0;
+  border: var(--primary-border);
+}
+
+.table__cell_head {
+  background-color: white;
+}
+
+.table__cell_head:hover {
+  box-shadow: var(--accent-box-shadow);
+  transition: all 0.2s;
+}
+
+.table__cell {
+  border: var(--primary-border);
+  border-radius: 4px;
+  padding: 8px;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
