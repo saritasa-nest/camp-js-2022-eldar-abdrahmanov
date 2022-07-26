@@ -10,12 +10,13 @@ import { AnimeService } from '../../../../../core/services/anime.service';
   selector: 'anime-table',
   templateUrl: './anime-table.component.html',
   styleUrls: ['./anime-table.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class AnimeTableComponent {
 
   /** Titles of table columns. */
-  public displayedColumns: string[] = [
+  public readonly displayedColumns = [
     'image',
     'titleEng',
     'titleJpn',
