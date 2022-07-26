@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from "@angular/material/sort";
 import { PaginationComponent } from '../pagination/pagination.component';
 import { AnimeService } from '../../../../../core/services/anime.service';
 
@@ -40,6 +40,12 @@ export class AnimeTableComponent implements OnInit {
     console.log(event);
     this.animeService.setOffsetParam((event.pageIndex) * event.pageSize);
     this.getAnimeList();
+  }
+
+  handleSortClick(sort: Sort) {
+    console.log(sort.active)
+    console.log(sort.direction)
+
   }
 
   @ViewChild(MatSort) sort!: MatSort;

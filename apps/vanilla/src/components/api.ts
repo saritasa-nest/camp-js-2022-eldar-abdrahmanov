@@ -30,7 +30,7 @@ export class API {
   }
 
   /**
-   * Toggle the sorting parameter. Update 'ordering' parameter value.
+   * Toggle the filtering parameter. Update 'ordering' parameter value.
    * If 'ordering' parameter contains value remove it.
    * @param parameterValue Value of 'ordering' parameter.
    */

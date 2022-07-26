@@ -16,6 +16,10 @@ import { AnimeComponent } from './features/anime/anime.component';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginationComponent } from './features/anime/components/pagination/pagination.component';
+import { SortingComponent } from './features/anime/components/filtering/filtering.component';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { ReactiveFormsModule } from "@angular/forms";
 
 /** App module. */
 @NgModule({
@@ -24,6 +28,7 @@ import { PaginationComponent } from './features/anime/components/pagination/pagi
     AnimeTableComponent,
     AnimeComponent,
     PaginationComponent,
+    SortingComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +39,9 @@ import { PaginationComponent } from './features/anime/components/pagination/pagi
     BrowserAnimationsModule,
     MatSortModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
