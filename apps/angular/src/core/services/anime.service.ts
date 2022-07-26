@@ -8,6 +8,7 @@ import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 
 import { environment } from '../../environments/environment';
+import { Pagination } from '@js-camp/core/models/pagination';
 
 /** Anime service to interact with API. */
 @Injectable({
@@ -15,19 +16,24 @@ import { environment } from '../../environments/environment';
 })
 
 export class AnimeService {
+  private httpParams: HttpParams;
 
-  public constructor(private httpClient: HttpClient) {}
+  public constructor(private httpClient: HttpClient) {
+    this.httpParams = new HttpParams();
+  }
 
   /** Makes a request to the API and returns a list of anime. */
-  public getAnimeList(): Observable<readonly Anime[]> {
-    const parameters = new HttpParams()
-      .set('ordering', 'id');
+  public getPaginationAndAnimeList(): Observable<Pagination<Anime>> {
+    this.httpParams = this.httpParams.set('ordering', 'id');
     return this.httpClient
-      .get<PaginationDto<AnimeDto>>(environment.baseUrl, { params: parameters })
+      .get<PaginationDto<AnimeDto>>(environment.baseUrl, { params: this.httpParams })
       .pipe(
         map(dto =>
           PaginationMapper.fromDto<AnimeDto, Anime>(dto, AnimeMapper.fromDto)),
-        map(pagination => pagination.results),
       );
+  }
+
+  public setOffsetParam(offset: number) {
+    this.httpParams = this.httpParams.set('offset', offset);
   }
 }

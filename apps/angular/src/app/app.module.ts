@@ -13,10 +13,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnimeTableComponent } from './features/anime/components/anime-table/anime-table.component';
 import { AnimeComponent } from './features/anime/anime.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginationComponent } from './features/anime/components/pagination/pagination.component';
 
 /** App module. */
 @NgModule({
-  declarations: [AppComponent, AnimeTableComponent, AnimeComponent],
+  declarations: [
+    AppComponent,
+    AnimeTableComponent,
+    AnimeComponent,
+    PaginationComponent,
+  ],
   imports: [
     BrowserModule,
     SharedModule,
@@ -24,6 +32,8 @@ import { AnimeComponent } from './features/anime/anime.component';
     HttpClientModule,
     MatTableModule,
     BrowserAnimationsModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

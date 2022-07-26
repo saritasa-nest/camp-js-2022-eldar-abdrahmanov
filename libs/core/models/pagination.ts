@@ -13,7 +13,7 @@ export class Pagination<T> extends Immerable {
   public readonly previous: string | null;
 
   /** Result list. */
-  public readonly results: readonly T[];
+  public readonly results: T[];
 
   public constructor(data: Args<T>) {
     super();
