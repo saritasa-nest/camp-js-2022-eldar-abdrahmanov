@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import { AnimeType } from "@js-camp/core/enums/animeType";
+import { MatSelectChange } from '@angular/material/select';
 
+/** */
 @Component({
   selector: 'filtering',
   templateUrl: './filtering.component.html',
@@ -9,11 +11,20 @@ import { AnimeType } from "@js-camp/core/enums/animeType";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SortingComponent implements OnInit {
-  animeTypes = new FormControl('');
-  animeTypeList = Object.values(AnimeType);
 
-  constructor() {}
+  /** */
+  @Output() filteringEventEmitter = new EventEmitter();
 
+  /** */
+  public readonly animeTypes = new FormControl('');
+
+  /** */
+  public readonly animeTypeList = Object.values(AnimeType);
+
+  /** */
+  public handleChangeSelection(event: MatSelectChange): void {
+    this.filteringEventEmitter.emit(event);
+  }
 
   ngOnInit(): void {}
 }

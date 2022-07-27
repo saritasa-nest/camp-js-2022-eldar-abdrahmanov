@@ -1,8 +1,5 @@
-.anime-table,
-.mat-paginator {
-  width: 100%;
-  max-width: 1440px;
-  margin: auto;
+.anime-page {
+  background-color: #434343;
 }
 
 .anime-image {
@@ -21,4 +18,19 @@
 .mat-cell {
   border: 1px gray solid;
   text-align: center;
+}
+
+.mat-table {
+  max-width: 1440px;
+  margin: auto;
+}
+
+.filtering {
+  margin: auto;
+}
+
+.pagination {
+  width: 100%;
+  max-width: 1440px;
+  margin: auto;
 }

@@ -16,7 +16,7 @@ import { Pagination } from '@js-camp/core/models/pagination';
 })
 
 export class AnimeService {
-  private httpParams: HttpParams;
+  httpParams: HttpParams;
 
   public constructor(private httpClient: HttpClient) {
     this.httpParams = new HttpParams();

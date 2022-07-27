@@ -1,71 +1,115 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Anime } from '@js-camp/core/models/anime';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from "@angular/material/sort";
-import { PaginationComponent } from '../pagination/pagination.component';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
+
+import { MatSelectChange } from '@angular/material/select';
+
 import { AnimeService } from '../../../../../core/services/anime.service';
+import { HttpParams } from '@angular/common/http';
+import { offset } from '@nrwl/workspace/src/utils/ast-utils';
 
 /** Anime table component. */
 @Component({
   selector: 'anime-table',
   templateUrl: './anime-table.component.html',
   styleUrls: ['./anime-table.component.css'],
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class AnimeTableComponent implements OnInit {
-
   /** Titles of table columns. */
   public readonly displayedColumns = [
     'image',
-    'titleEng',
-    'titleJpn',
-    'airedStart',
+    'title_Eng',
+    'title_Jpn',
+    'aired__startswith',
     'type',
     'status',
   ];
 
-  public dataSource!: MatTableDataSource<Anime>;
-
   /** Anime list. */
   public animeList!: Anime[];
+
+  /** */
   public animeList$!: Observable<Anime[]>;
+
+  /** */
   public totalCountAnime!: number;
 
-  handlePaginationClick(event: PageEvent): void {
-    console.log(event);
-    this.animeService.setOffsetParam((event.pageIndex) * event.pageSize);
+  /** */
+  private paginationObserver$: BehaviorSubject<string>;
+
+  /** */
+  private sortingObserver$: BehaviorSubject<string[]>;
+
+  /** */
+  private filteringObserver$: BehaviorSubject<string[]>;
+
+  /** */
+  private searchObserver$: BehaviorSubject<string>;
+
+  /** */
+  public searchString: string;
+
+  public constructor(private readonly animeService: AnimeService) {
+    this.paginationObserver$ = new BehaviorSubject<string>('');
+    this.sortingObserver$ = new BehaviorSubject<string[]>([]);
+    this.filteringObserver$ = new BehaviorSubject<string[]>([]);
+    this.searchObserver$ = new BehaviorSubject<string>('');
+    this.searchString = '';
+  }
+
+  /**
+   * @param event
+   */
+  public handlePaginationClick(event: PageEvent): void {
+    const offset = event.pageIndex * event.pageSize;
+    this.animeService.setOffsetParam(event.pageIndex * event.pageSize);
     this.getAnimeList();
+    this.paginationObserver$.next(offset.toString());
   }
 
-  handleSortClick(sort: Sort) {
-    console.log(sort.active)
-    console.log(sort.direction)
-
+  /**
+   * @param event
+   */
+  public handleFilteringSelect(event: MatSelectChange): void {
+    this.filteringObserver$.next(event.value);
   }
 
-  @ViewChild(MatSort) sort!: MatSort;
-
-  public constructor(private animeService: AnimeService) {
+  /**
+   * @param event
+   */
+  public handleSortClick(event: Sort):void {
+    this.sortingObserver$.next([event.direction, event.active]);
   }
 
-  private getAnimeList() {
+  /** */
+  public handleSearchClick(): void {
+    this.searchObserver$.next(this.searchString);
+    console.log(this.searchString);
+  }
+
+  /** */
+  private getAnimeList(): void {
     this.animeService.getPaginationAndAnimeList().subscribe(response => {
       this.animeList = response.results;
       this.totalCountAnime = response.count;
-    })
+    });
   }
 
-  /*ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }*/
-
   ngOnInit() {
+    combineLatest([
+      this.paginationObserver$,
+      this.sortingObserver$,
+      this.filteringObserver$,
+      this.searchObserver$,
+    ]).subscribe(([offset, ordering, type, search]) => {
+      console.log(offset, ordering, type, search))
+      this.animeService.httpParams = new HttpParams().set('offset', offset)
+    }
     this.getAnimeList();
   }
 }
