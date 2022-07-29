@@ -16,7 +16,8 @@ import { Pagination } from '@js-camp/core/models/pagination';
 })
 
 export class AnimeService {
-  httpParams: HttpParams;
+  /** */
+  public httpParams: HttpParams;
 
   public constructor(private httpClient: HttpClient) {
     this.httpParams = new HttpParams();
@@ -24,16 +25,12 @@ export class AnimeService {
 
   /** Makes a request to the API and returns a list of anime. */
   public getPaginationAndAnimeList(): Observable<Pagination<Anime>> {
-    this.httpParams = this.httpParams.set('ordering', 'id');
+    console.log(this.httpParams.toString())
     return this.httpClient
       .get<PaginationDto<AnimeDto>>(environment.baseUrl, { params: this.httpParams })
       .pipe(
         map(dto =>
           PaginationMapper.fromDto<AnimeDto, Anime>(dto, AnimeMapper.fromDto)),
       );
-  }
-
-  public setOffsetParam(offset: number) {
-    this.httpParams = this.httpParams.set('offset', offset);
   }
 }

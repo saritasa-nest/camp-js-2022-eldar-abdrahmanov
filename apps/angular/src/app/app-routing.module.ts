@@ -6,6 +6,11 @@ import { AnimeTableComponent } from './features/anime/components/anime-table/ani
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'anime',
+    pathMatch: 'full',
+  },
+  {
+    path: 'anime',
     component: AnimeTableComponent,
   },
 ];

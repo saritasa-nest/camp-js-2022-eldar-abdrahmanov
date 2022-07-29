@@ -1,16 +1,27 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 
 import { Anime } from '@js-camp/core/models/anime';
-import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject, filter, switchMap, map } from 'rxjs';
 
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 
 import { MatSelectChange } from '@angular/material/select';
 
-import { AnimeService } from '../../../../../core/services/anime.service';
 import { HttpParams } from '@angular/common/http';
-import { offset } from '@nrwl/workspace/src/utils/ast-utils';
+
+import { AnimeService } from '../../../../../core/services/anime.service';
+
+import { PaginationComponent } from '../pagination/pagination.component';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Pagination } from '@js-camp/core/models/pagination';
+
+/** */
+export interface UrlParams {
+
+  /** Input name. */
+  [inputName: string]: string;
+}
 
 /** Anime table component. */
 @Component({
@@ -23,8 +34,8 @@ export class AnimeTableComponent implements OnInit {
   /** Titles of table columns. */
   public readonly displayedColumns = [
     'image',
-    'title_Eng',
-    'title_Jpn',
+    'title_eng',
+    'title_jpn',
     'aired__startswith',
     'type',
     'status',
@@ -33,17 +44,16 @@ export class AnimeTableComponent implements OnInit {
   /** Anime list. */
   public animeList!: Anime[];
 
+  public paginationAndAnimeList!: Observable<Pagination<Anime[]>>;
+
   /** */
   public animeList$!: Observable<Anime[]>;
 
   /** */
-  public totalCountAnime!: number;
+  private paginationObserver$: BehaviorSubject<PageEvent>;
 
   /** */
-  private paginationObserver$: BehaviorSubject<string>;
-
-  /** */
-  private sortingObserver$: BehaviorSubject<string[]>;
+  private sortingObserver$: BehaviorSubject<Sort>;
 
   /** */
   private filteringObserver$: BehaviorSubject<string[]>;
@@ -54,9 +64,25 @@ export class AnimeTableComponent implements OnInit {
   /** */
   public searchString: string;
 
-  public constructor(private readonly animeService: AnimeService) {
-    this.paginationObserver$ = new BehaviorSubject<string>('');
-    this.sortingObserver$ = new BehaviorSubject<string[]>([]);
+  /** */
+  @ViewChild(PaginationComponent) pagination!: PaginationComponent;
+
+  public constructor(
+    private readonly animeService: AnimeService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    console.log('constr');
+    this.paginationObserver$ = new BehaviorSubject<PageEvent>({
+      length: 0,
+      pageSize: 0,
+      pageIndex: 0,
+      previousPageIndex: 0,
+    });
+    this.sortingObserver$ = new BehaviorSubject<Sort>({
+      active: '',
+      direction: '',
+    });
     this.filteringObserver$ = new BehaviorSubject<string[]>([]);
     this.searchObserver$ = new BehaviorSubject<string>('');
     this.searchString = '';
@@ -66,50 +92,75 @@ export class AnimeTableComponent implements OnInit {
    * @param event
    */
   public handlePaginationClick(event: PageEvent): void {
-    const offset = event.pageIndex * event.pageSize;
-    this.animeService.setOffsetParam(event.pageIndex * event.pageSize);
+    this.paginationObserver$.next(event);
     this.getAnimeList();
-    this.paginationObserver$.next(offset.toString());
   }
 
   /**
    * @param event
    */
   public handleFilteringSelect(event: MatSelectChange): void {
+    //console.log(event);
     this.filteringObserver$.next(event.value);
+    this.resetPaginationToFirstPage();
+    this.getAnimeList();
   }
 
   /**
    * @param event
    */
-  public handleSortClick(event: Sort):void {
-    this.sortingObserver$.next([event.direction, event.active]);
+  public handleSortClick(event: Sort): void {
+    //console.log(event);
+    this.sortingObserver$.next(event);
+    if (event.direction === 'desc') {
+      event.active = `-${event.active}`;
+    }
+    if (event.direction === '') {
+      event.active = 'id';
+    }
+    this.resetPaginationToFirstPage();
+    this.getAnimeList();
   }
 
   /** */
   public handleSearchClick(): void {
     this.searchObserver$.next(this.searchString);
-    console.log(this.searchString);
+    this.resetPaginationToFirstPage();
+    this.getAnimeList();
+    //console.log(this.searchString);
   }
 
   /** */
   private getAnimeList(): void {
     this.animeService.getPaginationAndAnimeList().subscribe(response => {
       this.animeList = response.results;
-      this.totalCountAnime = response.count;
+      this.pagination.setLength(response.count);
     });
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  handleTableChanges() {
+    let paramObject: UrlParams = {};
+
     combineLatest([
       this.paginationObserver$,
       this.sortingObserver$,
-      this.filteringObserver$,
       this.searchObserver$,
-    ]).subscribe(([offset, ordering, type, search]) => {
-      console.log(offset, ordering, type, search))
-      this.animeService.httpParams = new HttpParams().set('offset', offset)
-    }
-    this.getAnimeList();
+      this.filteringObserver$,
+    ]).subscribe(([paginationEvent, sortingEvent, searchEvent, filterEvent]) => {
+
+    })
+  }
+
+  /** */
+  private resetPaginationToFirstPage(): void {
+    this.paginationObserver$.next({
+      length: 0,
+      pageSize: 0,
+      pageIndex: 0,
+      previousPageIndex: 0,
+    });
+    this.pagination.resetToFirstPage();
   }
 }

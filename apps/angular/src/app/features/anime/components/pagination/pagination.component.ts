@@ -5,8 +5,9 @@ import {
   OnInit,
   Output,
   Input,
+  ViewChild,
 } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'pagination',
@@ -15,18 +16,36 @@ import { PageEvent } from '@angular/material/paginator';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent implements OnInit {
-  @Input() public length!: number;
+  public length!: number;
   @Output() paginationEventEmitter = new EventEmitter();
   public pageSize = 25;
   public pageIndex = 0;
-  public pageSizeOptions = [25];
+  public pageSizeOptions = [5, 10, 25, 100];
   public showFirstLastButtons = true;
+
+  @ViewChild('paginator') paginator!: MatPaginator;
   constructor() {
   }
 
-  ngOnInit(): void {}
-
   /** */
+  public resetToFirstPage(): void {
+    this.paginator.firstPage();
+  }
+
+  /**
+   * @param
+   * */
+  public setLength(totalCount: number): void {
+    this.paginator.length = totalCount;
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  /**
+   * @param event
+   */
   public handlePageEvent(event: PageEvent): void {
     this.paginationEventEmitter.emit(event);
   }
