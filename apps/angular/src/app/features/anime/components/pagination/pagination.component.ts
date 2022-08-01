@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'pagination',
@@ -19,12 +20,14 @@ export class PaginationComponent implements OnInit {
   public length!: number;
   @Output() paginationEventEmitter = new EventEmitter();
   public pageSize = 25;
+  public pageSize$: Observable<number>;
   public pageIndex = 0;
   public pageSizeOptions = [5, 10, 25, 100];
   public showFirstLastButtons = true;
 
   @ViewChild('paginator') paginator!: MatPaginator;
   constructor() {
+    this.pageSize$ = new Observable<number>();
   }
 
   /** */
