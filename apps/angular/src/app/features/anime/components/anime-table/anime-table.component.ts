@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 
 import { Anime } from '@js-camp/core/models/anime';
-import { Observable, combineLatest, BehaviorSubject, filter, switchMap, map } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject, filter, switchMap, map, of } from "rxjs";
 
 import { PageEvent } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import { Sort, SortHeaderArrowPosition } from "@angular/material/sort";
 
 import { MatSelectChange } from '@angular/material/select';
 
@@ -52,6 +52,8 @@ export class AnimeTableComponent implements OnInit {
   /** Anime list. */
   public animeList!: Anime[];
 
+  public urlParams: UrlParams;
+  public sortingDirection: SortHeaderArrowPosition;
   public paginationAndAnimeList!: Observable<Pagination<Anime[]>>;
 
   /** */
@@ -80,40 +82,43 @@ export class AnimeTableComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
   ) {
-    const urlParams: UrlParams = {};
+    this.urlParams = {};
     this.route.queryParamMap.subscribe(param => {
       param.keys.map(key => {
-        urlParams[key] = param.get(key) as string;
+        this.urlParams[key] = param.get(key) as string;
       });
 
-      //this.paginationComponent.pageSize$.subscribe()
-      //this.paginationComponent.pageSize = parseInt(urlParams['limit'], 10);
-      //this.paginationComponent.pageIndex = parseInt(urlParams['limit'], 10) / parseInt(urlParams['offset'], 10);
-      this.animeService.httpParams = new HttpParams().appendAll(urlParams);
+      this.animeService.httpParams = new HttpParams().appendAll(this.urlParams);
       this.getAnimeList();
 
       // console.log(urlParams)
     });
     this.paginationObserver$ = new BehaviorSubject<PaginationParams>({
-      limit: urlParams['limit'] ? urlParams['limit'] : '25',
-      offset: urlParams['offset'] ? urlParams['offset'] : '0',
+      limit: this.urlParams['limit'] ? this.urlParams['limit'] : '25',
+      offset: this.urlParams['offset'] ? this.urlParams['offset'] : '0',
     });
     this.sortingObserver$ = new BehaviorSubject<Sort>({
-      active: urlParams['ordering'] ? urlParams['ordering'] : 'id',
+      active: this.urlParams['ordering'] ? this.urlParams['ordering'] : 'id',
       direction: '',
     });
     this.filteringObserver$ = new BehaviorSubject<string[]>(
-      urlParams['type__in'] ? urlParams['type__in'].split(',') : [],
+      this.urlParams['type__in'] ? this.urlParams['type__in'].split(',') : [],
     );
     this.searchObserver$ = new BehaviorSubject<string>(
-      urlParams['search'] ? urlParams['search'] : '',
+      this.urlParams['search'] ? this.urlParams['search'] : '',
     );
-    this.searchString = urlParams['search'] ? urlParams['search'] : '';
+    this.searchString = this.urlParams['search'] ? this.urlParams['search'] : '';
   }
 
   ngOnInit() {
     this.handleChanges();
   }
+
+  ngAfterViewInit() {
+    this.paginationComponent.pageSize = Number(this.urlParams['limit']);
+    this.paginationComponent.pageIndex = Number(this.urlParams['offset']) / Number(this.urlParams['limit'])
+  }
+
   /**
    * @param event
    */
@@ -167,7 +172,6 @@ export class AnimeTableComponent implements OnInit {
 
 
   handleChanges() {
-    const urlParams: UrlParams = {};
     combineLatest([
       this.paginationObserver$,
       this.sortingObserver$,
@@ -183,11 +187,12 @@ export class AnimeTableComponent implements OnInit {
           .set('search', searchEvent);
         httpParams.keys().map(key => {
           if (httpParams.get(key) !== '') {
-            urlParams[key] = httpParams.get(key) as string;
+            this.urlParams[key] = httpParams.get(key) as string;
           }
         });
-        console.log(urlParams);
-        this.router.navigate([], { queryParams: urlParams });
+        console.log(this.urlParams);
+
+        this.router.navigate([], { queryParams: this.urlParams });
       },
     );
   }
