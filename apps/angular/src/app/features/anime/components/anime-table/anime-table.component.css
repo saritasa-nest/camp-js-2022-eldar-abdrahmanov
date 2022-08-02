@@ -1,12 +1,18 @@
 .anime-page {
-  background-color: #434343;
+  background-color: #1c5070;
+  max-width: 1280px;
+  margin: auto;
+}
+
+.mat-table {
+  background-color: #1c5070;
 }
 
 .anime-image {
-  max-width: 150px;
-  max-height: 150px;
-  object-position: center;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 .mat-header-cell {
@@ -18,19 +24,15 @@
 .mat-cell {
   border: 1px gray solid;
   text-align: center;
+  padding: 0;
+}
+
+.table__cell_image {
+  max-width: 150px;
+  max-height: 150px;
 }
 
 .mat-table {
-  max-width: 1440px;
-  margin: auto;
-}
-
-.filtering {
-  margin: auto;
-}
-
-.pagination {
   width: 100%;
-  max-width: 1440px;
   margin: auto;
 }

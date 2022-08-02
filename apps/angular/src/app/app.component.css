@@ -1,5 +1,10 @@
-.anime-page {
-  max-width: 1440px;
+.header__title {
+  width: 100%;
+  color: white;
+  background-color: #1c5070;
   margin: auto;
-  padding: 100px;
+}
+
+.page {
+  background-color: #1c5070;
 }

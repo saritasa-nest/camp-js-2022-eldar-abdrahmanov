@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AnimeTableComponent } from './components/anime-table/anime-table.component';
-import { PaginationComponent } from './components/pagination/pagination.component';
-import { SortingComponent } from './components/filtering/filtering.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,13 +12,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { FilteringComponent } from './components/filtering/filtering.component';
+import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 
-
+/** Anime module. */
 @NgModule({
   declarations: [
     AnimeTableComponent,
     PaginationComponent,
-    SortingComponent
+    FilteringComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [AnimeTableComponent],
 })
