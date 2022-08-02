@@ -1,20 +1,25 @@
 <div class="anime-page">
-  <mat-form-field appearance="fill">
-    <mat-label>Enter anime title</mat-label>
-    <input [(ngModel)]="searchString" matInput />
-  </mat-form-field>
-  <button
-    mat-stroked-button
-    type="button"
-    (click)="handleSearchClick()"
-    aria-label="Enter anime title"
-  >
-    Search anime
-  </button>
+  <div class="buttons-container">
+    <div class="anime-search__container">
+      <mat-form-field class="anime-search__form" appearance="fill">
+        <mat-label>Enter anime title</mat-label>
+        <input [(ngModel)]="searchString" matInput />
+      </mat-form-field>
+      <button
+        class="anime-search__button"
+        mat-stroked-button
+        type="button"
+        (click)="handleSearchClick()"
+        aria-label="Enter anime title"
+      >
+        Search anime
+      </button>
+    </div>
+    <filtering
+      (filteringEventEmitter)="handleFilteringSelect($event)"
+    ></filtering>
+  </div>
 
-  <filtering
-    (filteringEventEmitter)="handleFilteringSelect($event)"
-  ></filtering>
   <table
     class="anime-table"
     mat-table
@@ -28,7 +33,7 @@
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef>Image</th>
       <td mat-cell class="table__cell_image" *matCellDef="let row">
-        <img class="anime-image" [src]="row.imageUrl" alt="anime preview" />
+        <img class="table-image" [src]="row.imageUrl" alt="anime preview" />
       </td>
     </ng-container>
     <ng-container matColumnDef="title_eng">
@@ -63,7 +68,6 @@
     </tr>
   </table>
   <pagination
-    class="pagination"
     (paginationEventEmitter)="handlePaginationClick($event)"
   ></pagination>
 </div>

@@ -1,38 +1,58 @@
 .anime-page {
-  background-color: #1c5070;
-  max-width: 1280px;
-  margin: auto;
+  background-color: var(--primary-color);
+  width: 100%;
 }
 
-.mat-table {
-  background-color: #1c5070;
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
 }
 
-.anime-image {
+.anime-search__container {
+  width: 45%;
+  height: 55px;
+  display: flex;
+}
+
+.anime-search__form {
+  margin-right: 15px;
+}
+
+.anime-search__button {
+  color: white;
+  border: var(--primary-border);
+}
+
+.anime-table {
+  width: 100%;
+  background-color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.table-image {
+  object-fit: contain;
+  object-position: center;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  max-width: 150px;
 }
 
 .mat-header-cell {
-  border: 1px white solid;
-  text-align: center;
+  border: var(--primary-border);
+  border-radius: var(--primary-border-radius);
+  max-width: 150px;
+  padding: 20px;
   font-size: 1.5rem;
 }
 
 .mat-cell {
-  border: 1px gray solid;
+  border: var(--primary-border);
+  border-radius: var(--primary-border-radius);
+  align-items: center;
   text-align: center;
+  font-size: 1.2rem;
+}
+
+.mat-cell:first-of-type {
   padding: 0;
-}
-
-.table__cell_image {
-  max-width: 150px;
-  max-height: 150px;
-}
-
-.mat-table {
-  width: 100%;
-  margin: auto;
 }
