@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./anime.component.css'],
 })
 export class AnimeComponent {
-  public constructor() {
-  }
 }

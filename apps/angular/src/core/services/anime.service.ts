@@ -20,13 +20,13 @@ export class AnimeService {
 
   /** Makes a request to the API and returns a list of anime. */
   public getAnimeList(): Observable<readonly Anime[]> {
-    const parameters = new HttpParams()
+    const params = new HttpParams()
       .set('ordering', 'id');
     return this.httpClient
-      .get<PaginationDto<AnimeDto>>(environment.baseUrl, { params: parameters })
+      .get<PaginationDto<AnimeDto>>(environment.baseUrl, { params })
       .pipe(
         map(dto =>
-          PaginationMapper.fromDto<AnimeDto, Anime>(dto, AnimeMapper.fromDto)),
+          PaginationMapper.fromDto(dto, AnimeMapper.fromDto)),
         map(pagination => pagination.results),
       );
   }

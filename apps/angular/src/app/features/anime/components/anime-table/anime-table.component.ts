@@ -1,7 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { Anime } from '@js-camp/core/models/anime';
 import { Observable } from 'rxjs';
 
@@ -12,12 +10,13 @@ import { AnimeService } from '../../../../../core/services/anime.service';
   selector: 'anime-table',
   templateUrl: './anime-table.component.html',
   styleUrls: ['./anime-table.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class AnimeTableComponent implements OnInit{
+export class AnimeTableComponent {
 
   /** Titles of table columns. */
-  public displayedColumns: string[] = [
+  public readonly displayedColumns = [
     'image',
     'titleEng',
     'titleJpn',
@@ -26,25 +25,18 @@ export class AnimeTableComponent implements OnInit{
     'status',
   ];
 
-  //public animeList: Anime[];
-
   /** Anime list. */
-  //public animeList$: Observable<Anime[]>;
+  public readonly animeList$: Observable<readonly Anime[]>;
 
-  public dataSource!: MatTableDataSource<Anime>;
-
-  public constructor(private animeService: AnimeService) {
-    //this.animeList$ = animeService.getAnimeList();
+  public constructor(private readonly animeService: AnimeService) {
+    this.animeList$ = animeService.getAnimeList();
   }
 
-  getAnime(): void {
-    this.animeService.getAnimeList().subscribe(res => {
-      console.log(res)
-      // @ts-ignore
-      this.dataSource = new MatTableDataSource(res);
-    })
+  /**
+   * Return index of item.
+   * @param index Serial number.
+   */
+  public trackBy(index: number): number {
+    return index;
   }
-
-  ngOnInit() {
-    this.getAnime() }
 }
