@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { Anime } from '@js-camp/core/models/anime';
 import { Observable } from 'rxjs';
@@ -26,9 +26,17 @@ export class AnimeTableComponent {
   ];
 
   /** Anime list. */
-  public animeList$: Observable<readonly Anime[]>;
+  public readonly animeList$: Observable<readonly Anime[]>;
 
-  public constructor(private animeService: AnimeService) {
+  public constructor(private readonly animeService: AnimeService) {
     this.animeList$ = animeService.getAnimeList();
+  }
+
+  /**
+   * Return index of item.
+   * @param index Serial number.
+   */
+  public trackBy(index: number): number {
+    return index;
   }
 }

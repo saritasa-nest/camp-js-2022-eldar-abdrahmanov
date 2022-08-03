@@ -2,13 +2,14 @@
   class="anime-table"
   *ngIf="animeList$ | async as animeList"
   mat-table
+  [trackBy]="trackBy"
   [dataSource]="animeList"
   aria-label="anime-table"
 >
   <ng-container matColumnDef="image">
     <th mat-header-cell *matHeaderCellDef>Image</th>
     <td mat-cell *matCellDef="let row">
-      <img class="anime-image" [src]="row.imageUrl" alt="" />
+      <img class="anime-image" [src]="row.imageUrl" alt="anime preview" />
     </td>
   </ng-container>
   <ng-container matColumnDef="titleEng">
