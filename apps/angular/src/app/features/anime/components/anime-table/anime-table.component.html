@@ -23,6 +23,8 @@
   <table
     class="anime-table"
     mat-table
+    [trackBy]="trackBy"
+    *ngIf="animeList$ | async as animeList"
     [dataSource]="animeList"
     aria-label="anime-table"
     matSort

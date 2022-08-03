@@ -30,7 +30,7 @@ export class AnimeService {
       .get<PaginationDto<AnimeDto>>(environment.baseUrl, { params: this.httpParams })
       .pipe(
         map(dto =>
-          PaginationMapper.fromDto<AnimeDto, Anime>(dto, AnimeMapper.fromDto)),
+          PaginationMapper.fromDto(dto, AnimeMapper.fromDto)),
       );
   }
 }
