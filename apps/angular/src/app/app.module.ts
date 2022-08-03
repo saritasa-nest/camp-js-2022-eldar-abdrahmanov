@@ -7,16 +7,22 @@ import { MatTableModule } from '@angular/material/table';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { SharedModule } from '../shared/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AnimeTableComponent } from './features/anime/components/anime-table/anime-table.component';
-import { AnimeComponent } from './features/anime/anime.component';
+
+import { AnimeModule } from './features/anime/anime.module';
 
 /** App module. */
 @NgModule({
-  declarations: [AppComponent, AnimeTableComponent, AnimeComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     SharedModule,
@@ -24,6 +30,12 @@ import { AnimeComponent } from './features/anime/anime.component';
     HttpClientModule,
     MatTableModule,
     BrowserAnimationsModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    AnimeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

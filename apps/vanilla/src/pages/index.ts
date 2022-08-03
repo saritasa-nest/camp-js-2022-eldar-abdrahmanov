@@ -30,21 +30,21 @@ const paginationContainer: PaginationContainer = new PaginationContainer(
 /** Pagination state variable. */
 let currentPagination = await api.getPaginationAndAnimeList();
 
-/** Instance of header button responsible for sorting by title eng. */
+/** Instance of header button responsible for filtering by title eng. */
 const titleEngSortButton = new TableHeaderButton('#table-title-eng', async() => {
   api.setSortParameter('title_eng');
   currentPagination = await api.getPaginationAndAnimeList();
   renderPage(numberOfPaginationIndexes, 0);
 });
 
-/** Instance of header button responsible for sorting by aired start. */
+/** Instance of header button responsible for filtering by aired start. */
 const airedStartSortButton = new TableHeaderButton('#table-aired-start', async() => {
   api.setSortParameter('aired__startswith');
   currentPagination = await api.getPaginationAndAnimeList();
   renderPage(numberOfPaginationIndexes, 0);
 });
 
-/** Instance of header button responsible for sorting by status. */
+/** Instance of header button responsible for filtering by status. */
 const statusSortButton = new TableHeaderButton('#table-status', async() => {
   api.setSortParameter('status');
   currentPagination = await api.getPaginationAndAnimeList();
@@ -162,7 +162,7 @@ function renderPage(paginationLength: number, paginationStartIndex: number): voi
 
 renderPage(numberOfPaginationIndexes, 0);
 
-/** Set event listeners on sorting buttons. */
+/** Set event listeners on filtering buttons. */
 statusSortButton.setEventListener();
 airedStartSortButton.setEventListener();
 titleEngSortButton.setEventListener();

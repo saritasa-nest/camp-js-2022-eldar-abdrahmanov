@@ -10,7 +10,9 @@
   */
 
   /** Prevalent color in the application */
-  --primary-color: #f97316;
+  --primary-color: #1c5070;
+  --primary-border: 1px white solid;
+  --primary-border-radius: 5px;
   --primary-contrast-color: white;
   --primary-dark-color: #ea580c;
   --primary-dark-contrast-color: white;

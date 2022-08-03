@@ -7,6 +7,8 @@ import { Anime } from '@js-camp/core/models/anime';
 import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 
+import { Pagination } from '@js-camp/core/models/pagination';
+
 import { environment } from '../../environments/environment';
 
 /** Anime service to interact with API. */
@@ -15,19 +17,20 @@ import { environment } from '../../environments/environment';
 })
 
 export class AnimeService {
+  /** Http parameters. */
+  public httpParams: HttpParams;
 
-  public constructor(private httpClient: HttpClient) {}
+  public constructor(private httpClient: HttpClient) {
+    this.httpParams = new HttpParams();
+  }
 
   /** Makes a request to the API and returns a list of anime. */
-  public getAnimeList(): Observable<readonly Anime[]> {
-    const parameters = new HttpParams()
-      .set('ordering', 'id');
+  public getPaginationAndAnimeList(): Observable<Pagination<Anime>> {
     return this.httpClient
-      .get<PaginationDto<AnimeDto>>(environment.baseUrl, { params: parameters })
+      .get<PaginationDto<AnimeDto>>(environment.baseUrl, { params: this.httpParams })
       .pipe(
         map(dto =>
-          PaginationMapper.fromDto<AnimeDto, Anime>(dto, AnimeMapper.fromDto)),
-        map(pagination => pagination.results),
+          PaginationMapper.fromDto(dto, AnimeMapper.fromDto)),
       );
   }
 }
