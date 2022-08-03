@@ -26,9 +26,10 @@ import { FilteringComponent } from '../filtering/filtering.component';
 export interface UrlParams {
 
   /** Url parameters. */
-  [inputName: string]: string;
+  [param: string]: string;
 }
 
+/** Pagination url parameters. */
 interface PaginationUrlParams {
 
   /** Limit items on page. */
@@ -44,15 +45,15 @@ const URL_PARAMS = {
   sort: 'ordering',
   filter: 'type__in',
   search: 'search',
-};
+} as const;
 
-const DEFAULT_PARAMS = {
+const URL_DEFAULT_PARAMS = {
   limit: '25',
   offset: '0',
   sort: 'id',
   filter: [],
   search: '',
-};
+} as const;
 
 /** Anime table component. */
 @Component({
@@ -71,7 +72,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
     'aired__startswith',
     'type',
     'status',
-  ];
+  ] as const;
 
   /** Anime list observable. */
   public animeList$!: Observable<readonly Anime[]>;
@@ -132,26 +133,26 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.pagination$ = new BehaviorSubject<PaginationUrlParams>({
       limit: this.urlParams[URL_PARAMS.limit] ?
         this.urlParams[URL_PARAMS.limit] :
-        DEFAULT_PARAMS.limit,
+        URL_DEFAULT_PARAMS.limit,
       offset: this.urlParams[URL_PARAMS.offset] ?
         this.urlParams[URL_PARAMS.offset] :
-        DEFAULT_PARAMS.offset,
+        URL_DEFAULT_PARAMS.offset,
     });
     this.sorting$ = new BehaviorSubject<Sort>({
       active: this.urlParams[URL_PARAMS.sort] ?
         this.urlParams[URL_PARAMS.sort] :
-        DEFAULT_PARAMS.sort,
+        URL_DEFAULT_PARAMS.sort,
       direction: '',
     });
     this.filtering$ = new BehaviorSubject<readonly string[]>(
       this.urlParams[URL_PARAMS.filter] ?
         this.urlParams[URL_PARAMS.filter].split(',') :
-        DEFAULT_PARAMS.filter,
+        URL_DEFAULT_PARAMS.filter,
     );
     this.search$ = new BehaviorSubject<string>(
       this.urlParams[URL_PARAMS.search] ?
         this.urlParams[URL_PARAMS.search] :
-        DEFAULT_PARAMS.search,
+        URL_DEFAULT_PARAMS.search,
     );
     this.searchString = this.urlParams[URL_PARAMS.search] ?
       this.urlParams[URL_PARAMS.search] :
@@ -189,9 +190,11 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Return index of item.
-   * @param index Serial number. */
-  public trackBy(index: number): number {
-    return index;
+   * @param index Serial number.
+   * @param item Anime instance.
+   */
+  public trackBy(index: number, item: Anime): number {
+    return item.id;
   }
 
   /**
@@ -224,7 +227,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
       event.active = `-${event.active}`;
     }
     if (event.direction === '') {
-      event.active = DEFAULT_PARAMS.sort;
+      event.active = URL_DEFAULT_PARAMS.sort;
     }
     this.sorting$.next(event);
     this.resetPaginationToFirstPage();
@@ -275,8 +278,8 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   /** Reset pagination to the first page. */
   private resetPaginationToFirstPage(): void {
     this.pagination$.next({
-      limit: DEFAULT_PARAMS.limit,
-      offset: DEFAULT_PARAMS.offset,
+      limit: URL_DEFAULT_PARAMS.limit,
+      offset: URL_DEFAULT_PARAMS.offset,
     });
     this.paginationComponent.resetToFirstPage();
   }
