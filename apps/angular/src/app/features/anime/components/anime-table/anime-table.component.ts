@@ -171,7 +171,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.urlParams[URL_PARAMS.limit],
     );
     this.paginationComponent.pageIndex =
-      Number(this.urlParams[URL_PARAMS.limit]) /
+      Number(this.urlParams[URL_PARAMS.offset]) /
       Number(this.urlParams[URL_PARAMS.limit]);
     if (this.urlParams[URL_PARAMS.sort] !== undefined) {
       this.activeSortHeader = this.urlParams[URL_PARAMS.sort];
