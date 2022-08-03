@@ -61,6 +61,7 @@ const DEFAULT_PARAMS = {
   styleUrls: ['./anime-table.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   /** Id`s of table columns. */
   public readonly displayedColumns = [
