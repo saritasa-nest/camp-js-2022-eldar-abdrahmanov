@@ -23,7 +23,7 @@ export class AnimeTableComponent {
     'airedStart',
     'type',
     'status',
-  ];
+  ] as const;
 
   /** Anime list. */
   public readonly animeList$: Observable<readonly Anime[]>;
@@ -35,8 +35,9 @@ export class AnimeTableComponent {
   /**
    * Return index of item.
    * @param index Serial number.
+   * @param item Anime instance.
    */
-  public trackBy(index: number): number {
-    return index;
+  public trackBy(index: number, item: Anime): number {
+    return item.id;
   }
 }
