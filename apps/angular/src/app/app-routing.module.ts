@@ -4,16 +4,26 @@ import { RouterModule, Routes } from '@angular/router';
 import { HashLocationStrategy } from '@angular/common';
 
 import { AnimeTableComponent } from './features/anime/components/anime-table/anime-table.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { RegistrationComponent } from './features/auth/registration/registration.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'anime',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
     path: 'anime',
     component: AnimeTableComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegistrationComponent,
   },
 ];
 

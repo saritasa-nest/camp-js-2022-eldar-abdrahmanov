@@ -1,6 +1,9 @@
+<mat-toolbar color="accent" class="app-header">
+  <span class="nav-tool-items">
+    <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
+    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
+  </span>
+</mat-toolbar>
 <div class="page">
-  <div class="header">
-    <h1 class="header__title">Anime catalog</h1>
-  <div>
   <router-outlet></router-outlet>
 </div>

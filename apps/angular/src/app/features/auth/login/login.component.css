@@ -1,0 +1,15 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  color: white;
+  max-width: 600px;
+  margin: auto;
+}
+
+.mat-stroked-button {
+  border: var(--primary-border);
+  width: 110px;
+}
