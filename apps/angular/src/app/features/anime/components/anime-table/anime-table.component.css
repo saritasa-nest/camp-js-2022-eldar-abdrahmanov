@@ -1,0 +1,23 @@
+.anime-table {
+  width: 100%;
+  max-width: 1440px;
+  margin: auto;
+}
+
+.anime-image {
+  max-width: 150px;
+  max-height: 150px;
+  object-position: center;
+  object-fit: cover;
+}
+
+.mat-header-cell {
+  border: 1px white solid;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.mat-cell {
+  border: 1px gray solid;
+  text-align: center;
+}
