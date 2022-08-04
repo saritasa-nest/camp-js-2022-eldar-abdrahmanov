@@ -13,4 +13,7 @@ export class AppConfigService {
 
   /** Api key. */
   public readonly apiKey = environment.apiKey;
+
+  /** Api url. */
+  public readonly apiUrl = environment.apiUrl;
 }
