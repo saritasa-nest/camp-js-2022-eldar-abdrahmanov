@@ -2,17 +2,36 @@
   <h1 class="login-title">Login page</h1>
   <form [formGroup]="form" (ngSubmit)="submitLogin()" class="form">
     <mat-form-field color="accent" class="form-element">
-      <input type="email" formControlName="email" matInput placeholder="Email">
-      <mat-error></mat-error>
+      <input
+        type="email"
+        formControlName="email"
+        matInput
+        placeholder="Email"
+      />
+      <mat-error
+        *ngIf="!form.controls['email'].valid && form.controls['email'].touched"
+      >
+        {{ getErrorEmail() }}
+      </mat-error>
     </mat-form-field>
     <mat-form-field color="accent" class="form-element">
-      <input matInput type="password" formControlName="password"  placeholder="Password">
-      <mat-error></mat-error>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+      />
+      <mat-error
+        *ngIf="
+          !form.controls['password'].valid &&
+          form.controls['password'].touched
+        "
+      >
+        {{ getErrorPassword() }}
+      </mat-error>
     </mat-form-field>
     <div class="form-element">
-      <button mat-stroked-button type="submit">
-        Login
-      </button>
+      <button mat-stroked-button type="submit">Login</button>
     </div>
   </form>
 </div>

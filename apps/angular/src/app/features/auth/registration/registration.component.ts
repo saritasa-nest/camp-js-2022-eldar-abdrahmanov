@@ -69,16 +69,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   /** */
-  public getErrorPasswordRepeat(): string {
-    if (this.form.get('passwordRepeat')?.hasError('required')) {
-      return 'Field is required';
-    }
-    return '';
-  }
-
-  /** */
   public getErrorPassword(): string {
     if (this.form.get('password')?.hasError('required')) {
+      return 'Field is required';
+    }
+    if (this.form.get('passwordRepeat')?.hasError('required')) {
       return 'Field is required';
     }
     return '';

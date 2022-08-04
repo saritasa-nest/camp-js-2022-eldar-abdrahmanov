@@ -23,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthModule } from './features/auth/auth.module';
 import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
+import { ErrorInterceptor } from "../core/interceptors/error.interceptor";
 
 /** App module. */
 @NgModule({
@@ -51,6 +52,11 @@ import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
       useClass: AuthInterceptor,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent],
 })
