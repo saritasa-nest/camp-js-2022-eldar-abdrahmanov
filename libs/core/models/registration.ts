@@ -12,9 +12,6 @@ export class Registration extends Immerable {
   /** Last name. */
   public readonly lastName: string;
 
-  /** Avatar url. */
-  public readonly avatarUrl: string;
-
   /** Password. */
   public readonly password: string;
 
@@ -23,7 +20,6 @@ export class Registration extends Immerable {
     this.email = data.email;
     this.firstName = data.firstName;
     this.lastName = data.lastName;
-    this.avatarUrl = data.avatarUrl;
     this.password = data.password;
   }
 }

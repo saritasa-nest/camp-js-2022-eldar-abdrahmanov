@@ -1,28 +1,35 @@
 <div class="container">
-  <h1>Registration page</h1>
+  <h1 class="login-title">Registration page</h1>
   <form [formGroup]="form" (ngSubmit)="submitRegister()" class="form">
     <mat-form-field color="accent" class="form-element">
-      <input matInput type="email" formControlName="email" placeholder="Email">
+      <input matInput maxlength="254" type="email" formControlName="email" placeholder="Email">
+      <mat-error *ngIf="!form.controls['email'].valid && form.controls['email'].touched">{{getErrorEmail()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <input matInput maxlength="30" type="text" formControlName="firstName" placeholder="First name">
+      <mat-error ></mat-error>
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <input matInput maxlength="30" type="text" formControlName="lastName" placeholder="Last name">
       <mat-error></mat-error>
     </mat-form-field>
     <mat-form-field color="accent" class="form-element">
-      <input matInput type="text" formControlName="firstName" placeholder="First name">
-      <mat-error></mat-error>
+      <input matInput maxlength="128" type="password" formControlName="password" placeholder="Password">
+      <mat-error *ngIf="!form.controls['password'].valid && form.controls['password'].touched">
+        {{getErrorPassword()}}
+      </mat-error>
     </mat-form-field>
     <mat-form-field color="accent" class="form-element">
-      <input matInput type="text" formControlName="lastName" placeholder="Last name">
-      <mat-error></mat-error>
+      <input matInput maxlength="128" type="password" formControlName="passwordRepeat" placeholder="Repeat password">
+      <mat-error *ngIf="!form.controls['passwordRepeat'].valid && form.controls['passwordRepeat'].touched">
+        {{getErrorPasswordRepeat()}}
+      </mat-error>
     </mat-form-field>
-    <mat-form-field color="accent" class="form-element">
-      <input matInput type="url" formControlName="avatar" placeholder="Avatar">
-      <mat-error></mat-error>
-    </mat-form-field>
-    <mat-form-field color="accent" class="form-element">
-      <input matInput type="password" formControlName="password" placeholder="Password">
-      <mat-error></mat-error>
-    </mat-form-field>
+    <mat-error *ngIf="form.errors?.['passwordsDifferent'] && (form.touched || form.dirty)">
+      Passwords different
+    </mat-error>
     <div class="form-element">
-      <button mat-stroked-button type="submit">
+      <button mat-stroked-button type="submit" [disabled]="!form.valid">
         Registration
       </button>
     </div>

@@ -10,9 +10,6 @@ export interface RegistrationDto {
   /** Last name. */
   readonly last_name: string;
 
-  /** Avatar url. */
-  readonly avatar: string;
-
   /** Password. */
   readonly password: string;
 }

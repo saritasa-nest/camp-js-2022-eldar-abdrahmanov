@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { MatTableModule } from '@angular/material/table';
 
@@ -22,6 +22,7 @@ import { AnimeModule } from './features/anime/anime.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthModule } from './features/auth/auth.module';
+import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
 
 /** App module. */
 @NgModule({
@@ -44,7 +45,13 @@ import { AuthModule } from './features/auth/auth.module';
     AnimeModule,
     AuthModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

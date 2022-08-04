@@ -11,4 +11,10 @@
 
 .mat-stroked-button {
   border: var(--primary-border);
+  width: 110px;
+  margin-top: 30px;
+}
+
+.login-title {
+  margin-bottom: 30px;
 }

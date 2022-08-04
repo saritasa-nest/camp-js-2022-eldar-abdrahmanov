@@ -1,5 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  AsyncValidator,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 import { AuthorizationService } from '../../../../core/services/auth.service';
 import { RegisterMapper } from '@js-camp/core/mappers/registration.mapper';
 
@@ -16,21 +24,63 @@ export class RegistrationComponent implements OnInit {
 
   public constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly authService: AuthorizationService
+    private readonly authService: AuthorizationService,
   ) {
     this.form = this.formBuilder.group({
-      email: ['', Validators.required],
-      firstName: [''],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+        ],
+      ],
+      firstName: ['', Validators.maxLength(30)],
       lastName: [''],
-      avatar: [''],
       password: ['', Validators.required],
-    });
+      passwordRepeat: ['', Validators.required],
+    }, { validators: this.passwordIdentityValidation });
   }
 
   ngOnInit(): void {}
 
+  /** */
   submitRegister() {
     console.log(RegisterMapper.toDto(this.form.value));
-    this.authService.register(this.form.value).subscribe(res => console.log(res))
+    this.authService
+      .register(this.form.value)
+      .subscribe(res => console.log(res));
+  }
+
+  /** */
+  public passwordIdentityValidation(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password');
+    const passwordRepeat = control.get('passwordRepeat');
+    return password?.value === passwordRepeat?.value ? null : { passwordsDifferent: true };
+  }
+
+  /** */
+  public getErrorEmail(): string {
+    if (this.form.get('email')?.hasError('required')) {
+      return 'Field is required';
+    } else if (this.form.get('email')?.hasError('email')) {
+      return 'Not a valid email address';
+    }
+    return '';
+  }
+
+  /** */
+  public getErrorPasswordRepeat(): string {
+    if (this.form.get('passwordRepeat')?.hasError('required')) {
+      return 'Field is required';
+    }
+    return '';
+  }
+
+  /** */
+  public getErrorPassword(): string {
+    if (this.form.get('password')?.hasError('required')) {
+      return 'Field is required';
+    }
+    return '';
   }
 }
