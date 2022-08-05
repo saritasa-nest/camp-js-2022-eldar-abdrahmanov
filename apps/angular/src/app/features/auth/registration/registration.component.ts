@@ -1,15 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import {
   AbstractControl,
-  AsyncValidator,
   FormBuilder,
   FormGroup,
   ValidationErrors,
-  ValidatorFn,
-  Validators
+  Validators,
 } from '@angular/forms';
+
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+
 import { AuthorizationService } from '../../../../core/services/auth.service';
-import { RegisterMapper } from '@js-camp/core/mappers/registration.mapper';
 
 /** */
 @Component({
@@ -18,68 +19,105 @@ import { RegisterMapper } from '@js-camp/core/mappers/registration.mapper';
   styleUrls: ['./registration.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegistrationComponent implements OnInit {
-  /** */
+export class RegistrationComponent {
+  /** Registration form. */
   public readonly form: FormGroup;
+
+  /** Contains error from error response.  */
+  public responseErrors: ValidationErrors;
 
   public constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthorizationService,
+    private readonly router: Router,
+    private change: ChangeDetectorRef,
   ) {
-    this.form = this.formBuilder.group({
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-        ],
-      ],
-      firstName: ['', Validators.maxLength(30)],
-      lastName: [''],
-      password: ['', Validators.required],
-      passwordRepeat: ['', Validators.required],
-    }, { validators: this.passwordIdentityValidation });
+    this.responseErrors = {};
+    this.form = this.formBuilder.group(
+      {
+        email: ['', [Validators.required, Validators.email]],
+        firstName: [''],
+        lastName: [''],
+        password: ['', Validators.required],
+        passwordRepeat: ['', Validators.required],
+      },
+      { validators: this.passwordIdentityValidation },
+    );
   }
 
-  ngOnInit(): void {}
-
-  /** */
-  submitRegister() {
-    console.log(RegisterMapper.toDto(this.form.value));
-    this.authService
-      .register(this.form.value)
-      .subscribe(res => console.log(res));
+  /** Handle register form submit. */
+  public submitRegister(): void {
+    this.authService.register(this.form.value).subscribe({
+      next: this.handleSuccessResponse.bind(this),
+      error: this.handleError.bind(this),
+    });
   }
 
-  /** */
-  public passwordIdentityValidation(control: AbstractControl): ValidationErrors | null {
+  /** Handler of success response. */
+  private handleSuccessResponse(): void {
+    this.router.navigate(['/login']);
+    alert('You have successfully registered');
+  }
+
+  /**
+   * Error response handler. Iterates over an object containing error messages.
+   * And sets the error state for the form fields.
+   * @param errors Http error response.
+   */
+  private handleError(errors: HttpErrorResponse): void {
+    const responseErrors = errors.error.data;
+    for (const key in responseErrors) {
+      this.form.controls[key].setErrors({ resError: true });
+      this.responseErrors[key] = responseErrors[key];
+    }
+    this.change.markForCheck();
+  }
+
+  /**
+   * Custom validator. Checks password and re-type password entry fields for identity.
+   * @param control AbstractControl.
+   */
+  public passwordIdentityValidation(
+    control: AbstractControl,
+  ): ValidationErrors | null {
     const password = control.get('password');
     const passwordRepeat = control.get('passwordRepeat');
-    return password?.value === passwordRepeat?.value ? null : { passwordsDifferent: true };
+    return password?.value === passwordRepeat?.value ?
+      null :
+      { passwordsDifferent: true };
   }
 
-  /** */
+  /**
+   * Returns a specific message for email input.
+   * Depending on the type of validation error.
+   */
   public getErrorEmail(): string {
     if (this.form.get('email')?.hasError('required')) {
       return 'Field is required';
     } else if (this.form.get('email')?.hasError('email')) {
       return 'Not a valid email address';
     }
-    return '';
-  }
-
-  /** */
-  public getErrorPasswordRepeat(): string {
-    if (this.form.get('passwordRepeat')?.hasError('required')) {
-      return 'Field is required';
+    if (this.form.get('email')?.hasError('resError')) {
+      return this.responseErrors['email'];
     }
     return '';
   }
 
-  /** */
+  /**
+   * Returns a specific message for password input.
+   * Depending on the type of validation error.
+   */
   public getErrorPassword(): string {
+    const errorMessage = this.responseErrors['password'];
+    console.log(errorMessage)
     if (this.form.get('password')?.hasError('required')) {
       return 'Field is required';
+    }
+    if (this.form.get('passwordRepeat')?.hasError('required')) {
+      return 'Field is required';
+    }
+    if (this.form.get('password')?.hasError('resError')) {
+      return errorMessage.join(',').replace(',', ' ');//!!!!!!!!!!!!!!!!!!!!
     }
     return '';
   }

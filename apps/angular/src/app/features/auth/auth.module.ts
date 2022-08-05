@@ -13,6 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { RegistrationComponent } from './registration/registration.component';
 
 import { LoginComponent } from './login/login.component';
+import { RouterModule } from '@angular/router';
+import { MatTabsModule } from '@angular/material/tabs';
 
 /** */
 @NgModule({
@@ -28,6 +30,8 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatButtonModule,
     FormsModule,
+    RouterModule,
+    MatTabsModule
   ],
   exports: [LoginComponent, RegistrationComponent],
 })

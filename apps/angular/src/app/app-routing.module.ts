@@ -10,7 +10,7 @@ import { RegistrationComponent } from './features/auth/registration/registration
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'register',
     pathMatch: 'full',
   },
   {
