@@ -5,7 +5,7 @@
 
 .header__title {
   width: 100%;
-  color: white;
+  color: var(--primary-contrast-color);
   background-color: var(--primary-color);
   font-size: 32px;
   margin-bottom: 50px;
