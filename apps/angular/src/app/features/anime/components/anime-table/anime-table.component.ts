@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-
 import { Anime } from '@js-camp/core/models/anime';
 import { Observable } from 'rxjs';
 
