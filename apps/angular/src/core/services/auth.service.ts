@@ -35,7 +35,7 @@ export class AuthorizationService {
    * Register user.
    * @param registrationData Data used during registration.
    */
-  public register(registrationData: Registration): Observable<any> {//any!!!!!!!!!!!!!!!!!!!!!!!!!
+  public register(registrationData: Registration): Observable<UserToken> {
     return this.httpClient
       .post<UserTokenDto>(this.registerUrl.toString(), RegisterMapper.toDto(registrationData))
       .pipe(map(dto => UserTokenMapper.fromDto(dto)));

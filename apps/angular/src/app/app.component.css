@@ -1,6 +1,5 @@
 .page {
-  padding: 100px;
-  height: 100%;
+  padding: 30px 150px;
   background-color: var(--primary-color);
 }
 

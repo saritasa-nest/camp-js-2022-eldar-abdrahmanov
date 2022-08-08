@@ -28,6 +28,11 @@
         {{ getErrorPassword() }}
       </mat-error>
     </mat-form-field>
+    <mat-error
+      *ngIf="form.errors?.['resError'] && (form.touched || form.dirty)"
+    >
+      {{this.responseErrorMessage}}
+    </mat-error>
     <div class="form__button-container">
       <button mat-stroked-button type="submit" [disabled]="!form.valid">
         Login

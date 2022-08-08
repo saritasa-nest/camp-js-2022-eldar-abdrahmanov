@@ -21,6 +21,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { AnimeService } from '../../../../../core/services/anime.service';
 import { FilteringComponent } from '../filtering/filtering.component';
+import { UserService } from '../../../../../core/services/user.service';
 
 /** Url parameters object. */
 export interface UrlParams {
@@ -115,6 +116,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly animeService: AnimeService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
+    private readonly userService: UserService,
   ) {
     this.urlParams = {};
 
@@ -287,5 +289,10 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   /** A lifecycle hook. Unsubscribe observables. */
   public ngOnDestroy(): void {
     this.subscriptionOnChanges.unsubscribe();
+  }
+
+  /** Handle quit button click. */
+  public handleQuitButton(): void {
+    this.userService.removeJwtFromLocalStorage();
   }
 }

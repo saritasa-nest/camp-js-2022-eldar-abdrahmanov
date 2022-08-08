@@ -1,12 +1,15 @@
 <div class="anime-page">
-  <div class="buttons-container">
-    <div class="anime-search__container">
-      <mat-form-field class="anime-search__form" appearance="fill">
+  <div class="anime-page__login-info">
+    <a class="anime-page__quit" (click)="handleQuitButton()" mat-stroked-button routerLink="/login">Quit</a>
+  </div>
+  <div class="anime-page__buttons-container">
+    <div class="anime-page__search-container">
+      <mat-form-field class="anime-page__search-form" appearance="fill">
         <mat-label>Enter anime title</mat-label>
         <input [(ngModel)]="searchString" matInput />
       </mat-form-field>
       <button
-        class="anime-search__button"
+        class="anime-page__search-button"
         mat-stroked-button
         type="button"
         (click)="handleSearchClick()"
@@ -34,8 +37,8 @@
   >
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef>Image</th>
-      <td mat-cell class="table__cell_image" *matCellDef="let row">
-        <img class="table-image" [src]="row.imageUrl" alt="anime preview" />
+      <td mat-cell class="anime-table__cell_image" *matCellDef="let row">
+        <img class="anime-table__image" [src]="row.imageUrl" alt="anime preview" />
       </td>
     </ng-container>
     <ng-container matColumnDef="title_eng">

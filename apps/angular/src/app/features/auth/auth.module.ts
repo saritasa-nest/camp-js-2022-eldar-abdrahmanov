@@ -10,11 +10,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { RouterModule } from '@angular/router';
+import { MatTabsModule } from '@angular/material/tabs';
+
 import { RegistrationComponent } from './registration/registration.component';
 
 import { LoginComponent } from './login/login.component';
-import { RouterModule } from '@angular/router';
-import { MatTabsModule } from '@angular/material/tabs';
 
 /** */
 @NgModule({
@@ -31,7 +32,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatButtonModule,
     FormsModule,
     RouterModule,
-    MatTabsModule
+    MatTabsModule,
   ],
   exports: [LoginComponent, RegistrationComponent],
 })

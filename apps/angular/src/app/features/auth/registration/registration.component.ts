@@ -12,7 +12,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { AuthorizationService } from '../../../../core/services/auth.service';
 
-/** */
+const validationMessages = {
+  invalidEmail: 'Not a valid email address',
+  requiredField: 'Field is required',
+} as const;
+
+/** Registration component. */
 @Component({
   selector: 'camp-registration',
   templateUrl: './registration.component.html',
@@ -53,10 +58,9 @@ export class RegistrationComponent {
     });
   }
 
-  /** Handler of success response. */
+  /** Handler of success response after registration. */
   private handleSuccessResponse(): void {
     this.router.navigate(['/login']);
-    alert('You have successfully registered');
   }
 
   /**
@@ -93,9 +97,9 @@ export class RegistrationComponent {
    */
   public getErrorEmail(): string {
     if (this.form.get('email')?.hasError('required')) {
-      return 'Field is required';
+      return validationMessages.requiredField;
     } else if (this.form.get('email')?.hasError('email')) {
-      return 'Not a valid email address';
+      return validationMessages.invalidEmail;
     }
     if (this.form.get('email')?.hasError('resError')) {
       return this.responseErrors['email'];
@@ -109,15 +113,14 @@ export class RegistrationComponent {
    */
   public getErrorPassword(): string {
     const errorMessage = this.responseErrors['password'];
-    console.log(errorMessage)
     if (this.form.get('password')?.hasError('required')) {
-      return 'Field is required';
+      return validationMessages.requiredField;
     }
     if (this.form.get('passwordRepeat')?.hasError('required')) {
-      return 'Field is required';
+      return validationMessages.requiredField;
     }
     if (this.form.get('password')?.hasError('resError')) {
-      return errorMessage.join(',').replace(',', ' ');//!!!!!!!!!!!!!!!!!!!!
+      return errorMessage.join(',').replace(',', ' ');
     }
     return '';
   }
