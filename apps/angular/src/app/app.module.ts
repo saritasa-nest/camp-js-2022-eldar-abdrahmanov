@@ -13,17 +13,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { MatButtonModule } from '@angular/material/button';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 import { SharedModule } from '../shared/shared.module';
+
+import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AnimeModule } from './features/anime/anime.module';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
+
 import { AuthModule } from './features/auth/auth.module';
-import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
-import { ErrorInterceptor } from "../core/interceptors/error.interceptor";
 
 /** App module. */
 @NgModule({
@@ -52,11 +55,6 @@ import { ErrorInterceptor } from "../core/interceptors/error.interceptor";
       useClass: AuthInterceptor,
       multi: true,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true,
-    }
   ],
   bootstrap: [AppComponent],
 })

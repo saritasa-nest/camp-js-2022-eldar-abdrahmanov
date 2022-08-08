@@ -10,9 +10,8 @@
       />
       <mat-error
         *ngIf="!form.controls['email'].valid && form.controls['email'].touched"
+        >{{ getErrorEmail() }}</mat-error
       >
-        {{ getErrorEmail() }}
-      </mat-error>
     </mat-form-field>
     <mat-form-field color="accent" class="form-element">
       <input
@@ -23,15 +22,22 @@
       />
       <mat-error
         *ngIf="
-          !form.controls['password'].valid &&
-          form.controls['password'].touched
+          !form.controls['password'].valid && form.controls['password'].touched
         "
       >
         {{ getErrorPassword() }}
       </mat-error>
     </mat-form-field>
-    <div class="form-element">
-      <button mat-stroked-button type="submit">Login</button>
+    <mat-error
+      *ngIf="form.errors?.['resError'] && (form.touched || form.dirty)"
+    >
+      {{this.responseErrorMessage}}
+    </mat-error>
+    <div class="form__button-container">
+      <button mat-stroked-button type="submit" [disabled]="!form.valid">
+        Login
+      </button>
+      <a class="form__register-link" mat-button routerLink="/register">Register an account</a>
     </div>
   </form>
 </div>

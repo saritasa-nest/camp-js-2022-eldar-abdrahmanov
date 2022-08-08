@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { RouterModule } from '@angular/router';
+
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FilteringComponent } from './components/filtering/filtering.component';
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
@@ -36,6 +38,7 @@ import { AnimeTableComponent } from './components/anime-table/anime-table.compon
     MatInputModule,
     MatButtonModule,
     FormsModule,
+    RouterModule,
   ],
   exports: [AnimeTableComponent],
 })

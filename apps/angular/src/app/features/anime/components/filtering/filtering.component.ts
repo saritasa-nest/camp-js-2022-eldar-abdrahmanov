@@ -17,26 +17,20 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class FilteringComponent {
   /** Filtering event emitter. */
-  @Output() private readonly filteringEventEmitter: EventEmitter<MatSelectChange>;
+  @Output() private readonly filterChange = new EventEmitter();
 
   /** FormControl instance. */
-  public readonly animeTypes: FormControl;
+  public readonly animeTypes = new FormControl();
 
   /** List of anime types. */
-  public readonly animeTypeList: readonly string[];
-
-  public constructor() {
-    this.filteringEventEmitter = new EventEmitter();
-    this.animeTypes = new FormControl();
-    this.animeTypeList = Object.values(AnimeType);
-  }
+  public readonly animeTypeList = Object.values(AnimeType);
 
   /**
    * Emit event when changes filtering selection.
    * @param event Event that generates angular material Select.
    */
   public handleChangeSelection(event: MatSelectChange): void {
-    this.filteringEventEmitter.emit(event);
+    this.filterChange.emit(event);
   }
 
   /**

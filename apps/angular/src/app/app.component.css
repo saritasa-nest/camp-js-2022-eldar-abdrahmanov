@@ -1,11 +1,12 @@
 .page {
-  padding: 100px;
+  padding: 30px 150px;
   background-color: var(--primary-color);
+  background-size: 100%;
 }
 
 .header__title {
   width: 100%;
-  color: white;
+  color: var(--primary-contrast-color);
   background-color: var(--primary-color);
   font-size: 32px;
   margin-bottom: 50px;

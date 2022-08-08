@@ -4,7 +4,7 @@
 }
 
 .container {
-  color: white;
+  color: var(--primary-contrast-color);
   max-width: 600px;
   margin: auto;
 }
@@ -17,4 +17,13 @@
 
 .login-title {
   margin-bottom: 30px;
+}
+
+.form__button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form__register-link {
+  margin-top: 30px;
 }

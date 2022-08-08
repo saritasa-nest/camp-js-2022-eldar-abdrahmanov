@@ -5,22 +5,18 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-
 import { Anime } from '@js-camp/core/models/anime';
 import { combineLatest, BehaviorSubject, Subscription, Observable, map } from 'rxjs';
-
 import { PageEvent } from '@angular/material/paginator';
 import { Sort, SortDirection } from '@angular/material/sort';
-
 import { MatSelectChange } from '@angular/material/select';
-
 import { HttpParams } from '@angular/common/http';
-
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PaginationComponent } from '../pagination/pagination.component';
 import { AnimeService } from '../../../../../core/services/anime.service';
 import { FilteringComponent } from '../filtering/filtering.component';
+import { UserService } from '../../../../../core/services/user.service';
 
 /** Url parameters object. */
 export interface UrlParams {
@@ -33,10 +29,10 @@ export interface UrlParams {
 interface PaginationUrlParams {
 
   /** Limit items on page. */
-  readonly limit: string;
+  limit: string;
 
   /** Offset. */
-  readonly offset: string;
+  offset: string;
 }
 
 const URL_PARAMS = {
@@ -83,7 +79,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   /** Active header id when sorting. */
   public activeSortHeader: string;
 
-  /** Direction of active header id when sorting. 'asc' | 'desc' | '' .*/
+  /** Direction of active header id when sorting. 'asc' | 'desc' | '' . */
   public directionSortHeader: SortDirection;
 
   /** Emits on pagination change. */
@@ -101,7 +97,8 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   /** Search input value. */
   public searchString: string;
 
-  private subscriptionOnChanges: Subscription;
+  /** Subscription on changes on page. */
+  private subscriptionOnChanges = new Subscription();
 
   /** Pagination component. */
   @ViewChild(PaginationComponent)
@@ -115,19 +112,9 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly animeService: AnimeService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
+    private readonly userService: UserService,
   ) {
-    this.urlParams = {};
-
-    // subscribes to changing the router url parameters and downloads the anime list.
-    this.route.queryParamMap.subscribe(param => {
-      param.keys.map(key => {
-        this.urlParams[key] = param.get(key) as string;
-      });
-      this.animeService.httpParams = new HttpParams().appendAll(this.urlParams);
-      this.getAnimeList();
-    });
-
-    this.subscriptionOnChanges = new Subscription();
+    this.urlParams = this.route.snapshot.queryParams;
     this.activeSortHeader = '';
     this.directionSortHeader = '';
     this.pagination$ = new BehaviorSubject<PaginationUrlParams>({
@@ -159,8 +146,24 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
       '';
   }
 
+  /**
+   * Subscribes to change in url parameters.
+   * Creates new parameters for the http request and refreshes the content of the page.
+   */
+  public handleQueryParamsChange(): void {
+    this.route.queryParamMap.subscribe(param => {
+      param.keys.map(key => {
+        this.urlParams[key] = param.get(key) as string;
+      });
+      this.animeService.httpParams = new HttpParams().appendAll(this.urlParams);
+      this.getAnimeList();
+    });
+  }
+
   /** A lifecycle hook. */
   public ngOnInit(): void {
+    this.animeService.httpParams = new HttpParams().appendAll(this.urlParams);
+    this.getAnimeList();
     this.handleChanges();
   }
 
@@ -186,6 +189,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.urlParams[URL_PARAMS.filter].split(','),
       );
     }
+    this.handleQueryParamsChange();
   }
 
   /**
@@ -287,5 +291,10 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   /** A lifecycle hook. Unsubscribe observables. */
   public ngOnDestroy(): void {
     this.subscriptionOnChanges.unsubscribe();
+  }
+
+  /** Handle quit button click. */
+  public handleQuitButton(): void {
+    this.userService.removeJwtFromLocalStorage();
   }
 }
