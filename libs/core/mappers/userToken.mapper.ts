@@ -1,5 +1,5 @@
-import { UserToken } from '@js-camp/core/models/userToken';
-import { UserTokenDto } from '@js-camp/core/dtos/userToken.dto';
+import { UserToken } from '../models/userToken';
+import { UserTokenDto } from '../dtos/userToken.dto';
 
 export namespace UserTokenMapper {
 
