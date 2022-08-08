@@ -1,6 +1,7 @@
 .page {
   padding: 30px 150px;
   background-color: var(--primary-color);
+  background-size: 100%;
 }
 
 .header__title {

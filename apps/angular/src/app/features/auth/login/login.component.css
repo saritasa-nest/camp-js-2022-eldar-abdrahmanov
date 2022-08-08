@@ -4,7 +4,7 @@
 }
 
 .container {
-  color: white;
+  color: var(--primary-contrast-color);
   max-width: 600px;
   margin: auto;
 }
