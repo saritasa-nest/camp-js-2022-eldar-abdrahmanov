@@ -1,3 +1,3 @@
 .dropdown {
-  background-color: #1c5070;
+  background-color: var(--primary-color);
 }

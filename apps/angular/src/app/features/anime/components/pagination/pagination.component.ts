@@ -16,33 +16,25 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class PaginationComponent {
   /** Pagination length. */
-  public length: number;
+  public length = 0;
 
   /** Items on page. */
-  public pageSize: number;
+  public pageSize = 25;
 
   /** Index of active page. */
-  public pageIndex: number;
+  public pageIndex = 0;
 
   /** List of options items on page. */
-  public readonly pageSizeOptions: readonly number[];
+  public readonly pageSizeOptions = [5, 10, 25, 100];
 
   /** Option to show first and last button. */
-  public showFirstLastButtons: boolean;
+  public showFirstLastButtons = true;
 
   /** Pagination event emitter. */
-  @Output() public readonly paginationEventEmitter = new EventEmitter();
+  @Output() public readonly paginationChange = new EventEmitter();
 
   /** Angular material Pagination. */
   @ViewChild('paginator') private readonly paginator!: MatPaginator;
-
-  public constructor() {
-    this.length = 0;
-    this.pageSize = 25;
-    this.pageIndex = 0;
-    this.pageSizeOptions = [5, 10, 25, 100];
-    this.showFirstLastButtons = true;
-  }
 
   /** Reset pagination to the first page. */
   public resetToFirstPage(): void {
@@ -62,6 +54,6 @@ export class PaginationComponent {
    * @param event Angular Material Page event.
    */
   public handlePageEvent(event: PageEvent): void {
-    this.paginationEventEmitter.emit(event);
+    this.paginationChange.emit(event);
   }
 }
