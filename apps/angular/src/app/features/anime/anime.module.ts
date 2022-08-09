@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FilteringComponent } from './components/filtering/filtering.component';
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
+import { AnimeDetailsComponent } from './components/anime-details/anime-details.component';
 
 /** Anime module. */
 @NgModule({
@@ -24,6 +25,7 @@ import { AnimeTableComponent } from './components/anime-table/anime-table.compon
     AnimeTableComponent,
     PaginationComponent,
     FilteringComponent,
+    AnimeDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -42,4 +44,4 @@ import { AnimeTableComponent } from './components/anime-table/anime-table.compon
   ],
   exports: [AnimeTableComponent],
 })
-export class AnimeModule { }
+export class AnimeModule {}
