@@ -1,12 +1,20 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  Component, OnDestroy,
+  Component,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { Anime } from '@js-camp/core/models/anime';
-import { combineLatest, BehaviorSubject, Subscription, Observable, map } from 'rxjs';
+import {
+  combineLatest,
+  BehaviorSubject,
+  Subscription,
+  Observable,
+  map,
+  switchMap,
+} from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort, SortDirection } from '@angular/material/sort';
 import { MatSelectChange } from '@angular/material/select';
@@ -58,7 +66,6 @@ const URL_DEFAULT_PARAMS = {
   styleUrls: ['./anime-table.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   /** Id`s of table columns. */
   public readonly displayedColumns = [
@@ -77,25 +84,25 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   public urlParams: UrlParams;
 
   /** Active header id when sorting. */
-  public activeSortHeader: string;
+  public activeSortHeader = '';
 
-  /** Direction of active header id when sorting. 'asc' | 'desc' | '' . */
-  public directionSortHeader: SortDirection;
+  /** Direction of active header when sorting. 'asc' | 'desc' | '' . */
+  public directionSortHeader: SortDirection = '';
 
   /** Emits on pagination change. */
-  private readonly pagination$: BehaviorSubject<PaginationUrlParams>;
+  private pagination$!: BehaviorSubject<PaginationUrlParams>;
 
   /** Emits on sorting change. */
-  private readonly sorting$: BehaviorSubject<Sort>;
+  private sorting$!: BehaviorSubject<Sort>;
 
   /** Emits on filtering change. */
-  private readonly filtering$: BehaviorSubject<readonly string[]>;
+  private filtering$!: BehaviorSubject<readonly string[]>;
 
   /** Emits on searching change. */
-  private readonly search$: BehaviorSubject<string>;
+  private search$!: BehaviorSubject<string>;
 
   /** Search input value. */
-  public searchString: string;
+  public searchString!: string;
 
   /** Subscription on changes on page. */
   private subscriptionOnChanges = new Subscription();
@@ -115,8 +122,11 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly userService: UserService,
   ) {
     this.urlParams = this.route.snapshot.queryParams;
-    this.activeSortHeader = '';
-    this.directionSortHeader = '';
+    this.initializeTableInterface();
+  }
+
+  /** Initialize table interface. */
+  private initializeTableInterface(): void {
     this.pagination$ = new BehaviorSubject<PaginationUrlParams>({
       limit: this.urlParams[URL_PARAMS.limit] ?
         this.urlParams[URL_PARAMS.limit] :
@@ -148,21 +158,27 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Subscribes to change in url parameters.
-   * Creates new parameters for the http request and refreshes the content of the page.
+   * Creates new parameters for the http request and get anime list.
    */
-  public handleQueryParamsChange(): void {
-    this.route.queryParamMap.subscribe(param => {
-      param.keys.map(key => {
-        this.urlParams[key] = param.get(key) as string;
-      });
-      this.animeService.httpParams = new HttpParams().appendAll(this.urlParams);
-      this.getAnimeList();
-    });
+  public getAnimeList(): void {
+    this.animeList$ = this.route.queryParamMap.pipe(
+      switchMap(params => {
+        params.keys.map(key => {
+          this.urlParams[key] = params.get(key) as string;
+        });
+        const httpParams = new HttpParams().appendAll(this.urlParams);
+        return this.animeService.getPaginationAndAnimeList(httpParams).pipe(
+          map(response => {
+            this.paginationComponent.setLength(response.count);
+            return response.results;
+          }),
+        );
+      }),
+    );
   }
 
   /** A lifecycle hook. */
   public ngOnInit(): void {
-    this.animeService.httpParams = new HttpParams().appendAll(this.urlParams);
     this.getAnimeList();
     this.handleChanges();
   }
@@ -189,7 +205,6 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.urlParams[URL_PARAMS.filter].split(','),
       );
     }
-    this.handleQueryParamsChange();
   }
 
   /**
@@ -266,16 +281,6 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
         });
         this.router.navigate([], { queryParams: this.urlParams });
       },
-    );
-  }
-
-  /** Get anime list. And set length of pagination. */
-  private getAnimeList(): void {
-    this.animeList$ = this.animeService.getPaginationAndAnimeList().pipe(
-      map(response => {
-        this.paginationComponent.setLength(response.count);
-        return response.results;
-      }),
     );
   }
 

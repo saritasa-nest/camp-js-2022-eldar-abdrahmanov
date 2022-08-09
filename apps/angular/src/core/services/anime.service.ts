@@ -23,21 +23,20 @@ import { AppConfigService } from './appConfigService';
   providedIn: 'root',
 })
 export class AnimeService {
-  /** Http parameters. */
-  public httpParams: HttpParams;
 
   public constructor(
     private readonly httpClient: HttpClient,
     private readonly appConfig: AppConfigService,
-  ) {
-    this.httpParams = new HttpParams();
-  }
+  ) {}
 
-  /** Makes a request to the API and returns a list of anime. */
-  public getPaginationAndAnimeList(): Observable<Pagination<Anime>> {
+  /**
+   * Makes a request to the API and returns a list of anime.
+   * @param httpParams Request parameters.
+   */
+  public getPaginationAndAnimeList(httpParams: HttpParams): Observable<Pagination<Anime>> {
     return this.httpClient
       .get<PaginationDto<AnimeDto>>(this.appConfig.baseUrl, {
-      params: this.httpParams,
+      params: httpParams,
     })
       .pipe(map(dto => PaginationMapper.fromDto(dto, AnimeMapper.fromDto)));
   }
