@@ -164,10 +164,8 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
         params.keys.map(key => {
           this.urlParams[key] = params.get(key) as string;
         });
-        this.animeService.httpParams = new HttpParams().appendAll(
-          this.urlParams,
-        );
-        return this.animeService.getPaginationAndAnimeList().pipe(
+        const httpParams = new HttpParams().appendAll(this.urlParams);
+        return this.animeService.getPaginationAndAnimeList(httpParams).pipe(
           map(response => {
             this.paginationComponent.setLength(response.count);
             return response.results;
