@@ -1,6 +1,13 @@
 .anime-page {
   background-color: var(--primary-color);
   width: 100%;
+  color: var(--primary-contrast-color);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 70px;
 }
 
 .top-container {
@@ -10,7 +17,7 @@
 
 .top-container__search-block {
   width: 45%;
-  height: 55px;
+  height: 60px;
   display: flex;
 }
 
@@ -18,8 +25,7 @@
   margin-right: 15px;
 }
 
-.top-container__search-button {
-  color: var(--primary-contrast-color);
+.button {
   border: var(--primary-border);
 }
 
@@ -61,17 +67,4 @@
 
 .mat-cell:first-of-type {
   padding: 0;
-}
-
-.anime-page__login-info {
-  width: 100%;
-  justify-content: end;
-  display: flex;
-  margin-bottom: 80px;
-}
-
-.anime-page__quit {
-  color: white;
-  border: var(--primary-border);
-  font-size: 1.2rem;
 }
