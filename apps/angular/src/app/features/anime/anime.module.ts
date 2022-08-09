@@ -18,6 +18,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { FilteringComponent } from './components/filtering/filtering.component';
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { AnimeDetailsComponent } from './components/anime-details/anime-details.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 /** Anime module. */
 @NgModule({
@@ -41,7 +42,8 @@ import { AnimeDetailsComponent } from './components/anime-details/anime-details.
     MatButtonModule,
     FormsModule,
     RouterModule,
+    MatGridListModule
   ],
-  exports: [AnimeTableComponent],
+  exports: [AnimeTableComponent, AnimeDetailsComponent],
 })
 export class AnimeModule {}

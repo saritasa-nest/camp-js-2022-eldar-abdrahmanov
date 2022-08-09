@@ -20,4 +20,9 @@ export class UserService {
   public removeJwtFromLocalStorage(): void {
     localStorage.removeItem('jwt');
   }
+
+  /** */
+  public getJwtFromLocalStorage(): string | null {
+    return localStorage.getItem('jwt');
+  }
 }

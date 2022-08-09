@@ -297,4 +297,12 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   public handleQuitButton(): void {
     this.userService.removeJwtFromLocalStorage();
   }
+
+  /**
+   * Handle table row click.
+   * @param animeId Id of clicked anime.
+   */
+  public handleTableRowClick(animeId: number): void {
+    this.router.navigate([`details/${animeId}`]);
+  }
 }

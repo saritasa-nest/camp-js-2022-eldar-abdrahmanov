@@ -6,6 +6,7 @@ import { HashLocationStrategy } from '@angular/common';
 import { AnimeTableComponent } from './features/anime/components/anime-table/anime-table.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegistrationComponent } from './features/auth/registration/registration.component';
+import { AnimeDetailsComponent } from './features/anime/components/anime-details/anime-details.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegistrationComponent,
+  },
+  {
+    path: 'details/:id',
+    component: AnimeDetailsComponent,
   },
 ];
 

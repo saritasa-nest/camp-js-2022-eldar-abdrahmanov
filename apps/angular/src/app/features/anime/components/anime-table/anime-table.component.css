@@ -68,3 +68,9 @@
 .mat-cell:first-of-type {
   padding: 0;
 }
+
+.mat-row:hover .mat-cell {
+  border-top: 2px solid var(--primary-accent-color);
+  border-bottom: 2px solid var(--primary-accent-color);
+  cursor: pointer;
+}

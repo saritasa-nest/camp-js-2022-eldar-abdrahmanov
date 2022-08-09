@@ -9,6 +9,13 @@ import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 
 import { Pagination } from '@js-camp/core/models/pagination';
 
+import { AnimeDetailsMapper } from '@js-camp/core/mappers/animeDetails.mapper';
+import { DateTimeRangeMapper } from '@js-camp/core/mappers/dateTimeRange.mapper';
+import { StudioMapper } from '@js-camp/core/mappers/studio.mapper';
+import { GenreMapper } from '@js-camp/core/mappers/genre.mapper';
+import { AnimeDetailsDto } from '@js-camp/core/dtos/animeDetails.dto';
+import { AnimeDetails } from '@js-camp/core/models/animeDetails';
+
 import { AppConfigService } from './appConfigService';
 
 /** Anime service to interact with API. */
@@ -33,5 +40,24 @@ export class AnimeService {
       params: this.httpParams,
     })
       .pipe(map(dto => PaginationMapper.fromDto(dto, AnimeMapper.fromDto)));
+  }
+
+  /**
+   * Makes a request to the API and returns a details of anime.
+   * @param animeId Id of anime.
+   */
+  public getAnimeDetails(animeId: string): Observable<AnimeDetails> {
+    const animeUrl = new URL(`${animeId}/`, this.appConfig.baseUrl);
+    return this.httpClient
+      .get<AnimeDetailsDto>(animeUrl.toString())
+      .pipe(
+        map(dto =>
+          AnimeDetailsMapper.fromDto(
+            dto,
+            DateTimeRangeMapper.fromDto,
+            StudioMapper.fromDto,
+            GenreMapper.fromDto,
+          )),
+      );
   }
 }

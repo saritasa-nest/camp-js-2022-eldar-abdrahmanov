@@ -1,4 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AnimeDetails } from '@js-camp/core/models/animeDetails';
+
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+
+import { AnimeService } from '../../../../../core/services/anime.service';
 
 /** */
 @Component({
@@ -8,7 +14,21 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeDetailsComponent implements OnInit {
-  constructor() {}
+  /** */
+  public animeDetails$!: Observable<AnimeDetails>;
 
-  ngOnInit(): void {}
+  /** */
+  private animeId = '';
+
+  public constructor(
+    private readonly animeService: AnimeService,
+    private readonly route: ActivatedRoute,
+  ) {}
+
+  /** */
+  public ngOnInit(): void {
+    this.animeId = this.route.snapshot.paramMap.get('id') as string;
+    this.animeDetails$ = this.animeService.getAnimeDetails(this.animeId);
+    this.animeDetails$.subscribe(res => console.log(res))
+  }
 }

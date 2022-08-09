@@ -74,10 +74,10 @@
       <td mat-cell *matCellDef="let row">{{ row.status }}</td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="handleTableRowClick(row.id)"></tr>
     <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">
+    <tr *matNoDataRow>
+      <td colspan="4">
         No data matching the search "{{ searchString }}"
       </td>
     </tr>

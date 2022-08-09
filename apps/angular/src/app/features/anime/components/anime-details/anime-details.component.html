@@ -1,1 +1,18 @@
-<p>anime-details works!</p>
+<mat-grid-list
+  cols="6"
+  rowHeight="50px"
+  *ngIf="animeDetails$ | async as animeDetails"
+>
+  <mat-grid-tile [colspan]="1" [rowspan]="3">
+    <img
+      class="anime-table__image"
+      [src]="animeDetails.imageUrl"
+      [alt]="animeDetails.titleEng"
+    />
+  </mat-grid-tile>
+  <mat-grid-tile
+    [colspan]="3"
+    [rowspan]="1">
+    {{ animeDetails.titleEng }}
+  </mat-grid-tile>
+</mat-grid-list>
