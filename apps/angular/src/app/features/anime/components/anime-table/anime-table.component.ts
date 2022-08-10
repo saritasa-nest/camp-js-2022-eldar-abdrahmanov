@@ -208,11 +208,11 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Return index of item.
-   * @param index Serial number.
+   * Track items in the array by specified key.
+   * @param _ Index of anime in array.
    * @param item Anime instance.
    */
-  public trackBy(index: number, item: Anime): number {
+  public trackBy(_: number, item: Anime): number {
     return item.id;
   }
 

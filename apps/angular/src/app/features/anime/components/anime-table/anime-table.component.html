@@ -82,7 +82,9 @@
       </td>
     </tr>
   </table>
-  <pagination (paginationChange)="handlePaginationClick($event)"></pagination>
+  <pagination
+    (paginationChange)="handlePaginationClick($event)"
+  ></pagination>
   <ng-template #loadSpin>
     <div class="loading-layout">
       <p>Loading</p>
