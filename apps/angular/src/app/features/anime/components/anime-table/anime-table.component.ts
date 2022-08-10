@@ -11,7 +11,6 @@ import { AnimeService } from '../../../../../core/services/anime.service';
   styleUrls: ['./anime-table.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class AnimeTableComponent {
 
   /** Titles of table columns. */
@@ -25,18 +24,18 @@ export class AnimeTableComponent {
   ] as const;
 
   /** Anime list. */
-  public readonly animeList$: Observable<readonly Anime[]>;
+  public readonly animeList$: Observable<Anime[]>;
 
   public constructor(private readonly animeService: AnimeService) {
     this.animeList$ = animeService.getAnimeList();
   }
 
   /**
-   * Return index of item.
-   * @param index Serial number.
+   * Track items in the array by specified key.
+   * @param _ Index of anime in array.
    * @param item Anime instance.
    */
-  public trackBy(index: number, item: Anime): number {
+  public trackBy(_: number, item: Anime): number {
     return item.id;
   }
 }

@@ -9,7 +9,7 @@ import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 
 import { AppConfigService } from './appConfig.service';
 
-/** Anime service to interact with API. */
+/** Anime service. */
 @Injectable({
   providedIn: 'root',
 })
@@ -19,11 +19,15 @@ export class AnimeService {
     private readonly appConfig: AppConfigService,
   ) {}
 
-  /** Makes a request to the API and returns a list of anime. */
-  public getAnimeList(): Observable<readonly Anime[]> {
+  /**
+   * Get anime list.
+   * @returns Observable anime list.
+   */
+  public getAnimeList(): Observable<Anime[]> {
+    const animeUrl = new URL('anime/anime/', this.appConfig.apiUrl);
     const params = new HttpParams().set('ordering', 'id');
     return this.httpClient
-      .get<PaginationDto<AnimeDto>>(this.appConfig.baseUrl, { params })
+      .get<PaginationDto<AnimeDto>>(animeUrl.toString(), { params })
       .pipe(
         map(dto => PaginationMapper.fromDto(dto, AnimeMapper.fromDto)),
         map(pagination => pagination.results),

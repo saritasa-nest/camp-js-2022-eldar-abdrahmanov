@@ -12,10 +12,13 @@
   /** Prevalent color in the application */
   --primary-color: #f97316;
   --primary-contrast-color: white;
+  --primary-border: 1px white solid;
   --primary-dark-color: #ea580c;
   --primary-dark-contrast-color: white;
   --primary-light-color: #fb923c;
   --primary-light-contrast-color: black;
+  --primary-width-image-cell: 150px;
+  --primary-height-image-cell: 150px;
   --background-color: white;
   --background-contrast-color: black;
   --error-color: red;

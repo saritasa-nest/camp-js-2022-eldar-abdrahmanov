@@ -5,19 +5,25 @@
 }
 
 .anime-image {
-  max-width: 150px;
-  max-height: 150px;
+  max-width: var(--primary-width-image-cell);
+  max-height: var(--primary-height-image-cell);
   object-position: center;
   object-fit: cover;
 }
 
 .mat-header-cell {
-  border: 1px white solid;
+  border: var(--primary-border);
   text-align: center;
   font-size: 1.5rem;
 }
 
 .mat-cell {
-  border: 1px gray solid;
+  border: var(--primary-border);
   text-align: center;
+}
+
+.loading-layout {
+  position: fixed;
+  top: 50%;
+  left: 50%;
 }
