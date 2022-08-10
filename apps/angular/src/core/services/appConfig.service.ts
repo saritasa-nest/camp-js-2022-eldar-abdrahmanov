@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment.prod';
 
 export class AppConfigService {
   /** Base api  url. */
-  public readonly baseUrl = environment.baseUrl;
+  public readonly apiUrl = environment.apiUrl;
 
   /** Api key. */
   public readonly apiKey = environment.apiKey;

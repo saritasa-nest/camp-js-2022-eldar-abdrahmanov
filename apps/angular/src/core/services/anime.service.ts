@@ -11,19 +11,18 @@ import { Pagination } from '@js-camp/core/models/pagination';
 
 import { AppConfigService } from './appConfigService';
 
-/** Anime service to interact with API. */
+/** Anime service. */
 @Injectable({
   providedIn: 'root',
 })
 export class AnimeService {
-
   public constructor(
     private readonly httpClient: HttpClient,
     private readonly appConfig: AppConfigService,
   ) {}
 
   /**
-   * Makes a request to the API and returns a list of anime.
+   * Get pagination with anime list.
    * @param httpParams Request parameters.
    */
   public getPaginationAndAnimeList(httpParams: HttpParams): Observable<Pagination<Anime>> {
