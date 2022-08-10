@@ -23,7 +23,7 @@
     class="anime-table"
     mat-table
     [trackBy]="trackBy"
-    *ngIf="animeList$ | async as animeList"
+    *ngIf="animeList$ | async as animeList; else loadSpin"
     [dataSource]="animeList"
     aria-label="anime-table"
     matSort
@@ -71,4 +71,10 @@
   <pagination
     (paginationChange)="handlePaginationClick($event)"
   ></pagination>
+  <ng-template #loadSpin>
+    <div class="loading-layout">
+      <p>Loading</p>
+      <mat-spinner color="accent" diameter="70"></mat-spinner>
+    </div>
+  </ng-template>
 </div>
