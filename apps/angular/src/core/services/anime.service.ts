@@ -9,7 +9,7 @@ import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 
 import { Pagination } from '@js-camp/core/models/pagination';
 
-import { AppConfigService } from './appConfigService';
+import { AppConfigService } from './appConfig.service';
 
 /** Anime service. */
 @Injectable({
@@ -26,8 +26,9 @@ export class AnimeService {
    * @param httpParams Request parameters.
    */
   public getPaginationAndAnimeList(httpParams: HttpParams): Observable<Pagination<Anime>> {
+    const animeUrl = new URL('anime/anime/', this.appConfig.apiUrl);
     return this.httpClient
-      .get<PaginationDto<AnimeDto>>(this.appConfig.baseUrl, {
+      .get<PaginationDto<AnimeDto>>(animeUrl.toString(), {
       params: httpParams,
     })
       .pipe(map(dto => PaginationMapper.fromDto(dto, AnimeMapper.fromDto)));
