@@ -19,6 +19,7 @@ import { FilteringComponent } from './components/filtering/filtering.component';
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { AnimeDetailsComponent } from './components/anime-details/anime-details.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 /** Anime module. */
 @NgModule({
@@ -42,7 +43,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     FormsModule,
     RouterModule,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressSpinnerModule
   ],
   exports: [AnimeTableComponent, AnimeDetailsComponent],
 })
