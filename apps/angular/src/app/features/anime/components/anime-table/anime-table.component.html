@@ -1,16 +1,4 @@
 <div class="anime-page">
-  <div class="header">
-    <h1 class="header__title">Anime catalog</h1>
-    <a
-      mat-stroked-button
-      (click)="handleQuitButton()"
-      routerLink="/login"
-      class="button"
-      type="button"
-    >
-      Quit
-    </a>
-  </div>
   <div class="top-container">
     <div class="top-container__search-block">
       <mat-form-field class="top-container__search-form" appearance="fill">
@@ -33,7 +21,7 @@
     class="anime-table"
     mat-table
     [trackBy]="trackBy"
-    *ngIf="animeList$ | async as animeList"
+    *ngIf="animeList$ | async as animeList; else loadSpin"
     [dataSource]="animeList"
     aria-label="anime-table"
     matSort
@@ -82,5 +70,13 @@
       </td>
     </tr>
   </table>
-  <pagination (paginationChange)="handlePaginationClick($event)"></pagination>
+  <pagination
+    (paginationChange)="handlePaginationClick($event)"
+  ></pagination>
+  <ng-template #loadSpin>
+    <div class="loading-layout">
+      <p>Loading</p>
+      <mat-spinner color="accent" diameter="70"></mat-spinner>
+    </div>
+  </ng-template>
 </div>

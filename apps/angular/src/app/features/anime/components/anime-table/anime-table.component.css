@@ -52,7 +52,7 @@
 .mat-header-cell {
   border: var(--primary-border);
   border-radius: var(--primary-border-radius);
-  max-width: 150px;
+  max-width: var(--primary-width-image-cell);
   padding: 20px;
   font-size: 1.5rem;
 }
@@ -67,4 +67,10 @@
 
 .mat-cell:first-of-type {
   padding: 0;
+}
+
+.loading-layout {
+  position: fixed;
+  top: 50%;
+  left: 50%;
 }
