@@ -17,7 +17,6 @@ import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { FilteringComponent } from './components/filtering/filtering.component';
-import { PaginationComponent } from './components/pagination/pagination.component';
 
 /** Anime module. */
 @NgModule({
