@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Registration } from '@js-camp/core/models/registration';
 import { catchError, map, Observable, throwError } from 'rxjs';
@@ -13,7 +12,7 @@ import { LoginMapper } from '@js-camp/core/mappers/login.mapper';
 import { ResponseErrorMapper } from '@js-camp/core/mappers/responseError.mapper';
 import { ResponseError } from '@js-camp/core/models/responseError';
 
-import { UserService } from '../services/user.service';
+import { UserService } from './user.service';
 
 import { AppConfigService } from './appConfigService';
 
@@ -40,6 +39,7 @@ export class AuthorizationService {
   public constructor(
     private readonly appConfig: AppConfigService,
     private readonly httpClient: HttpClient,
+    private readonly userService: UserService,
   ) {}
 
   /**

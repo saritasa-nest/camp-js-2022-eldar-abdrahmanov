@@ -301,6 +301,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   /** Handle quit button click. */
   public onQuitButtonClick(): void {
     this.userService.removeJwtFromLocalStorage();
+  }
 
   /**
    * Handle table row click.
