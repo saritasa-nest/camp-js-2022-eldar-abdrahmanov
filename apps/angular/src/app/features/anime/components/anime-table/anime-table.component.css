@@ -76,7 +76,6 @@
 }
 
 .mat-row:hover .mat-cell {
-  border-top: 2px solid var(--primary-accent-color);
-  border-bottom: 2px solid var(--primary-accent-color);
+  box-shadow: inset 0 0 10px var(--primary-accent-color);
   cursor: pointer;
 }

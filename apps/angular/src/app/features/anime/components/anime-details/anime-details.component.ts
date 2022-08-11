@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { AnimeService } from '../../../../../core/services/anime.service';
 
-/** */
+/** Component responsible for anime details. */
 @Component({
   selector: 'camp-anime-details',
   templateUrl: './anime-details.component.html',
@@ -14,10 +14,10 @@ import { AnimeService } from '../../../../../core/services/anime.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeDetailsComponent implements OnInit {
-  /** */
+  /** Observable with anime details. */
   public animeDetails$!: Observable<AnimeDetails>;
 
-  /** */
+  /** Anime id. */
   private animeId = '';
 
   public constructor(
@@ -25,10 +25,9 @@ export class AnimeDetailsComponent implements OnInit {
     private readonly route: ActivatedRoute,
   ) {}
 
-  /** */
+  /** Get anime id. Get anime details by anime id. */
   public ngOnInit(): void {
     this.animeId = this.route.snapshot.paramMap.get('id') as string;
     this.animeDetails$ = this.animeService.getAnimeDetails(this.animeId);
-    this.animeDetails$.subscribe(res => console.log(res))
   }
 }

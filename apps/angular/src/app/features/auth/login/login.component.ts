@@ -4,11 +4,8 @@ import {
   Component,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { Router } from '@angular/router';
-
 import { HttpErrorResponse } from '@angular/common/http';
-
 import { UserToken } from '@js-camp/core/models/userToken';
 
 import { AuthorizationService } from '../../../../core/services/auth.service';
@@ -61,7 +58,7 @@ export class LoginComponent {
    */
   private handleSuccessResponse(userToken: UserToken): void {
     this.router.navigate(['/anime']);
-    this.userService.saveJwtInLocalStorage(userToken.jwt);
+    this.userService.handleLogin(userToken.jwt);
   }
 
   /**

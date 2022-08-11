@@ -1,18 +1,53 @@
-<mat-grid-list
-  cols="6"
-  rowHeight="50px"
-  *ngIf="animeDetails$ | async as animeDetails"
->
-  <mat-grid-tile [colspan]="1" [rowspan]="3">
+<mat-card class="card" *ngIf="animeDetails$ | async as animeDetails">
+  <mat-card-header class="card__header">
+    <mat-card-title class="card__title">{{
+      animeDetails.titleEng
+    }}</mat-card-title>
+    <mat-card-subtitle>{{ animeDetails.titleJpn }}</mat-card-subtitle>
+  </mat-card-header>
+  <div class="card__container">
     <img
-      class="anime-table__image"
+      mat-card-image
+      class="card__image"
       [src]="animeDetails.imageUrl"
       [alt]="animeDetails.titleEng"
     />
-  </mat-grid-tile>
-  <mat-grid-tile
-    [colspan]="3"
-    [rowspan]="1">
-    {{ animeDetails.titleEng }}
-  </mat-grid-tile>
-</mat-grid-list>
+    <mat-card-content class="card__text-content">
+      <dl>
+        <dt class="card__field-name">Aired start:</dt>
+        <dd class="card__field-text">
+          {{ animeDetails.aired.start | date: "dd.MM.YYYY" }}
+        </dd>
+        <dt class="card__field-name">Aired end:</dt>
+        <dd class="card__field-text">
+          {{ animeDetails.aired.end | date: "dd.MM.YYYY" }}
+        </dd>
+        <dt class="card__field-name">Type:</dt>
+        <dd class="card__field-text">{{ animeDetails.type }}</dd>
+        <dt class="card__field-name">Status:</dt>
+        <dd class="card__field-text">{{ animeDetails.status }}</dd>
+        <dt class="card__field-name">Synopsis:</dt>
+        <dd class="card__field-text">{{ animeDetails.synopsis }}</dd>
+        <dt class="card__field-name">Airing:</dt>
+        <dd class="card__field-text" *ngIf="animeDetails.airing">On air</dd>
+        <dd class="card__field-text" *ngIf="!animeDetails.airing">
+          The broadcast is over
+        </dd>
+        <dt class="card__field-name">Studios:</dt>
+        <dd
+          class="card__field-text"
+          *ngFor="let studio of animeDetails.listOfStudios"
+        >
+          {{ studio.name }}
+        </dd>
+        <dt class="card__field-name">Genres:</dt>
+        <dd
+          class="card__field-text"
+          *ngFor="let genre of animeDetails.listOfGenres"
+        >
+          {{ genre.name }}
+        </dd>
+      </dl>
+    </mat-card-content>
+  </div>
+</mat-card>

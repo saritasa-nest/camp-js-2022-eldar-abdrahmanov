@@ -9,7 +9,6 @@ import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 
 import { Pagination } from '@js-camp/core/models/pagination';
 
-import { AppConfigService } from './appConfig.service';
 import { AnimeDetailsMapper } from '@js-camp/core/mappers/animeDetails.mapper';
 import { DateTimeRangeMapper } from '@js-camp/core/mappers/dateTimeRange.mapper';
 import { StudioMapper } from '@js-camp/core/mappers/studio.mapper';
@@ -17,13 +16,15 @@ import { GenreMapper } from '@js-camp/core/mappers/genre.mapper';
 import { AnimeDetailsDto } from '@js-camp/core/dtos/animeDetails.dto';
 import { AnimeDetails } from '@js-camp/core/models/animeDetails';
 
-import { AppConfigService } from './appConfigService';
+import { AppConfigService } from './appConfig.service';
 
 /** Anime service. */
 @Injectable({
   providedIn: 'root',
 })
 export class AnimeService {
+  private readonly animeUrl = new URL('anime/anime/', this.appConfig.apiUrl);
+
   public constructor(
     private readonly httpClient: HttpClient,
     private readonly appConfig: AppConfigService,
@@ -34,22 +35,21 @@ export class AnimeService {
    * @param httpParams Request parameters.
    */
   public getPaginationAndAnimeList(httpParams: HttpParams): Observable<Pagination<Anime>> {
-    const animeUrl = new URL('anime/anime/', this.appConfig.apiUrl);
     return this.httpClient
-      .get<PaginationDto<AnimeDto>>(animeUrl.toString(), {
+      .get<PaginationDto<AnimeDto>>(this.animeUrl.toString(), {
       params: httpParams,
     })
       .pipe(map(dto => PaginationMapper.fromDto(dto, AnimeMapper.fromDto)));
   }
 
   /**
-   * Makes a request to the API and returns a details of anime.
+   * Get details of anime.
    * @param animeId Id of anime.
    */
   public getAnimeDetails(animeId: string): Observable<AnimeDetails> {
-    const animeUrl = new URL(`${animeId}/`, this.appConfig.baseUrl);
+    const animeDetailsUrl = new URL(`${animeId}/`, this.animeUrl);
     return this.httpClient
-      .get<AnimeDetailsDto>(animeUrl.toString())
+      .get<AnimeDetailsDto>(animeDetailsUrl.toString())
       .pipe(
         map(dto =>
           AnimeDetailsMapper.fromDto(

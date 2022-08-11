@@ -8,7 +8,7 @@ import {
 
 import { Observable } from 'rxjs';
 
-import { AppConfigService } from '../services/appConfigService';
+import { AppConfigService } from '../services/appConfig.service';
 import { UserService } from '../services/user.service';
 
 /** Authorization interceptor. */
@@ -34,7 +34,6 @@ export class AuthInterceptor implements HttpInterceptor {
         .set('Api-Key', this.appConfig.apiKey)
         .set('Authorization', jwt ? `Bearer ${jwt}` : ''),
     });
-    console.log(authReq)
     return next.handle(authReq);
   }
 }

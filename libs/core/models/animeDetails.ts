@@ -1,9 +1,9 @@
-import { DateTimeRange } from '@js-camp/core/models/dateTimeRange';
-import { Genre } from '@js-camp/core/models/genre';
-import { Studio } from '@js-camp/core/models/studio';
-
 import { AnimeType } from '../enums/animeType';
 import { AnimeStatus } from '../enums/statusType';
+
+import { DateTimeRange } from './dateTimeRange';
+import { Genre } from './genre';
+import { Studio } from './studio';
 
 import { Immerable, OmitImmerable } from './immerable';
 

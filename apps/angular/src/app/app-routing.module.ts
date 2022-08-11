@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HashLocationStrategy } from '@angular/common';
 
+import { DetailsGuard } from '@js-camp/angular/core/guards/details.guard';
+
 import { AnimeTableComponent } from './features/anime/components/anime-table/anime-table.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegistrationComponent } from './features/auth/registration/registration.component';
@@ -11,7 +13,7 @@ import { AnimeDetailsComponent } from './features/anime/components/anime-details
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'register',
+    redirectTo: 'anime',
     pathMatch: 'full',
   },
   {
@@ -29,6 +31,7 @@ const routes: Routes = [
   {
     path: 'details/:id',
     component: AnimeDetailsComponent,
+    canActivate: [DetailsGuard],
   },
 ];
 
@@ -36,6 +39,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [{ provide: HashLocationStrategy, useClass: HashLocationStrategy }],
+  providers: [DetailsGuard, { provide: HashLocationStrategy, useClass: HashLocationStrategy }],
 })
 export class AppRoutingModule {}
