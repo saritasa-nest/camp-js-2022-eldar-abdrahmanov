@@ -1,16 +1,16 @@
 <div class="anime-page">
-  <div class="header">
+  <header class="header">
     <h1 class="header__title">Anime catalog</h1>
-    <a
+    <button
       mat-stroked-button
-      (click)="handleQuitButton()"
+      (click)="onQuitButtonClick()"
       routerLink="/login"
       class="button"
       type="button"
     >
       Quit
-    </a>
-  </div>
+    </button>
+  </header>
   <div class="top-container">
     <div class="top-container__search-block">
       <mat-form-field class="top-container__search-form" appearance="fill">
@@ -21,12 +21,12 @@
         class="button"
         mat-stroked-button
         type="button"
-        (click)="handleSearchClick()"
+        (click)="onSearchButtonClick()"
       >
         Search anime
       </button>
     </div>
-    <filtering (filterChange)="handleFilteringSelect($event)"></filtering>
+    <filtering (filterChange)="onFilteringSelectClick($event)"></filtering>
   </div>
 
   <table
@@ -39,7 +39,7 @@
     matSort
     [matSortActive]="activeSortHeader"
     [matSortDirection]="directionSortHeader"
-    (matSortChange)="handleSortClick($event)"
+    (matSortChange)="onSortButtonClick($event)"
   >
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef>Image</th>
@@ -83,7 +83,7 @@
     </tr>
   </table>
   <pagination
-    (paginationChange)="handlePaginationClick($event)"
+    (paginationChange)="onPaginationClick($event)"
   ></pagination>
   <ng-template #loadSpin>
     <div class="loading-layout">

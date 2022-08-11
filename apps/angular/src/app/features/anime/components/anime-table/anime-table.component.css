@@ -7,7 +7,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 70px;
+  padding-bottom: 70px;
 }
 
 .top-container {

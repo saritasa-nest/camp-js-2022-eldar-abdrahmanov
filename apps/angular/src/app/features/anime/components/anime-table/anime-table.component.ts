@@ -220,7 +220,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handle actions with pagination.
    * @param event Event received from Pagination component.
    */
-  public handlePaginationClick(event: PageEvent): void {
+  public onPaginationClick(event: PageEvent): void {
     this.pagination$.next({
       limit: event.pageSize.toString(),
       offset: (event.pageSize * event.pageIndex).toString(),
@@ -231,7 +231,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handle actions with pagination.
    * @param event Event received from Filtering component.
    */
-  public handleFilteringSelect(event: MatSelectChange): void {
+  public onFilteringSelectClick(event: MatSelectChange): void {
     this.filtering$.next(event.value);
     this.resetPaginationToFirstPage();
   }
@@ -241,7 +241,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
    * Depending on the sort direction, adds a minus sign to the active heading parameter.
    * @param event Event received from table headers.
    */
-  public handleSortClick(event: Sort): void {
+  public onSortButtonClick(event: Sort): void {
     if (event.direction === 'desc') {
       event.active = `-${event.active}`;
     }
@@ -253,7 +253,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /** Handle anime searching. */
-  public handleSearchClick(): void {
+  public onSearchButtonClick(): void {
     this.search$.next(this.searchString);
     this.resetPaginationToFirstPage();
   }
@@ -299,9 +299,8 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /** Handle quit button click. */
-  public handleQuitButton(): void {
-    this.userService.handleLogOut();
-  }
+  public onQuitButtonClick(): void {
+    this.userService.removeJwtFromLocalStorage();
 
   /**
    * Handle table row click.

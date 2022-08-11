@@ -1,12 +1,11 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Component, OnDestroy,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
-import { UserToken } from '@js-camp/core/models/userToken';
+import { Subscription } from 'rxjs';
 
 import { AuthorizationService } from '../../../../core/services/auth.service';
 import { UserService } from '../../../../core/services/user.service';
@@ -23,19 +22,22 @@ const validationMessages = {
   styleUrls: ['./login.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   /** Login form. */
   public readonly form: FormGroup;
 
   /** Error message received from the server. */
   public responseErrorMessage: string;
 
+  /** Subscription on login. */
+  private subscriptionOnLogin = new Subscription();
+
   public constructor(
     private readonly formBuilder: FormBuilder,
     private readonly auth: AuthorizationService,
     private readonly router: Router,
     private readonly userService: UserService,
-    private change: ChangeDetectorRef,
+    private readonly change: ChangeDetectorRef,
   ) {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -46,27 +48,21 @@ export class LoginComponent {
 
   /** Handle login form submit. */
   public submitLogin(): void {
-    this.auth.login(this.form.value).subscribe({
-      next: this.handleSuccessResponse.bind(this),
+    this.subscriptionOnLogin = this.auth.login(this.form.value).subscribe({
+      next: this.handleSuccessLogin.bind(this),
       error: this.handleError.bind(this),
     });
   }
 
-  /**
-   * Handler of success response after registration.
-   * @param userToken Authorization token.
-   */
-  private handleSuccessResponse(userToken: UserToken): void {
+  /** Handler of success login. */
+  private handleSuccessLogin(): void {
     this.router.navigate(['/anime']);
     this.userService.handleLogin(userToken.jwt);
   }
 
-  /**
-   * Error response handler. Sets the form to an error state.
-   * @param errors Http error response.
-   */
-  private handleError(errors: HttpErrorResponse): void {
-    this.responseErrorMessage = errors.error.detail;
+  /** Handler of unsuccessful login. Sets the form to an error state. */
+  private handleError(): void {
+    this.responseErrorMessage = this.auth.loginErrorMessage;
     this.form.setErrors({ resError: true });
     this.change.markForCheck();
   }
@@ -93,5 +89,10 @@ export class LoginComponent {
       return validationMessages.requiredField;
     }
     return '';
+  }
+
+  /** Unsubscribe observables. */
+  public ngOnDestroy(): void {
+    this.subscriptionOnLogin.unsubscribe();
   }
 }
