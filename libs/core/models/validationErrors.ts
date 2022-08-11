@@ -1,12 +1,12 @@
 import { Immerable, OmitImmerable } from '../models/immerable';
 
-/**  Model. */
+/** Validation errors model. */
 export class ValidationErrors extends Immerable {
 
-  /** . */
+  /** Errors for email field. */
   public readonly email: string[];
 
-  /** . */
+  /** Errors for password field. */
   public readonly password: string[];
 
   public constructor(data: Args) {

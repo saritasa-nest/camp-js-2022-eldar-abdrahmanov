@@ -6,7 +6,7 @@
 
 .card__header {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .card__title {

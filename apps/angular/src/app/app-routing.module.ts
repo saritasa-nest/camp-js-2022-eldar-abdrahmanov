@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HashLocationStrategy } from '@angular/common';
 
-import { DetailsGuard } from '@js-camp/angular/core/guards/details.guard';
+import { DetailsGuard } from '../core/guards/details.guard';
 
 import { AnimeTableComponent } from './features/anime/components/anime-table/anime-table.component';
 import { LoginComponent } from './features/auth/login/login.component';

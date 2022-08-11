@@ -1,5 +1,5 @@
-import { StudioDto } from '@js-camp/core/dtos/studio.dto';
-import { Studio } from '@js-camp/core/models/studio';
+import { StudioDto } from '../dtos/studio.dto';
+import { Studio } from '../models/studio';
 
 export namespace StudioMapper {
 

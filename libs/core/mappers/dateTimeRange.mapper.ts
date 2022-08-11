@@ -1,5 +1,5 @@
-import { DateTimeRangeDto } from '@js-camp/core/dtos/dateTimeRange.dto';
-import { DateTimeRange } from '@js-camp/core/models/dateTimeRange';
+import { DateTimeRangeDto } from '../dtos/dateTimeRange.dto';
+import { DateTimeRange } from '../models/dateTimeRange';
 
 export namespace DateTimeRangeMapper {
 

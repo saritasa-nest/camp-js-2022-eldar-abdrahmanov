@@ -1,18 +1,18 @@
-import { AnimeDetailsDto } from '@js-camp/core/dtos/animeDetails.dto';
-import { AnimeDetails } from '@js-camp/core/models/animeDetails';
-import { DateTimeRangeMapper } from '@js-camp/core/mappers/dateTimeRange.mapper';
-import { DateTimeRangeDto } from '@js-camp/core/dtos/dateTimeRange.dto';
-import { DateTimeRange } from '@js-camp/core/models/dateTimeRange';
-import { StudioMapper } from '@js-camp/core/mappers/studio.mapper';
-import { GenreMapper } from '@js-camp/core/mappers/genre.mapper';
+import { AnimeDetailsDto } from '../dtos/animeDetails.dto';
+import { AnimeDetails } from '../models/animeDetails';
+
+import { DateTimeRangeMapper } from './dateTimeRange.mapper';
+import { StudioMapper } from './studio.mapper';
+import { GenreMapper } from './genre.mapper';
 
 export namespace AnimeDetailsMapper {
+
   /**
    * Maps dto to model.
    * @param dto AnimeDetails dto.
-   * @param airedMapper
-   * @param studioMapper
-   * @param genreMapper
+   * @param airedMapper Maps airedDto to aired model.
+   * @param studioMapper Maps studioDto to studio model.
+   * @param genreMapper Maps genreDto to genre model.
    */
   export function fromDto(
     dto: AnimeDetailsDto,

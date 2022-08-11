@@ -25,7 +25,7 @@ export class AnimeDetailsComponent implements OnInit {
     private readonly route: ActivatedRoute,
   ) {}
 
-  /** Get anime id. Get anime details by anime id. */
+  /** Gets the ID of the anime. And then get anime details by id. */
   public ngOnInit(): void {
     this.animeId = this.route.snapshot.paramMap.get('id') as string;
     this.animeDetails$ = this.animeService.getAnimeDetails(this.animeId);

@@ -5,10 +5,12 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from '@js-camp/angular/core/services/user.service';
+
 import { Injectable } from '@angular/core';
 
-/**  */
+import { UserService } from '../services/user.service';
+
+/** Anime details component guard. */
 @Injectable()
 export class DetailsGuard implements CanActivate {
   public constructor(
@@ -17,15 +19,14 @@ export class DetailsGuard implements CanActivate {
   ) {}
 
   /**
-   *
-   * @param _route .
-   * @param _state
+   * Checks if the user is logged in. Redirects to the login page.
+   * @param _route Route.
+   * @param _state State.
    */
   public canActivate(
     _route: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot,
   ): Observable<boolean> | boolean {
-    console.log(this.userService.isLoggedIn)
     if (!this.userService.isLoggedIn) {
       this.router.navigate(['login/']);
     }

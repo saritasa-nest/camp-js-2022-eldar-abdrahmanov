@@ -1,32 +1,29 @@
 import { Injectable } from '@angular/core';
 
-import { AuthorizationService } from './auth.service';
-
-/** Anime service. */
+/** User service. */
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
 
-  /** */
+  /** User login state. */
   public isLoggedIn!: boolean;
 
-  public constructor(private readonly auth: AuthorizationService) {}
-
-  /** */
+  /**
+   * Handle user login.
+   * @param jwt User authorization token.
+   */
   public handleLogin(jwt: string): void {
     localStorage.setItem('jwt', jwt);
     this.isLoggedIn = true;
   }
 
-  /**
-   * Save jwt in local storage.
-   */
+  /** Handle user logout. */
   public handleLogOut(): void {
     this.isLoggedIn = false;
   }
 
-  /** */
+  /** Get token from local storage. */
   public getJwtFromLocalStorage(): string | null {
     return localStorage.getItem('jwt');
   }

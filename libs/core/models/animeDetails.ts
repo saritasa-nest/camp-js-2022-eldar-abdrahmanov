@@ -40,7 +40,7 @@ export class AnimeDetails extends Immerable {
   /** List of studios. */
   public readonly listOfStudios: Studio[];
 
-  /** */
+  /** List of genres. */
   public readonly listOfGenres: Genre[];
 
   public constructor(data: Args) {
