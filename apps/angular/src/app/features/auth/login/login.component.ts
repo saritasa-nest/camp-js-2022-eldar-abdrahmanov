@@ -1,14 +1,14 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component, OnDestroy
+  Component, OnDestroy,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { AuthorizationService } from '../../../../core/services/auth.service';
 import { UserService } from '../../../../core/services/user.service';
-import { Subscription } from 'rxjs';
 
 const validationMessages = {
   invalidEmail: 'Not a valid email address',
@@ -90,7 +90,7 @@ export class LoginComponent implements OnDestroy {
     return '';
   }
 
-  /** A lifecycle hook. Unsubscribe observables. */
+  /** Unsubscribe observables. */
   public ngOnDestroy(): void {
     this.subscriptionOnLogin.unsubscribe();
   }
