@@ -11,8 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { ApiKeyInterceptor } from '../core/interceptors/apiKey.interceptor';
-
 import { SharedModule } from '../shared/shared.module';
 import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
 import { ApiKeyInterceptor } from '../core/interceptors/apiKey.interceptor';
@@ -21,7 +19,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnimeModule } from './features/anime/anime.module';
 import { AuthModule } from './features/auth/auth.module';
-
 
 /** App module. */
 @NgModule({
@@ -45,11 +42,6 @@ import { AuthModule } from './features/auth/auth.module';
     AuthModule,
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiKeyInterceptor,
-      multi: true,
-    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

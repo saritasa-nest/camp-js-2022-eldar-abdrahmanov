@@ -6,7 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 
 import { TokenService } from '../services/token.service';
 
@@ -34,16 +34,16 @@ export class AuthInterceptor implements HttpInterceptor {
     if (req.url.startsWith(new URL('auth', this.appConfig.apiUrl).toString())) {
       return next.handle(req);
     }
-    this.tokenService.getToken().subscribe(token => {
-      if (token === null) {
-        return next.handle(req);
-      }
-      const authReq = req.clone({
-        headers: req.headers
-          .set('Authorization', `Bearer ${token}`),
-      });
-      return next.handle(authReq);
-    });
-    return next.handle(req);
+    return this.tokenService.getToken().pipe(
+      map(token => {
+        if (token === null) {
+          return req;
+        }
+        return req.clone({
+          headers: req.headers.set('Authorization', `Bearer ${token}`),
+        });
+      }),
+      switchMap(clonedRequest => next.handle(clonedRequest)),
+    );
   }
 }

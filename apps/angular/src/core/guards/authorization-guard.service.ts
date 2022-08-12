@@ -4,15 +4,15 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 
 import { UserService } from '../services/user.service';
 
-/** Anime details component guard. */
+/** Authorization guard. */
 @Injectable()
-export class DetailsGuard implements CanActivate {
+export class AuthorizationGuard implements CanActivate {
   public constructor(
     private readonly userService: UserService,
     private readonly router: Router,
@@ -27,9 +27,11 @@ export class DetailsGuard implements CanActivate {
     _route: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot,
   ): Observable<boolean> | boolean {
-    if (!this.userService.isLoggedIn) {
-      this.router.navigate(['login/']);
-    }
-    return this.userService.isLoggedIn;
+    return this.userService.isLoggedIn$.pipe(map(isLoggedIn => {
+      if (!isLoggedIn) {
+        this.router.navigate(['login/']);
+      }
+      return isLoggedIn;
+    }));
   }
 }

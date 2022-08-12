@@ -20,7 +20,7 @@ export class UserService {
   /** User login state. */
   public isLoggedIn$: Observable<boolean>;
 
-  /** User url. */
+  /** User api url. */
   private userUrl = new URL('users/profile/', this.appConfig.apiUrl);
 
   public constructor(
@@ -34,9 +34,9 @@ export class UserService {
 
   /** Initiate user. */
   private initCurrentUser(): Observable<User | null> {
-    return this.tokenService.getToken().pipe(
-      switchMap(token => (token ? this.getUser() : of(null))),
-    );
+    return this.tokenService
+      .getToken()
+      .pipe(switchMap(token => (token ? this.getUser() : of(null))));
   }
 
   /**
