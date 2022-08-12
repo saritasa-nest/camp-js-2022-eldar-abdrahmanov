@@ -1,35 +1,31 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
   HttpEvent,
+  HttpHandler,
   HttpInterceptor,
+  HttpRequest,
 } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 
 import { AppConfigService } from '../services/appConfig.service';
 
-/** Interceptor to add api key to request. */
-@Injectable({
-  providedIn: 'root',
-})
+/** Api key interceptor. */
+@Injectable()
 export class ApiKeyInterceptor implements HttpInterceptor {
-
   public constructor(
     private readonly appConfig: AppConfigService,
   ) {}
 
   /**
-   * Appends api key.
+   * Adds to requests api-key.
    * @param req Request.
    * @param next Request handler.
    */
-  public intercept(
-    req: HttpRequest<unknown>,
-    next: HttpHandler,
-  ): Observable<HttpEvent<unknown>> {
-    return next.handle(req.clone({
+  public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const apiReq = req.clone({
       headers: req.headers.set('Api-Key', this.appConfig.apiKey),
-    }));
+    });
+    return next.handle(apiReq);
   }
 }
