@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { TokenService } from './token.service';
+
 /** User service. */
 @Injectable({
   providedIn: 'root',
@@ -9,12 +11,14 @@ export class UserService {
   /** User login state. */
   public isLoggedIn!: boolean;
 
+  public constructor(private readonly tokenService: TokenService) {}
+
   /**
    * Handle user login.
    * @param jwt User authorization token.
    */
   public handleLogin(jwt: string): void {
-    localStorage.setItem('jwt', jwt);
+    this.tokenService.saveToken('jwt', jwt);
     this.isLoggedIn = true;
   }
 

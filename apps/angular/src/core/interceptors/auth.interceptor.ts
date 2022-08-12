@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {}
 
   /**
-   * Adds to requests api-key.
+   * Adds to requests authorization.
    * @param req Request.
    * @param next Request handler.
    */
@@ -28,10 +28,12 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<unknown>,
     next: HttpHandler,
   ): Observable<HttpEvent<unknown>> {
+    if (req.url.startsWith(new URL('auth', this.appConfig.apiUrl).toString())) {
+      return next.handle(req);
+    }
     const jwt = this.userService.getJwtFromLocalStorage();
     const authReq = req.clone({
       headers: req.headers
-        .set('Api-Key', this.appConfig.apiKey)
         .set('Authorization', jwt ? `Bearer ${jwt}` : ''),
     });
     return next.handle(authReq);

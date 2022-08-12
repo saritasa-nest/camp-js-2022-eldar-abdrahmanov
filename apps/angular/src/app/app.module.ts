@@ -13,11 +13,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { SharedModule } from '../shared/shared.module';
 import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
+import { ApiKeyInterceptor } from '../core/interceptors/apiKey.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnimeModule } from './features/anime/anime.module';
 import { AuthModule } from './features/auth/auth.module';
+
 
 /** App module. */
 @NgModule({
@@ -44,6 +46,11 @@ import { AuthModule } from './features/auth/auth.module';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiKeyInterceptor,
       multi: true,
     },
   ],

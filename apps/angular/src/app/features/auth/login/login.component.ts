@@ -57,7 +57,6 @@ export class LoginComponent implements OnDestroy {
   /** Handler of success login. */
   private handleSuccessLogin(): void {
     this.router.navigate(['/anime']);
-    this.userService.handleLogin(userToken.jwt);
   }
 
   /** Handler of unsuccessful login. Sets the form to an error state. */

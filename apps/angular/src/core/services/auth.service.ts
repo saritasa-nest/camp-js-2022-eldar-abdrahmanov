@@ -14,7 +14,7 @@ import { ResponseError } from '@js-camp/core/models/responseError';
 
 import { UserService } from './user.service';
 
-import { AppConfigService } from './appConfigService';
+import { AppConfigService } from './appConfig.service';
 
 /** Provides access to authorization. */
 @Injectable({
@@ -74,7 +74,7 @@ export class AuthorizationService {
       .pipe(
         map(dto => {
           const { jwt } = UserTokenMapper.fromDto(dto);
-          this.userService.saveJwtInLocalStorage(jwt);
+          this.userService.handleLogin(jwt);
           return UserTokenMapper.fromDto(dto);
         }),
         catchError((err: unknown) => {
