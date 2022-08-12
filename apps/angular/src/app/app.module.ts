@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { ApiKeyInterceptor } from '../core/interceptors/apiKey.interceptor';
+
 import { SharedModule } from '../shared/shared.module';
 import { AuthInterceptor } from '../core/interceptors/auth.interceptor';
 
@@ -41,6 +43,11 @@ import { AuthModule } from './features/auth/auth.module';
     AuthModule,
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiKeyInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -75,7 +75,7 @@ export class AuthorizationService {
       .pipe(
         map(dto => {
           const { jwt } = UserTokenMapper.fromDto(dto);
-          this.userService.saveJwtInLocalStorage(jwt);
+          this.userService.handleLogin(jwt);
           return UserTokenMapper.fromDto(dto);
         }),
         catchError((err: unknown) => {
