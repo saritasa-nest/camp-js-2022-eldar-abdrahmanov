@@ -17,11 +17,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AnimeDetailsComponent } from './components/anime-details/anime-details.component';
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { FilteringComponent } from './components/filtering/filtering.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { PopupComponent } from './components/popup/popup.component';
+import { AnimeEditComponent } from './components/edit-page/anime-edit.component';
 
 /** Anime module. */
 @NgModule({
@@ -30,6 +33,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     PaginationComponent,
     FilteringComponent,
     AnimeDetailsComponent,
+    PopupComponent,
+    AnimeEditComponent,
   ],
   imports: [
     CommonModule,
@@ -48,7 +53,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     MatGridListModule,
     MatProgressSpinnerModule,
     MatCardModule,
+    MatDialogModule,
   ],
-  exports: [AnimeTableComponent, AnimeDetailsComponent],
+  exports: [AnimeTableComponent, AnimeDetailsComponent, AnimeEditComponent],
 })
 export class AnimeModule {}

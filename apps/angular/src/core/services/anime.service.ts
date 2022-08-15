@@ -6,7 +6,6 @@ import { AnimeMapper } from '@js-camp/core/mappers/anime.mapper';
 import { Anime } from '@js-camp/core/models/anime';
 import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
-
 import { Pagination } from '@js-camp/core/models/pagination';
 
 import { AnimeDetailsMapper } from '@js-camp/core/mappers/animeDetails.mapper';
@@ -15,8 +14,12 @@ import { StudioMapper } from '@js-camp/core/mappers/studio.mapper';
 import { GenreMapper } from '@js-camp/core/mappers/genre.mapper';
 import { AnimeDetailsDto } from '@js-camp/core/dtos/animeDetails.dto';
 import { AnimeDetails } from '@js-camp/core/models/animeDetails';
+import { Genre } from '@js-camp/core/models/genre';
+import { GenreDto } from '@js-camp/core/dtos/genre.dto';
 
 import { AppConfigService } from './appConfig.service';
+import { Studio } from '@js-camp/core/models/studio';
+import { StudioDto } from '@js-camp/core/dtos/studio.dto';
 
 /** Anime service. */
 @Injectable({
@@ -24,6 +27,10 @@ import { AppConfigService } from './appConfig.service';
 })
 export class AnimeService {
   private readonly animeUrl = new URL('anime/anime/', this.appConfig.apiUrl);
+
+  private readonly genreUrl = new URL('anime/genres/', this.appConfig.apiUrl);
+
+  private readonly studioUrl = new URL('anime/studios/', this.appConfig.apiUrl);
 
   public constructor(
     private readonly httpClient: HttpClient,
@@ -59,5 +66,26 @@ export class AnimeService {
             GenreMapper.fromDto,
           )),
       );
+  }
+
+  /**
+   * Delete anime.
+   * @param animeId Anime id.
+   */
+  public deleteAnime(animeId: number): Observable<unknown> {
+    const animeDeleteUrl = new URL(`${animeId}/`, this.animeUrl);
+    return this.httpClient.delete(animeDeleteUrl.toString());
+  }
+
+  /** Get genres. */
+  public getGenres(): Observable<Genre> {
+    return this.httpClient.get<GenreDto>(this.genreUrl.toString())
+      .pipe(map(dto => GenreMapper.fromDto(dto)));
+  }
+
+  /** Get studios. */
+  public getStudios(): Observable<Studio> {
+    return this.httpClient.get<StudioDto>(this.studioUrl.toString())
+      .pipe(map(dto => StudioMapper.fromDto(dto)));
   }
 }

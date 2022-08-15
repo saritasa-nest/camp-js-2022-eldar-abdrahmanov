@@ -1,0 +1,121 @@
+<div class="container">
+  <h1>Anime edit page</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field color="accent" class="form-element">
+      <input
+        matInput
+        maxlength="255"
+        type="text"
+        formControlName="titleEng"
+        placeholder="English title"
+      />
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <input
+        matInput
+        maxlength="255"
+        type="text"
+        formControlName="titleJpn"
+        placeholder="Japanese title"
+      />
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <input
+        matInput
+        maxlength="100"
+        type="url"
+        formControlName="imageUrl"
+        placeholder="Image link"
+      />
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <input
+        matInput
+        maxlength="15"
+        type="text"
+        formControlName="youTubeId"
+        placeholder="Trailer youtube id"
+      />
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <mat-label>Anime type</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let type of animeTypes | keyvalue" value=type>{{type.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <mat-label>Anime status</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let status of animeStatus | keyvalue" value=status>{{status.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <mat-label>Source</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let source of animeSource | keyvalue" value=source>{{source.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <mat-label>Airing</mat-label>
+      <mat-select>
+        <mat-option value=true>Is airing</mat-option>
+        <mat-option value=false>Does not air</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <input
+        matInput
+        type="date"
+        formControlName="airedStart"
+        placeholder="Aired start"
+      />
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <input
+        matInput
+        type="date"
+        formControlName="airedEnd"
+        placeholder="Aired end"
+      />
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <mat-label>Rating</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let rating of animeRating | keyvalue" value=rating>{{rating.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <mat-label>Season</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let season of animeSeason | keyvalue" value=season>{{season.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Synopsis</mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Background</mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <mat-label>Studios</mat-label>
+      <mat-select>
+        <mat-option value="one">First option</mat-option>
+        <mat-option value="two">Second option</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field color="accent" class="form-element">
+      <mat-label>Genres</mat-label>
+      <mat-select>
+        <mat-option value="one">First option</mat-option>
+        <mat-option value="two">Second option</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="form__button-container">
+      <button mat-stroked-button type="submit" [disabled]="!form.valid">
+        Edit
+      </button>
+    </div>
+  </form>
+</div>

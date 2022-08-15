@@ -18,6 +18,7 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 import { Sort, SortDirection } from '@angular/material/sort';
 import { MatSelectChange } from '@angular/material/select';
+import { MatDialog } from '@angular/material/dialog';
 import { HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -25,6 +26,7 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { AnimeService } from '../../../../../core/services/anime.service';
 import { FilteringComponent } from '../filtering/filtering.component';
 import { UserService } from '../../../../../core/services/user.service';
+import { PopupComponent } from '../popup/popup.component';
 
 /** Url parameters object. */
 export interface UrlParams {
@@ -75,6 +77,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
     'aired__startswith',
     'type',
     'status',
+    'actions',
   ] as const;
 
   /** Anime list observable. */
@@ -120,6 +123,7 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly userService: UserService,
+    public readonly dialog: MatDialog,
   ) {
     this.urlParams = this.route.snapshot.queryParams;
     this.initializeTableInterface();
@@ -307,7 +311,37 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handle table row click.
    * @param animeId Id of clicked anime.
    */
-  public handleTableRowClick(animeId: number): void {
+  public onTableRowClick(animeId: number): void {
     this.router.navigate([`details/${animeId}`]);
+  }
+
+  /**
+   * Delete click handler.
+   * @param event Event.
+   * @param id Anime id.
+   * @param animeTitle Anime title.
+   */
+  public onDeleteClick(
+    event: MouseEvent,
+    id: number,
+    animeTitle: string,
+  ): void {
+    event.stopPropagation();
+    this.dialog.open(PopupComponent, {
+      data: {
+        id,
+        animeTitle,
+      },
+    });
+  }
+
+  /**
+   * Edit click handler.
+   * @param event Event.
+   */
+  public onEditClick(event: MouseEvent) {
+    event.stopPropagation();
+    this.router.navigate(['edit-page/']);
+    console.log(event);
   }
 }

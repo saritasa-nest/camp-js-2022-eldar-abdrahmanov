@@ -10,6 +10,7 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegistrationComponent } from './features/auth/registration/registration.component';
 import { AnimeDetailsComponent } from './features/anime/components/anime-details/anime-details.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found/page-not-found.component';
+import { AnimeEditComponent } from './features/anime/components/edit-page/anime-edit.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
   {
     path: 'details/:id',
     component: AnimeDetailsComponent,
+    canActivate: [AuthorizationGuard],
+  },
+  {
+    path: 'edit-page',
+    component: AnimeEditComponent,
     canActivate: [AuthorizationGuard],
   },
   {

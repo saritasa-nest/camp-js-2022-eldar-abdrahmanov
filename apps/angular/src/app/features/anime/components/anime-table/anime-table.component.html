@@ -73,18 +73,41 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
       <td mat-cell *matCellDef="let anime">{{ anime.status }}</td>
     </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+      <td mat-cell *matCellDef="let anime">
+        <div class="anime-table__button-block">
+          <button
+            class="anime-table__button"
+            (click)="onDeleteClick($event, anime.id, anime.titleEng)"
+            mat-stroked-button
+            type="button"
+          >
+            Delete
+          </button>
+          <button
+            class="anime-table__button"
+            (click)="onEditClick($event)"
+            mat-stroked-button
+            type="button"
+          >
+            Edit
+          </button>
+        </div>
+      </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let anime; columns: displayedColumns" (click)="handleTableRowClick(anime.id)"></tr>
+    <tr
+      mat-row
+      *matRowDef="let anime; columns: displayedColumns"
+      (click)="onTableRowClick(anime.id)"
+    ></tr>
     <!-- Row shown when there is no matching data. -->
     <tr *matNoDataRow>
-      <td colspan="4">
-        No data matching the search "{{ searchString }}"
-      </td>
+      <td colspan="4">No data matching the search "{{ searchString }}"</td>
     </tr>
   </table>
-  <pagination
-    (paginationChange)="onPaginationClick($event)"
-  ></pagination>
+  <pagination (paginationChange)="onPaginationClick($event)"></pagination>
   <ng-template #loadSpin>
     <div class="loading-layout">
       <p>Loading</p>
