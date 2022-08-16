@@ -1,7 +1,10 @@
 import { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
 
-const GenresPage = lazy(() => import('./pages/GenresPage').then(module => ({ default: module.GenresPage })));
+const GenresPage = lazy(() =>
+  import('./pages/GenresPage').then(module => ({
+    default: module.GenresPage,
+  })));
 
 export const genresRoutes: RouteObject[] = [
   {
@@ -10,6 +13,6 @@ export const genresRoutes: RouteObject[] = [
   },
   {
     path: '*',
-    element: <Navigate to="GenresPage" />,
+    element: <Navigate to='GenresPage' />,
   },
 ];
