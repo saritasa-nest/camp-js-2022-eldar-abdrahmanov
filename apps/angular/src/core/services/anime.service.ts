@@ -17,9 +17,10 @@ import { AnimeDetails } from '@js-camp/core/models/animeDetails';
 import { Genre } from '@js-camp/core/models/genre';
 import { GenreDto } from '@js-camp/core/dtos/genre.dto';
 
-import { AppConfigService } from './appConfig.service';
 import { Studio } from '@js-camp/core/models/studio';
 import { StudioDto } from '@js-camp/core/dtos/studio.dto';
+
+import { AppConfigService } from './appConfig.service';
 
 /** Anime service. */
 @Injectable({
@@ -86,6 +87,19 @@ export class AnimeService {
   /** Get studios. */
   public getStudios(): Observable<Studio> {
     return this.httpClient.get<StudioDto>(this.studioUrl.toString())
-      .pipe(map(dto => StudioMapper.fromDto(dto)));
+      .pipe(map(dto => {
+        return StudioMapper.fromDto(dto)
+      }));
+  }
+
+  /**
+   * Get studios.
+   * @param httpParams Http parameters.
+   */
+  public getPaginationAndStudiosList(httpParams: HttpParams): Observable<Pagination<Studio>> {
+    return this.httpClient.get<PaginationDto<StudioDto>>(this.studioUrl.toString(), {
+      params: httpParams,
+    })
+      .pipe(map(dto => PaginationMapper.fromDto(dto, StudioMapper.fromDto)));
   }
 }

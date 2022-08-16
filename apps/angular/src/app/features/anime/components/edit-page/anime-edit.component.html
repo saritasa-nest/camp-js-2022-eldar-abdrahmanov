@@ -87,7 +87,7 @@
     <mat-form-field color="accent" class="form-element">
       <mat-label>Season</mat-label>
       <mat-select>
-        <mat-option *ngFor="let season of animeSeason | keyvalue" value=season>{{season.value}}</mat-option>
+        <mat-option value="red" *ngFor="let season of animeSeason | keyvalue" value=season>{{season.value}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -100,7 +100,7 @@
     </mat-form-field>
     <mat-form-field color="accent" class="form-element">
       <mat-label>Studios</mat-label>
-      <mat-select>
+      <mat-select (click)="onStudioClick()">
         <mat-option value="one">First option</mat-option>
         <mat-option value="two">Second option</mat-option>
       </mat-select>

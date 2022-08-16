@@ -5,6 +5,10 @@ import { AnimeStatus } from '@js-camp/core/enums/statusType';
 import { AnimeSource } from '@js-camp/core/enums/animeSource';
 import { AnimeRating } from '@js-camp/core/enums/animeRating';
 import { AnimeSeason } from '@js-camp/core/enums/animeSeason';
+import { Studio } from '@js-camp/core/models/studio';
+import { map, Observable } from 'rxjs';
+import { AnimeService } from '../../../../../core/services/anime.service';
+import { HttpParams } from '@angular/common/http';
 
 /** */
 @Component({
@@ -33,8 +37,12 @@ export class AnimeEditComponent implements OnInit {
   /** Anime seasons. */
   public readonly animeSeason = AnimeSeason;
 
+  /** Anime Studios. */
+  public animeStudios$ = Observable<Studio>;
+
   public constructor(
     private readonly formBuilder: FormBuilder,
+    private readonly animeService: AnimeService,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -56,6 +64,12 @@ export class AnimeEditComponent implements OnInit {
         genres: ['', Validators.required],
       },
     );
+  }
+
+  /** */
+  public onStudioClick(): void {
+    const param = new HttpParams().set('ordering', 'id');
+    this.animeService.getPaginationAndStudiosList(param).subscribe(res => console.log(res.results))
   }
 
   /** */
