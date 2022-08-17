@@ -14,7 +14,7 @@ import { AppConfigService } from './appConfig.service';
   providedIn: 'root',
 })
 export class UserService {
-  /** Current user. */
+  /** Current login. */
   public currentUser$: Observable<User | null>;
 
   /** User login state. */
@@ -32,7 +32,7 @@ export class UserService {
     this.isLoggedIn$ = this.currentUser$.pipe(map(user => user !== null));
   }
 
-  /** Initiate user. */
+  /** Initiate login. */
   private initCurrentUser(): Observable<User | null> {
     return this.tokenService
       .getToken()
@@ -40,19 +40,19 @@ export class UserService {
   }
 
   /**
-   * Handle user login.
+   * Handle login login.
    * @param jwt User authorization token.
    */
   public handleLogin(jwt: string): void {
     this.tokenService.saveToken(jwt);
   }
 
-  /** Handle user logout. */
+  /** Handle login logout. */
   public handleLogOut(): void {
     this.tokenService.removeToken();
   }
 
-  /** Get user profile. */
+  /** Get login profile. */
   private getUser(): Observable<User | null> {
     return this.httpClient.get<UserDto>(this.userUrl.toString()).pipe(
       map(data => UserMapper.fromDto(data)),

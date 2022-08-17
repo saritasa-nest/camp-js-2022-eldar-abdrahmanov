@@ -1,27 +1,32 @@
 import { FC, memo } from 'react';
+import { useAppDispatch } from '@js-camp/react/store';
+
 import { useFormik } from 'formik';
 import { Box, Button, TextField } from '@mui/material';
+import { registerUser } from '@js-camp/react/store/register/dispatchers';
 
-import { useAppDispatch } from '@js-camp/react/store';
-import { loginUser } from '@js-camp/react/store/login/dispatchers';
+import {
+  initValues,
+  registerFormSchema,
+  RegisterFormValue,
+} from './registrationSettings';
 
-import { initValues, LoginFormValue, loginFormSchema } from './loginSettings';
-
-const LoginFormComponent: FC = () => {
+const RegistrationFormComponent: FC = () => {
   const dispatch = useAppDispatch();
 
   /**
-   * Handle login form submit.
+   * Handle registration form submit.
    * @param values Values of login form fields.
    */
-  const handleLogin = (values: LoginFormValue): void => {
-    dispatch(loginUser(values));
+  const handleRegister = (values: RegisterFormValue): void => {
+    console.log(values)
+    dispatch(registerUser(values));
   };
 
   const formik = useFormik({
     initialValues: initValues,
-    validationSchema: loginFormSchema,
-    onSubmit: handleLogin,
+    validationSchema: registerFormSchema,
+    onSubmit: handleRegister,
   });
 
   return (
@@ -48,6 +53,28 @@ const LoginFormComponent: FC = () => {
             autoFocus
           />
           <TextField
+            margin="normal"
+            id="firstName"
+            label="First Name"
+            name="firstName"
+            value={formik.values.firstName}
+            onChange={formik.handleChange}
+            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+            helperText={formik.touched.firstName && formik.errors.firstName}
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            id="lastName"
+            label="Last Name"
+            name="lastName"
+            value={formik.values.lastName}
+            onChange={formik.handleChange}
+            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+            helperText={formik.touched.lastName && formik.errors.lastName}
+            autoFocus
+          />
+          <TextField
             id="password"
             type="password"
             label="Password"
@@ -71,4 +98,4 @@ const LoginFormComponent: FC = () => {
   );
 };
 
-export const LoginForm = memo(LoginFormComponent);
+export const RegistrationForm = memo(RegistrationFormComponent);

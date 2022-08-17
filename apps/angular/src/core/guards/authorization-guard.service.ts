@@ -19,7 +19,7 @@ export class AuthorizationGuard implements CanActivate {
   ) {}
 
   /**
-   * Checks if the user is logged in. Redirects to the login page.
+   * Checks if the login is logged in. Redirects to the login page.
    * @param _route Route.
    * @param _state State.
    */
