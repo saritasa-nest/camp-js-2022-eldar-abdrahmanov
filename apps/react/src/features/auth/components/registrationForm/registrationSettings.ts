@@ -20,6 +20,7 @@ export const registerFormSchema: Yup.SchemaOf<RegisterFormValue> = Yup.object().
     password: Yup.string().required('Required')
       .min(8, 'Password to short'),
     reTypePassword: Yup.string().required('Required')
-      .min(8, 'Password to short'),
+      .min(8, 'Password to short')
+      .oneOf([Yup.ref('password')], 'Passwords must match')
   },
 );

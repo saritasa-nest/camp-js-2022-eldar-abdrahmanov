@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
-import { useFormik } from 'formik';
-import { Box, Button, Link, TextField } from '@mui/material';
+import { useFormik } from "formik";
+import { Box, Button, TextField } from '@mui/material';
 
 import { useAppDispatch } from '@js-camp/react/store';
 import { loginUser } from '@js-camp/react/store/login/dispatchers';
@@ -17,6 +17,7 @@ const LoginFormComponent: FC = () => {
   const handleLogin = (values: LoginFormValue): void => {
     dispatch(loginUser(values));
   };
+
 
   const formik = useFormik({
     initialValues: initValues,
@@ -41,10 +42,8 @@ const LoginFormComponent: FC = () => {
           margin="normal"
           id="email"
           label="Email Address"
-          name="email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          error={formik.touched.email && Boolean(formik.errors.email)}
+          {...formik.getFieldProps('email')}
+          error={formik.touched.email && formik.errors.email !== undefined}
           helperText={formik.touched.email && formik.errors.email}
           autoFocus
           autoComplete="email"
@@ -54,10 +53,8 @@ const LoginFormComponent: FC = () => {
           id="password"
           type="password"
           label="Password"
-          name="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          error={formik.touched.password && Boolean(formik.errors.password)}
+          {...formik.getFieldProps('password')}
+          error={formik.touched.password && formik.errors.password !== undefined}
           helperText={formik.touched.password && formik.errors.password}
           autoFocus
           autoComplete="current-password"

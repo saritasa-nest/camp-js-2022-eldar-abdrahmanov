@@ -26,6 +26,7 @@ const RegistrationFormComponent: FC = () => {
   const formik = useFormik({
     initialValues: initValues,
     validationSchema: registerFormSchema,
+    validateOnChange: true,
     onSubmit: handleRegister,
   });
 
@@ -46,9 +47,7 @@ const RegistrationFormComponent: FC = () => {
           margin="normal"
           id="email"
           label="Email Address"
-          name="email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
+          {...formik.getFieldProps('email')}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
           autoFocus
@@ -81,9 +80,7 @@ const RegistrationFormComponent: FC = () => {
           id="password"
           type="password"
           label="Password"
-          name="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
+          {...formik.getFieldProps('password')}
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
           autoFocus
@@ -93,9 +90,7 @@ const RegistrationFormComponent: FC = () => {
           id="reTypePassword"
           type="password"
           label="Re-type password"
-          name="reTypePassword"
-          value={formik.values.reTypePassword}
-          onChange={formik.handleChange}
+          {...formik.getFieldProps('reTypePassword')}
           error={
             formik.touched.reTypePassword &&
             Boolean(formik.errors.reTypePassword)
