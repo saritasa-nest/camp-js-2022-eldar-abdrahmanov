@@ -14,10 +14,11 @@ export const loginSlice = createSlice({
     })
     .addCase(loginUser.fulfilled, (state, action) => {
       state.isLoading = false;
+      state.isLoggedIn = true;
       state.userToken = action.payload;
       LocalStorageService.saveToken(action.payload.jwt);
     })
     .addCase(loginUser.rejected, (state, action) => {
-      console.log(action.error)
+      console.log(action)
     }),
 });

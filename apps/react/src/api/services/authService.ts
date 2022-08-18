@@ -7,7 +7,8 @@ import { Registration } from '@js-camp/core/models/registration';
 
 import { http } from '..';
 
-const url = 'auth/login/';
+const loginUrl = 'auth/login/';
+const registrerUrl = 'auth/register/';
 
 export namespace AuthService {
 
@@ -16,7 +17,13 @@ export namespace AuthService {
    * @param loginData User login data.
    */
   export async function login(loginData: Login): Promise<UserToken> {
-    const { data } = await http.post<UserTokenDto>(url, LoginMapper.toDto(loginData));
+    let data;
+    try {
+      data = await http.post<UserTokenDto>(loginUrl, LoginMapper.toDto(loginData));
+    }
+    catch (err: unknown) {
+    }
+    // @ts-ignore
     return UserTokenMapper.fromDto(data);
   }
 
@@ -25,7 +32,7 @@ export namespace AuthService {
    * @param registerData User register data.
    */
   export async function register(registerData: Registration): Promise<UserToken> {
-    const { data } = await http.post<UserTokenDto>(url, LoginMapper.toDto(registerData));
+    const { data } = await http.post<UserTokenDto>(registrerUrl, LoginMapper.toDto(registerData));
     return UserTokenMapper.fromDto(data);
   }
 }

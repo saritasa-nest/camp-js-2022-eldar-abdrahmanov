@@ -13,6 +13,7 @@ export const registerSlice = createSlice({
       state.isLoading = true;
     })
     .addCase(registerUser.fulfilled, (state, action) => {
+      console.log(action)
       state.isLoading = false;
       state.userToken = action.payload;
       LocalStorageService.saveToken(action.payload.jwt);
