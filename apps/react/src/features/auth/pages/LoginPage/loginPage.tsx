@@ -5,7 +5,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import { LoginForm } from "../../components/loginForm";
 import { useAppSelector } from "@js-camp/react/store";
-import { selectUserLoggedIn } from '@js-camp/react/store/login/selectors';
+import { selectUserLoggedIn } from '@js-camp/react/store/auth/selectors';
 
 const LoginPageComponent: FC = () => {
   const isLoggedIn = useAppSelector(selectUserLoggedIn);

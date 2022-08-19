@@ -16,7 +16,5 @@ export namespace LocalStorageService {
   };
 
   /** Get token from locale storage. */
-  export const getTokenFromStorage = () => {
-    localStorage.getItem(KEY);
-  };
+  export const getTokenFromStorage = () => localStorage.getItem(KEY);
 }

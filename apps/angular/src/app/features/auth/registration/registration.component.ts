@@ -59,7 +59,7 @@ export class RegistrationComponent {
 
   /** Handler of success registration. */
   private handleSuccessResponse(): void {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth']);
   }
 
   /** Handler of success registration. Sets the error state for the form fields. */

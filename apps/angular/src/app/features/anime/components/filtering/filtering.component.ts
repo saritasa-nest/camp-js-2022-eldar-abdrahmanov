@@ -34,7 +34,7 @@ export class FilteringComponent {
   }
 
   /**
-   * Sets the active buttons that the login has selected when loading the page.
+   * Sets the active buttons that the auth has selected when loading the page.
    * @param animeTypes List of anime types values.
    */
   public setSelectedAnimeTypes(animeTypes: readonly string[]): void {

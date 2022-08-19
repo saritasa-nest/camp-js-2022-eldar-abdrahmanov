@@ -19,7 +19,7 @@ export class AuthorizationGuard implements CanActivate {
   ) {}
 
   /**
-   * Checks if the login is logged in. Redirects to the login page.
+   * Checks if the auth is logged in. Redirects to the auth page.
    * @param _route Route.
    * @param _state State.
    */
@@ -29,7 +29,7 @@ export class AuthorizationGuard implements CanActivate {
   ): Observable<boolean> | boolean {
     return this.userService.isLoggedIn$.pipe(map(isLoggedIn => {
       if (!isLoggedIn) {
-        this.router.navigate(['login/']);
+        this.router.navigate(['auth/']);
       }
       return isLoggedIn;
     }));

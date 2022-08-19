@@ -4,10 +4,10 @@ import { Immerable, OmitImmerable } from './immerable';
 export class ErrorData extends Immerable {
 
   /** Email. */
-  public readonly email: string[];
+  public email: string[];
 
   /** Password. */
-  public readonly password: string[];
+  public password: string[];
 
   public constructor(data: Args) {
     super();

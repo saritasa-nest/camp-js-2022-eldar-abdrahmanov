@@ -1,9 +1,9 @@
-import { FC, memo } from 'react';
-import { useAppDispatch } from '@js-camp/react/store';
-
+import { FC, memo, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@js-camp/react/store';
 import { useFormik } from 'formik';
 import { Box, Button, TextField } from '@mui/material';
-import { registerUser } from '@js-camp/react/store/register/dispatchers';
+import { registerUser } from '@js-camp/react/store/auth/dispatchers';
+import { selectRegisterError } from '@js-camp/react/store/auth/selectors';
 
 import {
   initValues,
@@ -13,13 +13,23 @@ import {
 
 const RegistrationFormComponent: FC = () => {
   const dispatch = useAppDispatch();
+  const registrationError = useAppSelector(selectRegisterError);
+
+  useEffect(() => {
+    if (registrationError === undefined) {
+      return;
+    }
+    console.log(registrationError)
+    formik.setErrors(registrationError);
+
+
+  }, [registrationError]);
 
   /**
    * Handle registration form submit.
-   * @param values Values of login form fields.
+   * @param values Values of auth form fields.
    */
   const handleRegister = (values: RegisterFormValue): void => {
-    console.log(values);
     dispatch(registerUser(values));
   };
 

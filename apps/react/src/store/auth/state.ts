@@ -1,7 +1,8 @@
 import { UserToken } from '@js-camp/core/models/userToken';
+import { ErrorData } from '@js-camp/core/models/ErrorsData';
 
 /** Login state. */
-export interface LoginState {
+export interface AuthState {
 
   /** User logged in. */
   readonly isLoggedIn: boolean;
@@ -9,14 +10,17 @@ export interface LoginState {
   /** User Token. */
   readonly userToken: UserToken;
 
-  /** Error. */
-  readonly error?: string;
+  /** Login error. */
+  readonly loginError?: string;
 
-  /** Whether login or not. */
+  /** Register error. */
+  readonly registerError?: ErrorData;
+
+  /** Whether auth or not. */
   readonly isLoading: boolean;
 }
 
-export const initialState: LoginState = {
+export const initialState: AuthState = {
   userToken: { jwt: '', refreshJwt: '' },
   isLoading: false,
   isLoggedIn: false,

@@ -5,14 +5,13 @@ import {
 
 import { registerSlice } from '@js-camp/react/store/register/slice';
 import { genresSlice } from './genre/slice';
-import { loginSlice } from './login/slice';
+import { loginSlice } from './auth/slice';
 import { animeSlice } from '@js-camp/react/store/anime/slice';
 
 export const store = configureStore({
   reducer: {
     genres: genresSlice.reducer,
-    login: loginSlice.reducer,
-    register: registerSlice.reducer,
+    auth: loginSlice.reducer,
     anime: animeSlice.reducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({

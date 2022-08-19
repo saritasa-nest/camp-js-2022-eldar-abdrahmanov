@@ -17,7 +17,7 @@ const validationMessages = {
 
 /** Login component. */
 @Component({
-  selector: 'camp-login',
+  selector: 'camp-auth',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +29,7 @@ export class LoginComponent implements OnDestroy {
   /** Error message received from the server. */
   public responseErrorMessage: string;
 
-  /** Subscription on login. */
+  /** Subscription on auth. */
   private subscriptionOnLogin = new Subscription();
 
   public constructor(
@@ -46,20 +46,20 @@ export class LoginComponent implements OnDestroy {
     this.responseErrorMessage = '';
   }
 
-  /** Handle login form submit. */
+  /** Handle auth form submit. */
   public submitLogin(): void {
-    this.subscriptionOnLogin = this.auth.login(this.form.value).subscribe({
+    this.subscriptionOnLogin = this.auth.auth(this.form.value).subscribe({
       next: this.handleSuccessLogin.bind(this),
       error: this.handleError.bind(this),
     });
   }
 
-  /** Handler of success login. */
+  /** Handler of success auth. */
   private handleSuccessLogin(): void {
     this.router.navigate(['/anime']);
   }
 
-  /** Handler of unsuccessful login. Sets the form to an error state. */
+  /** Handler of unsuccessful auth. Sets the form to an error state. */
   private handleError(): void {
     this.responseErrorMessage = this.auth.loginErrorMessage;
     this.form.setErrors({ resError: true });

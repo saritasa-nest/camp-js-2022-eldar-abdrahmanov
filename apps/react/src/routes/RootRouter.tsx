@@ -7,12 +7,8 @@ import { AnimeRoutes } from '../features/anime/routes';
 
 const routes: RouteObject[] = [
   {
-    path: '/',
-    element: <Navigate to='/login' />,
-  },
-  {
     path: '*',
-    element: <Navigate to="/genres" />,
+    element: <Navigate to="/login" />,
   },
   ...genresRoutes,
   ...loginRoutes,

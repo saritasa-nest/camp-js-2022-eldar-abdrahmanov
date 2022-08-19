@@ -2,6 +2,7 @@ import { FC, memo } from 'react';
 
 import { Avatar, Box, Container, Link, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 import { RegistrationForm } from '../../components/registrationForm';
 
 const RegistrationPageComponent: FC = () => (

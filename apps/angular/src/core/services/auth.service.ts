@@ -43,7 +43,7 @@ export class AuthorizationService {
   ) {}
 
   /**
-   * Register login.
+   * Register auth.
    * @param registrationData Data used during registration.
    */
   public register(registrationData: Registration): Observable<UserToken> {
@@ -62,8 +62,8 @@ export class AuthorizationService {
   }
 
   /**
-   * Login login.
-   * @param loginData Data used during login.
+   * Login auth.
+   * @param loginData Data used during auth.
    */
   public login(loginData: Login): Observable<UserToken> {
     return this.httpClient

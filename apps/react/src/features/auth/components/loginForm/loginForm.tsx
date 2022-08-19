@@ -1,23 +1,32 @@
-import { FC, memo } from 'react';
-import { useFormik } from "formik";
-import { Box, Button, TextField } from '@mui/material';
+import { FC, memo, useEffect } from 'react';
+import { useFormik } from 'formik';
+import { Alert, Box, Button, TextField } from '@mui/material';
 
-import { useAppDispatch } from '@js-camp/react/store';
-import { loginUser } from '@js-camp/react/store/login/dispatchers';
+import { useAppDispatch, useAppSelector } from '@js-camp/react/store';
+import { loginUser } from '@js-camp/react/store/auth/dispatchers';
+
+import { selectLoginError } from '@js-camp/react/store/auth/selectors';
 
 import { initValues, LoginFormValue, loginFormSchema } from './loginSettings';
 
 const LoginFormComponent: FC = () => {
   const dispatch = useAppDispatch();
+  const error = useAppSelector(selectLoginError);
+
+  useEffect(() => {
+    if (error === undefined) {
+      return;
+    }
+    formik.setStatus(error);
+  }, [error]);
 
   /**
-   * Handle login form submit.
-   * @param values Values of login form fields.
+   * Handle auth form submit.
+   * @param values Values of auth form fields.
    */
   const handleLogin = (values: LoginFormValue): void => {
     dispatch(loginUser(values));
   };
-
 
   const formik = useFormik({
     initialValues: initValues,
@@ -25,6 +34,10 @@ const LoginFormComponent: FC = () => {
     validateOnChange: true,
     onSubmit: handleLogin,
   });
+
+  useEffect(() => {
+    formik.setStatus(null);
+  }, [formik.values]);
 
   return (
     <div>
@@ -59,6 +72,7 @@ const LoginFormComponent: FC = () => {
           autoFocus
           autoComplete="current-password"
         />
+        {formik.status ? <Alert severity="error">{formik.status}</Alert> : null}
         <Button variant="contained" type="submit" sx={{ mt: 3, mb: 2 }}>
           Sign In
         </Button>
