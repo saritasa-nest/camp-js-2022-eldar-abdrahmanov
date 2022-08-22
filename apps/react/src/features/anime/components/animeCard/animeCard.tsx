@@ -1,5 +1,14 @@
-import React, { FC, memo } from 'react';
-import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import { FC, memo } from 'react';
+import {
+  Avatar,
+  Box,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from '@mui/material';
 import { Anime } from '@js-camp/core/models/anime';
 
 interface Props {
@@ -10,25 +19,60 @@ interface Props {
 
 const AnimeCardComponent: FC<Props> = ({ anime }) => (
   <>
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+        borderRadius: 1,
+        border: 1,
+        mb: 1,
+      }}
+    >
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt={anime.titleEng} src={anime.imageUrl} />
+          <Avatar
+            sx={{ width: 80, height: 80, mr: 2 }}
+            alt={anime.titleEng}
+            src={anime.imageUrl}
+          />
         </ListItemAvatar>
         <ListItemText
-          primary={anime.titleEng}
-          secondary={
-            <React.Fragment>
+          primary={
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <Typography
-                sx={{ display: 'inline' }}
                 component="span"
-                variant="body2"
+                variant="subtitle2"
                 color="text.primary"
               >
-                  Ali Connors
+                {anime.titleEng}
               </Typography>
-              {' — I\'ll be in your neighborhood doing errands this…'}
-            </React.Fragment>
+              <Typography
+                component="span"
+                variant="subtitle2"
+                color="text.primary"
+              >
+                {anime.titleJpn}
+              </Typography>
+            </Box>
+          }
+          secondary={
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography
+                component="span"
+                variant="subtitle2"
+                color="text.primary"
+              >
+                {anime.type}
+              </Typography>
+              <Typography
+                component="span"
+                variant="subtitle2"
+                color="text.primary"
+              >
+                {anime.status}
+              </Typography>
+            </Box>
           }
         />
       </ListItem>
