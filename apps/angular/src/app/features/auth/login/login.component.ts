@@ -48,7 +48,7 @@ export class LoginComponent implements OnDestroy {
 
   /** Handle auth form submit. */
   public submitLogin(): void {
-    this.subscriptionOnLogin = this.auth.auth(this.form.value).subscribe({
+    this.subscriptionOnLogin = this.auth.login(this.form.value).subscribe({
       next: this.handleSuccessLogin.bind(this),
       error: this.handleError.bind(this),
     });

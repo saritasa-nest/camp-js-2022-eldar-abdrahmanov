@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUser, registerUser } from '@js-camp/react/store/auth/dispatchers';
 import { initialState } from '@js-camp/react/store/auth/state';
-import { ErrorData } from '@js-camp/core/models/ErrorsData';
+import { ErrorData } from '@js-camp/core/models/errorData';
 
 export const loginSlice = createSlice({
   name: 'auth',
