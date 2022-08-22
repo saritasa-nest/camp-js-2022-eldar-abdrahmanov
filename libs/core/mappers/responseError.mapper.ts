@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorDataDto } from '../dtos/errorDataDto';
 
 import { ResponseError } from '../models/responseError';
-import { ErrorData } from '..//models/ErrorsData';
+import { ErrorData } from '..//models/errorData';
 
 export namespace ResponseErrorMapper {
 

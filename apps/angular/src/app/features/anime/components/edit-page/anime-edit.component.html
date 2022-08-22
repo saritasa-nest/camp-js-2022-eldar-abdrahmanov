@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Anime edit page</h1>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+  <form [formGroup]="form" class="form">
     <mat-form-field color="accent" class="form-element">
       <input
         matInput
@@ -100,7 +100,7 @@
     </mat-form-field>
     <mat-form-field color="accent" class="form-element">
       <mat-label>Studios</mat-label>
-      <mat-select (click)="onStudioClick()">
+      <mat-select>
         <mat-option value="one">First option</mat-option>
         <mat-option value="two">Second option</mat-option>
       </mat-select>

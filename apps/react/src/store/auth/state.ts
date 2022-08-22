@@ -1,5 +1,5 @@
 import { UserToken } from '@js-camp/core/models/userToken';
-import { ErrorData } from '@js-camp/core/models/ErrorsData';
+import { ErrorData } from '@js-camp/core/models/errorData';
 
 /** Login state. */
 export interface AuthState {

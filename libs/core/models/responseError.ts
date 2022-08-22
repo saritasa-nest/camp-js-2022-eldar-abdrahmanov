@@ -1,5 +1,5 @@
 import { Immerable, OmitImmerable } from './immerable';
-import { ErrorData } from './ErrorsData';
+import { ErrorData } from './errorData';
 
 /** Response error  model. */
 export class ResponseError extends Immerable {
