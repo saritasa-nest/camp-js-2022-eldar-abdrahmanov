@@ -19,9 +19,7 @@ const RegistrationFormComponent: FC = () => {
     if (registrationError === undefined) {
       return;
     }
-    console.log(registrationError)
     formik.setErrors(registrationError);
-
 
   }, [registrationError]);
 

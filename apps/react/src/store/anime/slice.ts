@@ -13,13 +13,11 @@ export const animeSlice = createSlice({
       state.isLoading = true;
     })
     .addCase(fetchAnime.fulfilled, (state, action) => {
-      console.log(action)
       state.anime = action.payload.results;
       state.pagination = action.payload;
       state.isLoading = false;
     })
     .addCase(fetchAnime.rejected, (state, action) => {
-      console.log(action)
       if (action.error.message) {
         state.error = action.error.message;
       }

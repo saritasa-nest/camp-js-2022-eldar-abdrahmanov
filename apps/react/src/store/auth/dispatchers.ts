@@ -3,7 +3,6 @@ import { Login } from '@js-camp/core/models/login';
 import { Registration } from '@js-camp/core/models/registration';
 
 import { AuthService } from '../../api/services/authService';
-import { ErrorData } from '@js-camp/core/models/ErrorsData';
 
 export const loginUser = createAsyncThunk(
   'login',

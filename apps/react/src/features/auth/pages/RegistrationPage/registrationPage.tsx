@@ -1,7 +1,8 @@
 import { FC, memo } from 'react';
 
-import { Avatar, Box, Container, Link, Typography } from '@mui/material';
+import { Avatar, Box, Container, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link } from 'react-router-dom';
 
 import { RegistrationForm } from '../../components/registrationForm';
 
@@ -22,7 +23,7 @@ const RegistrationPageComponent: FC = () => (
         Sign up
       </Typography>
       <RegistrationForm />
-      <Link href="/login" variant="body2">
+      <Link to="/login">
         {'Do you already have an account? Sign In'}
       </Link>
     </Box>

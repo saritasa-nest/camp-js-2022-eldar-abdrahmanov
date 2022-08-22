@@ -2,11 +2,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import {
   TypedUseSelectorHook, useDispatch, useSelector,
 } from 'react-redux';
+import { animeSlice } from '@js-camp/react/store/anime/slice';
 
-import { registerSlice } from '@js-camp/react/store/register/slice';
 import { genresSlice } from './genre/slice';
 import { loginSlice } from './auth/slice';
-import { animeSlice } from '@js-camp/react/store/anime/slice';
 
 export const store = configureStore({
   reducer: {

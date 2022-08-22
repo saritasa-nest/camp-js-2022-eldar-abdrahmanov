@@ -18,9 +18,6 @@ export const AuthGuard: FC = () => {
       next: location.pathname,
     }).toString(),
   };
-
-  console.log(token)
-  console.log(isLoggedIn)
   if (!isLoggedIn || token === null) {
     return <Navigate to={redirect} replace />;
   }
