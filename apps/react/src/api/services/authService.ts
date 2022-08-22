@@ -26,7 +26,7 @@ export namespace AuthService {
         loginUrl,
         LoginMapper.toDto(loginData),
       );
-      await LocalStorageService.saveToken(data.access);
+      LocalStorageService.saveToken(data.access);
       return UserTokenMapper.fromDto(data);
     } catch (error: unknown) {
       if (error instanceof AxiosError) {

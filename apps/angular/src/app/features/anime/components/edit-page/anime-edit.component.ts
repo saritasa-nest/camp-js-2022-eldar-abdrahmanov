@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnimeType } from '@js-camp/core/enums/animeType';
 import { AnimeStatus } from '@js-camp/core/enums/statusType';
@@ -6,9 +6,7 @@ import { AnimeSource } from '@js-camp/core/enums/animeSource';
 import { AnimeRating } from '@js-camp/core/enums/animeRating';
 import { AnimeSeason } from '@js-camp/core/enums/animeSeason';
 import { Studio } from '@js-camp/core/models/studio';
-import { map, Observable } from 'rxjs';
-import { AnimeService } from '../../../../../core/services/anime.service';
-import { HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 /** */
 @Component({
@@ -17,7 +15,7 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['./anime-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnimeEditComponent implements OnInit {
+export class AnimeEditComponent {
 
   /** Anime edit form. */
   public readonly form: FormGroup;
@@ -38,11 +36,10 @@ export class AnimeEditComponent implements OnInit {
   public readonly animeSeason = AnimeSeason;
 
   /** Anime Studios. */
-  public animeStudios$ = Observable<Studio>;
+  public animeStudios = Observable<Studio>;
 
   public constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly animeService: AnimeService,
   ) {
     this.form = this.formBuilder.group(
       {
@@ -65,17 +62,4 @@ export class AnimeEditComponent implements OnInit {
       },
     );
   }
-
-  /** */
-  public onStudioClick(): void {
-    const param = new HttpParams().set('ordering', 'id');
-    this.animeService.getPaginationAndStudiosList(param).subscribe(res => console.log(res.results))
-  }
-
-  /** */
-  public onSubmit() {
-
-  }
-
-  ngOnInit(): void {}
 }

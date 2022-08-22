@@ -87,9 +87,7 @@ export class AnimeService {
   /** Get studios. */
   public getStudios(): Observable<Studio> {
     return this.httpClient.get<StudioDto>(this.studioUrl.toString())
-      .pipe(map(dto => {
-        return StudioMapper.fromDto(dto)
-      }));
+      .pipe(map(dto => StudioMapper.fromDto(dto)));
   }
 
   /**

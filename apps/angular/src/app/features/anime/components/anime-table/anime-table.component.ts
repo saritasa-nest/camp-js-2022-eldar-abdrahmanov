@@ -339,9 +339,8 @@ export class AnimeTableComponent implements OnInit, AfterViewInit, OnDestroy {
    * Edit click handler.
    * @param event Event.
    */
-  public onEditClick(event: MouseEvent) {
+  public onEditClick(event: MouseEvent): void {
     event.stopPropagation();
     this.router.navigate(['edit-page/']);
-    console.log(event);
   }
 }
