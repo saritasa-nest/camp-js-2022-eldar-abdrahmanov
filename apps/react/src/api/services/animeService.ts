@@ -12,15 +12,29 @@ import { GenreMapper } from '@js-camp/core/mappers/genre.mapper';
 
 import { http } from '..';
 
-const url = 'anime/anime/';
+const animeUrl = 'anime/anime/';
 
 export namespace AnimeService {
 
   /** Fetches a pagination with anime list. */
-  export async function getAnime(): Promise<Pagination<Anime>> {
-    const { data } = await http.get<PaginationDto<AnimeDto>>(url, {
-      params: { ordering: 'id' },
+  export async function getAnime(offsetParam: string): Promise<Pagination<Anime>> {
+    const params = new URLSearchParams();
+    params.append('offset', offsetParam);
+    const { data } = await http.get<PaginationDto<AnimeDto>>(animeUrl, {
+      params,
     });
+    return PaginationMapper.fromDto(data, AnimeMapper.fromDto);
+  }
+
+  /** Fetches a pagination with anime list. */
+  export async function getNextAnimeList(nextUrl: string): Promise<Pagination<Anime>> {
+    const { data } = await http.get<PaginationDto<AnimeDto>>(nextUrl);
+    return PaginationMapper.fromDto(data, AnimeMapper.fromDto);
+  }
+
+  /** Fetches a pagination with anime list. */
+  export async function getAnime2(url: string): Promise<Pagination<Anime>> {
+    const { data } = await http.get<PaginationDto<AnimeDto>>(url);
     return PaginationMapper.fromDto(data, AnimeMapper.fromDto);
   }
 
@@ -29,7 +43,7 @@ export namespace AnimeService {
    * @param id Anime id.
    */
   export async function getAnimeDetails(id: number) {
-    const { data } = await http.get<AnimeDetailsDto>(`${url}/${id}`);
+    const { data } = await http.get<AnimeDetailsDto>(`${animeUrl}/${id}`);
     return AnimeDetailsMapper.fromDto(
       data,
       DateTimeRangeMapper.fromDto,

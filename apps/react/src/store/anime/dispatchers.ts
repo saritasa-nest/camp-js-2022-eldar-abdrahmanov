@@ -4,5 +4,10 @@ import { AnimeService } from '../../api/services/animeService';
 
 export const fetchAnime = createAsyncThunk(
   'anime/fetch',
-  () => AnimeService.getAnime(),
+  (offsetParam: string) => AnimeService.getAnime(offsetParam),
+);
+
+export const fetchNextAnime = createAsyncThunk(
+  'animeNext/fetch',
+  (nextUrl: string) => AnimeService.getNextAnimeList(nextUrl),
 );
