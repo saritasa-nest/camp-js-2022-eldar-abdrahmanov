@@ -16,12 +16,15 @@ const animeUrl = 'anime/anime/';
 
 export namespace AnimeService {
 
-  /** Fetches a pagination with anime list. */
-  export async function getAnime(offsetParam: string): Promise<Pagination<Anime>> {
-    const params = new URLSearchParams();
-    params.append('offset', offsetParam);
+  /**
+   * Fetches a pagination with anime list.
+   * @param params Url parameters.
+   */
+  export async function getAnime(params: string): Promise<Pagination<Anime>> {
+    const param = new URLSearchParams();
+    param.append('offset', params);
     const { data } = await http.get<PaginationDto<AnimeDto>>(animeUrl, {
-      params,
+      params: param,
     });
     return PaginationMapper.fromDto(data, AnimeMapper.fromDto);
   }
